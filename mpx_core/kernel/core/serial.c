@@ -90,9 +90,41 @@ int set_serial_in(int device)
 
 int *polling(char *buffer, int *count){
 // insert your code to gather keyboard input via the technique of polling.
+  
+  while (1)	{ // Run continuously
+		if inb(COM1+5)&1 // Is a character available?
+		char letter = inb(COM1); //Get the character
+		sys_req(WRITE,.....)
+		
 // You must validat each key and handle special keys such as delete, back space, and
 // arrow keys
-
+    //Special Cases
+		
+		//Enter Case
+		if (letter == 13){
+			
+		}	
+		//Delete Case
+		else if (letter == 46){
+		
+		}
+		//Left Arrow Case
+		else if (letter == 37){
+		
+		}
+		//Right Arrow Case
+		else if (letter == 39){
+		
+		}	
+		//Backspace Case
+		else if (letter == 8){
+      if (bufferSize > 100)
+			
+			else if(bufferSize < 0)
+		else	{
+			comhand(letter);
+		}	
+		}
 // remove the following line after implementing your module, this is present
 // just to allow the program to compile before R1 is complete
 strlen(buffer);
