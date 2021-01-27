@@ -46,7 +46,7 @@ int serial_println(const char *msg)
     outb(serial_port_out,*(i+msg));
   }
   outb(serial_port_out,'\r');
-  outb(serial_port_out,'\n');  
+  outb(serial_port_out,'\n');
   return NO_ERROR;
 }
 
@@ -90,45 +90,51 @@ int set_serial_in(int device)
 
 int *polling(char *buffer, int *count){
 // insert your code to gather keyboard input via the technique of polling.
-  
+
   while (1)	{ // Run continuously
 		if inb(COM1+5)&1 // Is a character available?
 		char letter = inb(COM1); //Get the character
 		sys_req(WRITE,.....)
-		
+
 // You must validat each key and handle special keys such as delete, back space, and
 // arrow keys
     //Special Cases
-		
+
 		//Enter Case
 		if (letter == 13){
-			
-		}	
+			//execute command in command handler
+		}
 		//Delete Case
 		else if (letter == 46){
-		
+      if (bufferSize != 0 && bufferIndex != 99){
+			  //remove letter at bufferIndex
+        //bufferSize--
+      }
 		}
 		//Left Arrow Case
 		else if (letter == 37){
-		
+		  //bufferIndex--
 		}
 		//Right Arrow Case
 		else if (letter == 39){
-		
-		}	
+		  //bufferIndex++
+		}
 		//Backspace Case
 		else if (letter == 8){
-      if (bufferSize > 100)
-			
-			else if(bufferSize < 0)
-		else	{
-			comhand(letter);
-		}	
+      if (bufferSize != 0 && bufferIndex != 0){
+			  //remove letter at bufferIndex-1
+        //bufferIndex--
+        //bufferSize--
+      }
 		}
-// remove the following line after implementing your module, this is present
-// just to allow the program to compile before R1 is complete
-strlen(buffer);
+    //check to see if a-zA-Z0-9
+    else if (/*alphanumeric*/)	{
+			comhand(letter);
+		}
+	}
+  // remove the following line after implementing your module, this is present
+  // just to allow the program to compile before R1 is complete
+  strlen(buffer);
 
-return count;
+  return count;
 }
-
