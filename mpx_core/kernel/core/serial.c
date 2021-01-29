@@ -89,52 +89,74 @@ int set_serial_in(int device)
 }
 
 int *polling(char *buffer, int *count){
-// insert your code to gather keyboard input via the technique of polling.
-
-  while (1)	{ // Run continuously
-		if inb(COM1+5)&1 // Is a character available?
+	int pointerLoc = 0;
+	int numCharacters = 0;
+	
+	while (1)	{ // Run continuously
+		if(inb(COM1+5)&1)	{ // Is a character available?
 		char letter = inb(COM1); //Get the character
-		sys_req(WRITE,.....)
-
-// You must validat each key and handle special keys such as delete, back space, and
-// arrow keys
-    //Special Cases
-
+		
+		//Special Cases
+		
 		//Enter Case
 		if (letter == 13){
-			//execute command in command handler
+			cmdBuffer[pointerLoc] = '\0';
+			break;
 		}
+		
 		//Delete Case
 		else if (letter == 46){
-      if (bufferSize != 0 && bufferIndex != 99){
-			  //remove letter at bufferIndex
-        //bufferSize--
-      }
+			if (pointerLoc <= numCharacters)	{
+				for (int bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
+					cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];
+				}
+				numCharacters--;
+				serial_print("\033[1D");
+				inb(COM1);
+			}
 		}
+		
 		//Left Arrow Case
 		else if (letter == 37){
-		  //bufferIndex--
+			if (pointerLoc < numCharacters)	{
+				pointerLoc--;
+				serial_print("\033[1D");
+			}
 		}
+		
 		//Right Arrow Case
 		else if (letter == 39){
-		  //bufferIndex++
+			if (pointerLoc < numCharacters)	{
+				pointerLoc++;
+				serial_print("\033[1C");
+			}
 		}
+		
 		//Backspace Case
 		else if (letter == 8){
-      if (bufferSize != 0 && bufferIndex != 0){
-			  //remove letter at bufferIndex-1
-        //bufferIndex--
-        //bufferSize--
-      }
+			
+			if (bufferSize < 0)	{
+				bufferSize = 0;
+			}
+			
+			for (int bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
+				cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
+			}
+			numCharacters--;
+			serial_print("\033[1D");
+			inb(COM1);
+			}
 		}
-    //check to see if a-zA-Z0-9
-    else if (/*alphanumeric*/)	{
-			comhand(letter);
+		//passes any other characters 0-9,a-z, upper and lower case to the command handler to be dealt with.
+		else {
+			if(numCharacters < *count)	{
+				cmdBuffer[pointerLoc] = letter;
+				serial_print(&cmdBuffer[pointerLov]);
+				pointerLoc++;	//increments the pointer location per input.
+				numCharacters++;	//increments the total number of characters passed in so far.
+			}
+		
 		}
-	}
-  // remove the following line after implementing your module, this is present
-  // just to allow the program to compile before R1 is complete
-  strlen(buffer);
-
-  return count;
+		
+	}	
 }
