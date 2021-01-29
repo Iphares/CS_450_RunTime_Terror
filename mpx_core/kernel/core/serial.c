@@ -91,19 +91,19 @@ int set_serial_in(int device)
 int *polling(char *buffer, int *count){
 	int pointerLoc = 0;
 	int numCharacters = 0;
-	
+
 	while (1)	{ // Run continuously
 		if(inb(COM1+5)&1)	{ // Is a character available?
 		char letter = inb(COM1); //Get the character
-		
+
 		//Special Cases
-		
+
 		//Enter Case
 		if (letter == 13){
 			cmdBuffer[pointerLoc] = '\0';
 			break;
 		}
-		
+
 		//Delete Case
 		else if (letter == 46){
 			if (pointerLoc <= numCharacters)	{
@@ -115,7 +115,7 @@ int *polling(char *buffer, int *count){
 				inb(COM1);
 			}
 		}
-		
+
 		//Left Arrow Case
 		else if (letter == 37){
 			if (pointerLoc < numCharacters)	{
@@ -123,7 +123,7 @@ int *polling(char *buffer, int *count){
 				serial_print("\033[1D");
 			}
 		}
-		
+
 		//Right Arrow Case
 		else if (letter == 39){
 			if (pointerLoc < numCharacters)	{
@@ -131,14 +131,24 @@ int *polling(char *buffer, int *count){
 				serial_print("\033[1C");
 			}
 		}
-		
+
+		//Up Arrow Case
+		else if (letter == 38){
+
+		}
+
+		//Down Arrow Case
+		else if (letter == 40){
+
+		}
+
 		//Backspace Case
 		else if (letter == 8){
-			
+
 			if (bufferSize < 0)	{
 				bufferSize = 0;
 			}
-			
+
 			for (int bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
 				cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
 			}
@@ -155,8 +165,8 @@ int *polling(char *buffer, int *count){
 				pointerLoc++;	//increments the pointer location per input.
 				numCharacters++;	//increments the total number of characters passed in so far.
 			}
-		
+
 		}
-		
-	}	
+
+	}
 }
