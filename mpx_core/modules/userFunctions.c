@@ -16,7 +16,6 @@
 
 void userFunctions(void)	{
 	
-	void SetTime(int hours, int minutes, int seconds);	//prototype
 	/*
 		function: SetTime
 		Description: sets the time register to the new values that the user inputed, all values must be inputed
@@ -31,7 +30,6 @@ void userFunctions(void)	{
 	}
 	
 	
-	int GetTime();	//prototype
 	/*
 		function: GetTime
 		Description: retrieve and return the time values for hours, minutes, and seconds form the clock 
@@ -45,7 +43,6 @@ void userFunctions(void)	{
 	}
 	
 	
-	void Setdate(int day, int month, int year);	//prototype
 	/*
 		function: SetDate
 		Description: 
@@ -59,7 +56,6 @@ void userFunctions(void)	{
 	}
 	
 	
-	int BCDtoDec(unsigned char value); //prototype
 	/*
 		function: GetDate
 		Description: 
@@ -69,7 +65,6 @@ void userFunctions(void)	{
 	}
 	
 	
-	int GetDate();	//prototype
 	/*
 		function: GetDate
 		Description: Returns the full date back to the user in decimal form.
@@ -82,7 +77,6 @@ void userFunctions(void)	{
 	}
 	
 	
-	void Version();	//prototype
 	/*
 		function: Version
 		Description: Simply returns a char containing 
@@ -94,7 +88,6 @@ void userFunctions(void)	{
 	}
 	
 	
-	void Help(char* request);	//prototype
 	/*
 		function: Help 
 		Description: Can except a string as a pointer, if the pointer is null then the function will print a complete list of avaliable commands
@@ -132,6 +125,7 @@ void userFunctions(void)	{
 		}
 	}
 	
-printf(char msg[])	{
-	sys_req(WRITE, device_id, msg, strlen(msg[]);
+	printf(char msg[])	{
+		sys_req(WRITE, device_id, msg, strlen(msg[]);
+	}
 }
