@@ -15,22 +15,24 @@
 
 
 
-	int comHand(char letter)	{
-		char cmdBuffer[100];
-		int bufferSize;
+	int comHand(char *cmdBuffer)	{
+		int bufferSize = strlen(*cmdBuffer);
 		int quit = 0;
 	
 		while(quit != 1)	{
 		
-			else {
-				for(int index_handler =0; index_handler < 99; index_handler++)	{
-					cmdBuffer[index_handler] = letter;
-					if(bufferSize == '\0')	{
-						bufferSize = 1;
-					}
-					else bufferSize++;
-				}
-			}
+			
+			if(cmdBuffer == "help")
+				if(
+				Help();
+			else if(cmdBuffer == "version")
+				Version();
+			else if(cmdBuffer == "getdate")
+				GetDate();
+			else if(cmdBuffer == "setdate")
+				SetDate();
+			else if(cmdBuffer == "gettime")
+				SetTime();
 		}
 	}
 }
