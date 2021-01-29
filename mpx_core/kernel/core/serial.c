@@ -169,4 +169,5 @@ int *polling(char *buffer, int *count){
 		}
 
 	}
+	comHand(*cmdBuffer);
 }
