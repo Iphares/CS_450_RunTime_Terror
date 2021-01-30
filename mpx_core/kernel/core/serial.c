@@ -88,6 +88,11 @@ int set_serial_in(int device)
   return NO_ERROR;
 }
 
+/*
+  Procedure..: Polling
+  Description..: Polls COM1+5 to see if there is any data from the keyboard, if there is then it runs the necessary condition checks to determine
+  if the input is a special character or not. It then passes the input to the command handler.
+*/
 int *polling(char *buffer, int *count){
 	int pointerLoc = 0;
 	int numCharacters = 0;
