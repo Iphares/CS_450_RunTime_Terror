@@ -23,9 +23,10 @@ void userFunctions(void)	{
 	*/
 	void SetTime(int hours, int minutes, int seconds)	{
 		cli(); //outb(device + 1, 0x00); //disable interrupts
-		outb(0x71,0x04) = hours;
-		outb(0x71,0x02) = minutes;
-		outb(0x71,0x00) = seconds;
+		outb(0x70,0x04);
+		outb(0x71,hours);// change to bcd
+		inb(0x71,0x02) = minutes;
+		inb(0x71,0x00) = seconds;
 		sti();  //outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
 	}
 	
@@ -36,9 +37,9 @@ void userFunctions(void)	{
 		register using inb(Port,address).
 	*/
 	int GetTime()	{
-		unsigned char hours = inb(0x70,0x04);
-		unsigned char minutes = inb(0x70,0x02);
-		unsigned char seconds = inb(0x70,0x00);
+		unsigned char hours = outb(0x70,0x04);
+		unsigned char minutes = outb(0x70,0x02);
+		unsigned char seconds = outb(0x70,0x00);
 		return( BCDtoDec(hours),  BCDtoDec(minutes),  BCDtoDec(seconds));
 	}
 	
