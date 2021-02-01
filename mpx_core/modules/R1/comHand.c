@@ -59,6 +59,6 @@
 			else if(FirstToken == "quit")
 				quit = 1;
 		}
-				//shutdown procedure
+		return;	//shutdown procedure
 	}
 }
