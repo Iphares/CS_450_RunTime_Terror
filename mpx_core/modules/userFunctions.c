@@ -99,8 +99,8 @@ void userFunctions(void)	{
 		"Version: R(module).(the iteration that module is currently on). 
 	*/
 	void Version()	{
-		char msg[13]="Version: R1.1";
-		sys_req(WRITE, device_id, msg, 13 );
+		//char msg[13]="Version: R1.1";
+		sys_req(WRITE, device_id, "Version: R1.1", 13 );
 	}
 	
 	/*
