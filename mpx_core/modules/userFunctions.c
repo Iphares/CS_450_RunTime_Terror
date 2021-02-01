@@ -1,8 +1,8 @@
 	/*
   ----- userFunctions.c -----
   Description..: Includes all commands the user has access to along with their supporting functions.
-      
-      Initial Implementation -- by Isiah Phares, 2021. 
+
+      Initial Implementation -- by Isiah Phares, 2021.
       Modifications by:    Morgan Bartley 2021, Jordan Potter 2021, Greg Potts 2021.
 */
 
@@ -15,7 +15,7 @@
 
 
 void userFunctions(void)	{
-	
+
 	/*
 		function: SetTime
 		Description: sets the time register to the new values that the user inputed, all values must be inputed
@@ -31,11 +31,11 @@ void userFunctions(void)	{
 		outb(0x71, DectoBCD (seconds));
 		sti();  //outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
 	}
-	
-	
+
+
 	/*
 		function: GetTime
-		Description: retrieve and return the time values for hours, minutes, and seconds form the clock 
+		Description: retrieve and return the time values for hours, minutes, and seconds form the clock
 		register using inb(Port,address).
 	*/
 	int GetTime()	{
@@ -44,23 +44,23 @@ void userFunctions(void)	{
 		unsigned char seconds = outb(0x70,0x00);
 		return( BCDtoDec(hours),  BCDtoDec(minutes),  BCDtoDec(seconds));
 	}
-	
-	
+
+
 	/*
 		function: SetDate
-		Description: 
+		Description:
 	*/
 	void Setdate(int day, int month,int millennial, int year)	{
 		cli();
 		outb(0x70,0x07);
 		outb(0x71,DectoBCD (day));
-		
+
 		outb(0x70,0x08);
 		outb(0x71,DectoBCD (month));
-		
+
 		outb(0x70,0x32);
 		outb(0x71,DectoBCD (millennial));
-		
+
 		outb(0x70,0x09);
 		outb(0x71,DectoBCD (year));
 		sti();
@@ -76,47 +76,47 @@ void userFunctions(void)	{
 		unsigned char year = BCDtoDec(inb(0x70,0x09));
 		int msg[30] = ""
 	}
-	
+
 	/*
 		function: BCDtoDec
-		Description: 
+		Description:
 	*/
 	int BCDtoDec(unsigned char value)	{
 		return(value-6*(value>>4));
 	}
-	
+
 	/*
 		function: DectoBCD
-		Description: 
+		Description:
 	*/
 	int  DectoBCD (int Decimal)	{
   		 return (((Decimal/10) << 4) | (Decimal % 10));
 	}
-	
+
 	/*
 		function: Version
-		Description: Simply returns a char containing 
-		"Version: R(module).(the iteration that module is currently on). 
+		Description: Simply returns a char containing
+		"Version: R(module).(the iteration that module is currently on).
 	*/
 	void Version()	{
 		//char msg[13]="Version: R1.1";
 		sys_req(WRITE, device_id, "Version: R1.1", 13 );
 	}
-	
+
 	/*
 		function: toLowercase
-		Description:  
+		Description:
 	*/
-	toLowercase(c)	{ 
-   		if((c >= 65) && (c <= 90))	{ 
-        		c = c + 32; 
+	toLowercase(c)	{
+   		if((c >= 65) && (c <= 90))	{
+        		c = c + 32;
         	}
     	return c;
     	}
-	
+
 	/*
 		function: toLowercase
-		Description:  
+		Description:
 	*/
 	toLowercase(str)  {
 	    int i;
@@ -127,9 +127,9 @@ void userFunctions(void)	{
             }
             return str;
         }
-	
+
 	/*
-		function: Help 
+		function: Help
 		Description: Can except a string as a pointer, if the pointer is null then the function will print a complete list of avaliable commands
 		to the console. If the pointer is a avaliable commands then instructions on how to use the command will be printed.
 		If the command does not exist then a message explaining that it is not a valid command will be displayed.
@@ -164,8 +164,15 @@ void userFunctions(void)	{
 			sys_req(WRITE, device_id, msg, 100 );
 		}
 	}
-	
+
 	printf(char msg[])	{
 		sys_req(WRITE, device_id, msg, strlen(msg[]);
+	}
+
+  tolowercase(char c) {
+		if((c >= 65) && (c<=90)) {
+			c = c + 32;
+		}
+		return c;
 	}
 }
