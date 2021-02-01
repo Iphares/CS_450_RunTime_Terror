@@ -15,8 +15,9 @@
 
 
 
-	int comHand(char *cmdBuffer)	{
-		int bufferSize = strlen(*cmdBuffer);
+	int comHand()	{
+		char *cmdBuffer[100];
+		int bufferSize;
 		int quit = 0;
 	
 		while(quit != 1)	{
