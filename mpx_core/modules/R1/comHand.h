@@ -1,4 +1,4 @@
-int comHand(char letter);
+int comHand();
 
 
 
