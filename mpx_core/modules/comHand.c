@@ -55,6 +55,9 @@
 				GetTime();
 			else if(FirstToken == "settime")
 				SetTime(SecondToken, ThirdToken, FourthToken);		//input as Hour-Minute-Seconds
+			else if(FirstToken == "quit")
+				quit = 1;
 		}
+				//shutdown procedure
 	}
 }
