@@ -24,9 +24,11 @@ void userFunctions(void)	{
 	void SetTime(int hours, int minutes, int seconds)	{
 		cli(); //outb(device + 1, 0x00); //disable interrupts
 		outb(0x70,0x04);
-		outb(0x71,hours);// change to bcd
-		inb(0x71,0x02) = minutes;
-		inb(0x71,0x00) = seconds;
+		outb(0x71, DectoBCD (hours));// change to bcd
+		outb(0x70,0x02);
+		outb(0x71, DectoBCD (minutes));
+		outb(0x70,0x00);
+		outb(0x71, DectoBCD (seconds));
 		sti();  //outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
 	}
 	
@@ -48,24 +50,22 @@ void userFunctions(void)	{
 		function: SetDate
 		Description: 
 	*/
-	void Setdate(int day, int month, int year)	{
+	void Setdate(int day, int month,int millennial, int year)	{
 		cli();
-		outb(0x71,0x07) = day;
-		outb(0x71,0x08) = month;
-		outb(0x71,0x09) = year;
+		outb(0x70,0x07);
+		outb(0x71,DectoBCD (day));
+		
+		outb(0x70,0x08);
+		outb(0x71,DectoBCD (month));
+		
+		outb(0x70,0x32);
+		outb(0x71,DectoBCD (millennial));
+		
+		outb(0x70,0x09);
+		outb(0x71,DectoBCD (year));
 		sti();
 	}
-	
-	
-	/*
-		function: GetDate
-		Description: 
-	*/
-	int BCDtoDec(unsigned char value)	{
-		return(value-6*(value>>4));
-	}
-	
-	
+
 	/*
 		function: GetDate
 		Description: Returns the full date back to the user in decimal form.
@@ -77,6 +77,21 @@ void userFunctions(void)	{
 		int msg[30] = ""
 	}
 	
+	/*
+		function: BCDtoDec
+		Description: 
+	*/
+	int BCDtoDec(unsigned char value)	{
+		return(value-6*(value>>4));
+	}
+	
+	/*
+		function: DectoBCD
+		Description: 
+	*/
+	int  DectoBCD (int Decimal)	{
+  		 return (((Decimal/10) << 4) | (Decimal % 10));
+	}
 	
 	/*
 		function: Version
