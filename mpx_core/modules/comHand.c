@@ -20,19 +20,41 @@
 		int quit = 0;
 	
 		while(quit != 1)	{
-		
+			char* FirstToken = strtok(cmdBuffer, "-");
+   			char* SecondToken = strtok(NULL, "-");
+			char* ThirdToken = strtok(NULL, "-");
+			char* FourthToken = strtok(NULL, "-");
+			char* FifthToken = strtok(NULL, "-");
 			
-			if(cmdBuffer == "help")
-				if(
+			if(FirstToken == "help" && SecondToken == NULL)		{
 				Help();
-			else if(cmdBuffer == "version")
+			}
+			else if((FirstToken == "help" && SecondToken == "version")	{
+				Help(Version);
+			}
+			else if((FirstToken == "help" && SecondToken == "getDate")	{
+				Help(GetDate);
+			}
+			else if((FirstToken == "help" && SecondToken == "setDate")	{
+				Help(SetDate);
+			}
+			else if((FirstToken == "help" && SecondToken == "getTime")	{
+				Help(GetTime);
+			}
+			else if((FirstToken == "help" && SecondToken == "setTime")	{
+				Help(SetTime);
+			}	
+				
+			else if(FirstToken == "version")
 				Version();
-			else if(cmdBuffer == "getdate")
+			else if(FirstToken == "getdate")
 				GetDate();
-			else if(cmdBuffer == "setdate")
-				SetDate();
-			else if(cmdBuffer == "gettime")
-				SetTime();
+			else if(FirstToken == "setdate")
+				SetDate(SecondToken, ThirdToken, FourthToken, FifthToken);	//input as Day-Month-Millenial-Year
+			else if(FirstToken == "gettime")	//Return the current time held by the registers.
+				GetTime();
+			else if(FirstToken == "settime")
+				SetTime(SecondToken, ThirdToken, FourthToken);		//input as Hour-Minute-Seconds
 		}
 	}
 }
