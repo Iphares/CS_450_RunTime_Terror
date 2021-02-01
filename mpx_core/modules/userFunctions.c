@@ -107,7 +107,7 @@ void userFunctions(void)	{
 		function: toLowercase
 		Description:
 	*/
-	toLowercase(c)	{
+	char toLowercase(char c)	{
    		if((c >= 65) && (c <= 90))	{
         		c = c + 32;
         	}
@@ -118,7 +118,7 @@ void userFunctions(void)	{
 		function: toLowercase
 		Description:
 	*/
-	toLowercase(str)  {
+	char toLowercase(char str)  {
 	    int i;
    	    for(i = 0; i <= strlen(str); i++)	{
         	if(str[i] >= 65 && str[i] <= 90)  {
@@ -165,7 +165,7 @@ void userFunctions(void)	{
 		}
 	}
 
-	printf(char msg[])	{
+	void printf(char msg[])	{
 		sys_req(WRITE, device_id, msg, strlen(msg[]);
 	}
 
