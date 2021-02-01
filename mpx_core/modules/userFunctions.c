@@ -169,10 +169,4 @@ void userFunctions(void)	{
 		sys_req(WRITE, device_id, msg, strlen(msg[]);
 	}
 
-  tolowercase(char c) {
-		if((c >= 65) && (c<=90)) {
-			c = c + 32;
-		}
-		return c;
-	}
 }
