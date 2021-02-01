@@ -103,6 +103,30 @@ void userFunctions(void)	{
 		sys_req(WRITE, device_id, msg, 13 );
 	}
 	
+	/*
+		function: toLowercase
+		Description:  
+	*/
+	toLowercase(c)	{ 
+   		if((c >= 65) && (c <= 90))	{ 
+        		c = c + 32; 
+        	}
+    	return c;
+    	}
+	
+	/*
+		function: toLowercase
+		Description:  
+	*/
+	toLowercase(str)  {
+	    int i;
+   	    for(i = 0; i <= strlen(str); i++)	{
+        	if(str[i] >= 65 && str[i] <= 90)  {
+            		str[i] = str[i] + 32;
+            	}
+            }
+            return str;
+        }
 	
 	/*
 		function: Help 
