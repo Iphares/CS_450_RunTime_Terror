@@ -1,8 +1,8 @@
 /*
-  ----- userFunctions.c -----
-  Description..: Includes all commands the user has access to along with their supporting functions.
-      
-      Initial Implementation -- by Isiah Phares, 2021. 
+  ----- comHand.c -----
+  Description..: Interprets user input to call the appropriate user functions.
+
+      Initial Implementation -- by Isiah Phares, 2021.
       Modifications by:    Morgan Bartley 2021, Jordan Potter 2021, Greg Potts 2021.
 */
 
@@ -19,14 +19,14 @@
 		char *cmdBuffer[100];
 		int bufferSize = numCharacters;
 		int quit = 0;
-	
+
 		while(quit != 1)	{
 			char* FirstToken = strtok(cmdBuffer, "-");
    			char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
-			
+
 			if(FirstToken == "help" && SecondToken == NULL)		{
 				Help();
 			}
@@ -44,8 +44,8 @@
 			}
 			else if((FirstToken == "help" && SecondToken == "setTime")	{
 				Help(SetTime);
-			}	
-				
+			}
+
 			else if(FirstToken == "version")
 				Version();
 			else if(FirstToken == "getdate")
