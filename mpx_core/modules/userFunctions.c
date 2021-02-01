@@ -42,6 +42,16 @@ void userFunctions(void)	{
 		unsigned char hours = outb(0x70,0x04);
 		unsigned char minutes = outb(0x70,0x02);
 		unsigned char seconds = outb(0x70,0x00);
+		char msg1[2] = ":";
+		char msg2[10] = "Time: "
+		printf(msg2);
+		sys_req(WRITE, device_id, BCDtoDec(hours), 2);
+		printf(msg1);
+		sys_req(WRITE, device_id, BCDtoDec(minutes), 2);
+		printf(msg1);
+		sys_req(WRITE, device_id, BCDtoDec(seconds), 2);
+
+
 		return( BCDtoDec(hours),  BCDtoDec(minutes),  BCDtoDec(seconds));
 	}
 
@@ -73,13 +83,22 @@ void userFunctions(void)	{
 	int GetDate()	{
 		unsigned char day = BCDtoDec(inb(0x70,0x07));
 		unsigned char month = BCDtoDec(inb(0x70,0x08));
+		unsigned char millennial = BCDtoDec(inb(0x70,0x32));
 		unsigned char year = BCDtoDec(inb(0x70,0x09));
-		int msg[30] = ""
+		int msg[2] = "";
+		int msg3[10] = "Date: ";
+		printf(msg3);
+		sys_req(WRITE, device_id, day, 2);
+		printf(msg);
+		sys_req(WRITE, device_id, month, 3);
+		printf(msg);
+		sys_req(WRITE, device_id, millennial, 2);
+		sys_req(WRITE, device_id, year, 2);
 	}
 
 	/*
 		function: BCDtoDec
-		Description:
+		Description: Chnages binary number to decimal numbers.
 	*/
 	int BCDtoDec(unsigned char value)	{
 		return(value-6*(value>>4));
@@ -87,7 +106,7 @@ void userFunctions(void)	{
 
 	/*
 		function: DectoBCD
-		Description:
+		Description: Changes decimal numbers to binary numbers.
 	*/
 	int  DectoBCD (int Decimal)	{
   		 return (((Decimal/10) << 4) | (Decimal % 10));
@@ -105,7 +124,7 @@ void userFunctions(void)	{
 
 	/*
 		function: toLowercase
-		Description:
+		Description: If a letter is uppercase, it changes it to lowercase. (char)
 	*/
 	char toLowercase(char c)	{
    		if((c >= 65) && (c <= 90))	{
@@ -116,7 +135,7 @@ void userFunctions(void)	{
 
 	/*
 		function: toLowercase
-		Description:
+		Description: If a letter is uppercase it changed it to lowercase. (string)
 	*/
 	char toLowercase(char str)  {
 	    int i;
