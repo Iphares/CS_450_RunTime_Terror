@@ -76,7 +76,7 @@ void kmain(void)
 
    // 6) Call YOUR command handler -  interface method
    klogv("Transferring control to commhand...");
-
+	comHand();
 
    // 7) System Shutdown on return from your command handler
    klogv("Starting system shutdown procedure...");
