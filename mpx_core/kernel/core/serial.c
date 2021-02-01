@@ -93,13 +93,15 @@ int set_serial_in(int device)
   Description..: Polls COM1+5 to see if there is any data from the keyboard, if there is then it runs the necessary condition checks to determine
   if the input is a special character or not. It then passes the input to the command handler.
 */
-int *polling(char *buffer, int *count){
+int *polling(char *cmdBuffer, int *count){
 	int pointerLoc = 0;
 	int numCharacters = 0;
 
 	while (1)	{ // Run continuously
+		char letter = NULL;
+		
 		if(inb(COM1+5)&1)	{ // Is a character available?
-		char letter = inb(COM1); //Get the character
+			letter = inb(COM1); //Get the character
 
 		//Special Cases
 
@@ -150,9 +152,7 @@ int *polling(char *buffer, int *count){
 		//Backspace Case
 		else if (letter == 8){
 
-			if (bufferSize < 0)	{
-				bufferSize = 0;
-			}
+	
 
 			for (int bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
 				cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
@@ -166,7 +166,7 @@ int *polling(char *buffer, int *count){
 		else {
 			if(numCharacters < *count)	{
 				cmdBuffer[pointerLoc] = letter;
-				serial_print(&cmdBuffer[pointerLov]);
+				serial_print(&cmdBuffer[pointerLoc]);
 				pointerLoc++;	//increments the pointer location per input.
 				numCharacters++;	//increments the total number of characters passed in so far.
 			}
@@ -174,5 +174,4 @@ int *polling(char *buffer, int *count){
 		}
 
 	}
-	comHand(*cmdBuffer);
 }
