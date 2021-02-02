@@ -12,7 +12,7 @@
 
 #include <core/io.h>
 #include "../mpx_supt.h"
-#include "modules/R1/userFunctions.h"
+#include "../userFunctions.h"
 
 
 
@@ -63,3 +63,4 @@
 		return;	//shutdown procedure
 	}
 }
+
