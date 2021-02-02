@@ -9,7 +9,6 @@
       Modifications by:    Andrew Duncan 2014,  John Jacko 2017
       				Ben Smith 2018, and Alex Wilson 2019
 */
-
 #include <stdint.h>
 #include <string.h>
 #include <system.h>
@@ -21,9 +20,8 @@
 #include <mem/heap.h>
 #include <mem/paging.h>
 
-#include "../mpx_supt.h"
-#include "../R1/comhand.h"
-
+#include <modules/mpx_supt.h>
+#include "modules/R1/comHand.h"
 
 void kmain(void)
 {
