@@ -1,4 +1,4 @@
-	/*
+/*
   ----- userFunctions.c -----
   Description..: Includes all commands the user has access to along with their supporting functions.
 
@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <system.h>
+#include <core/serial.h>
 
 #include <core/io.h>
 #include "../mpx_supt.h"
@@ -17,18 +18,40 @@
 void userFunctions(void)	{
 
 	/*
+		function: BCDtoDec
+		Description: Chnages binary number to decimal numbers.
+	*/
+	int BCDtoDec(unsigned char value)	{
+		return(value-6*(value>>4));
+	}
+
+	/*
+		function: DectoBCD
+		Description: Changes decimal numbers to binary numbers.
+	*/
+	int  DectoBCD (int Decimal)	{
+  		 return (((Decimal/10) << 4) | (Decimal % 10));
+	}
+	
+	void printf(char msg[])	{
+		sys_req(WRITE, COM1, msg, &strlen(msg));
+	}
+
+
+	/*
 		function: SetTime
 		Description: sets the time register to the new values that the user inputed, all values must be inputed
 		as SetTime(Hours, Minutes, Seconds).
 	*/
 	void SetTime(int hours, int minutes, int seconds)	{
+		
 		cli(); //outb(device + 1, 0x00); //disable interrupts
 		outb(0x70,0x04);
-		outb(0x71, DectoBCD (hours));// change to bcd
+		outb(0x71, DectoBCD(hours));// change to bcd
 		outb(0x70,0x02);
-		outb(0x71, DectoBCD (minutes));
+		outb(0x71, DectoBCD(minutes));
 		outb(0x70,0x00);
-		outb(0x71, DectoBCD (seconds));
+		outb(0x71, DectoBCD(seconds));
 		sti();  //outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
 	}
 
@@ -39,20 +62,23 @@ void userFunctions(void)	{
 		register using inb(Port,address).
 	*/
 	int GetTime()	{
-		unsigned char hours = outb(0x70,0x04);
-		unsigned char minutes = outb(0x70,0x02);
-		unsigned char seconds = outb(0x70,0x00);
+	int hour;
+	int minute;
+	int second;
+		unsigned char hours = inb(0x04);
+		unsigned char minutes = inb(0x02);
+		unsigned char seconds = inb(0x00);
 		char msg1[2] = ":";
-		char msg2[10] = "Time: "
+		char msg2[10] = "Time: ";
 		printf(msg2);
-		sys_req(WRITE, device_id, BCDtoDec(hours), 2);
+		hour = BCDtoDec(hours);
+		sys_req(WRITE, COM1, hour, 2);
 		printf(msg1);
-		sys_req(WRITE, device_id, BCDtoDec(minutes), 2);
+		minute = BCDtoDec(minutes);
+		sys_req(WRITE, COM1, minute, 2);
 		printf(msg1);
-		sys_req(WRITE, device_id, BCDtoDec(seconds), 2);
-
-
-		return( BCDtoDec(hours),  BCDtoDec(minutes),  BCDtoDec(seconds));
+		second = BCDtoDec(seconds);
+		sys_req(WRITE, COM1, second, 2);
 	}
 
 
@@ -81,36 +107,22 @@ void userFunctions(void)	{
 		Description: Returns the full date back to the user in decimal form.
 	*/
 	int GetDate()	{
-		unsigned char day = BCDtoDec(inb(0x70,0x07));
-		unsigned char month = BCDtoDec(inb(0x70,0x08));
-		unsigned char millennial = BCDtoDec(inb(0x70,0x32));
-		unsigned char year = BCDtoDec(inb(0x70,0x09));
-		int msg[2] = "";
-		int msg3[10] = "Date: ";
+		unsigned char day = BCDtoDec(inb(0x07));
+		unsigned char month = BCDtoDec(inb(0x08));
+		unsigned char millennial = BCDtoDec(inb(0x32));
+		unsigned char year = BCDtoDec(inb(0x09));
+		char msg[2] = "";
+		char msg3[10] = "Date: ";
 		printf(msg3);
-		sys_req(WRITE, device_id, day, 2);
+		sys_req(WRITE, COM1, day, 2);
 		printf(msg);
-		sys_req(WRITE, device_id, month, 3);
+		sys_req(WRITE, COM1, month, 3);
 		printf(msg);
-		sys_req(WRITE, device_id, millennial, 2);
-		sys_req(WRITE, device_id, year, 2);
+		sys_req(WRITE, COM1, millennial, 2);
+		sys_req(WRITE, COM1, year, 2);
 	}
 
-	/*
-		function: BCDtoDec
-		Description: Chnages binary number to decimal numbers.
-	*/
-	int BCDtoDec(unsigned char value)	{
-		return(value-6*(value>>4));
-	}
-
-	/*
-		function: DectoBCD
-		Description: Changes decimal numbers to binary numbers.
-	*/
-	int  DectoBCD (int Decimal)	{
-  		 return (((Decimal/10) << 4) | (Decimal % 10));
-	}
+	
 
 	/*
 		function: Version
@@ -119,7 +131,7 @@ void userFunctions(void)	{
 	*/
 	void Version()	{
 		//char msg[13]="Version: R1.1";
-		sys_req(WRITE, device_id, "Version: R1.1", 13 );
+		sys_req(WRITE, COM1, "Version: R1.1", 13 );
 	}
 
 	/*
@@ -134,20 +146,6 @@ void userFunctions(void)	{
     	}
 
 	/*
-		function: toLowercase
-		Description: If a letter is uppercase it changed it to lowercase. (string)
-	*/
-	char toLowercase(char str)  {
-	    int i;
-   	    for(i = 0; i <= strlen(str); i++)	{
-        	if(str[i] >= 65 && str[i] <= 90)  {
-            		str[i] = str[i] + 32;
-            	}
-            }
-            return str;
-        }
-
-	/*
 		function: Help
 		Description: Can except a string as a pointer, if the pointer is null then the function will print a complete list of avaliable commands
 		to the console. If the pointer is a avaliable commands then instructions on how to use the command will be printed.
@@ -156,36 +154,31 @@ void userFunctions(void)	{
 	void Help(char* request)	{
 		if (*request == '\0')	{
 			char msg[100]=	 "\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 		else if (strcmp(request, "GetDate") == 0)	{
 			char msg[100]="GetDate returns the current date that is loaded onto the operating system.";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 		else if (strcmp(request, "SetDate") == 0)	{
 			char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 		else if (strcmp(request, "GetTime") == 0)	{
 			char msg[100]="GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 		else if (strcmp(request, "SetTime") == 0)	{
 			char msg[100]="SetDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 		else if (strcmp(request, "Version") == 0)	{
 			char msg[100]="GetTime returns the current operating software version that the system is running.";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 		else	{
 			char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
-			sys_req(WRITE, device_id, msg, 100 );
+			sys_req(WRITE, COM1, msg, 100 );
 		}
 	}
-
-	void printf(char msg[])	{
-		sys_req(WRITE, device_id, msg, strlen(msg[]);
-	}
-
 }
