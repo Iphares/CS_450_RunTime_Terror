@@ -11,7 +11,7 @@
 #include <system.h>
 
 #include <core/io.h>
-#include "modules/mpx_supt.h"
+#include "../mpx_supt.h"
 
 
 void userFunctions(void)	{
