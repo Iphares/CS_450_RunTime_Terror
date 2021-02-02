@@ -114,7 +114,8 @@ int *polling(char *cmdBuffer, int *count){
 		//Delete Case
 		else if (letter == 46){
 			if (pointerLoc <= numCharacters)	{
-				for (int bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
+				int bufIndex = NULL;
+				for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
 					cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];
 				}
 				numCharacters--;
@@ -153,8 +154,8 @@ int *polling(char *cmdBuffer, int *count){
 		else if (letter == 8){
 
 	
-
-			for (int bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
+			int bufIndex = NULL;
+			for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
 				cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
 			}
 			numCharacters--;
@@ -174,4 +175,5 @@ int *polling(char *cmdBuffer, int *count){
 		}
 
 	}
+	return 0;
 }
