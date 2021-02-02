@@ -6,10 +6,6 @@
 	int GetDate();
 	void Version();
 	void Help(char* request);
-	printf(char msg[]);
-	toLowercase(str);
-	toLowercase(c);
-	
-	
-	
+	void printf(char msg[]);
+	char toLowercase(char c);
 	
