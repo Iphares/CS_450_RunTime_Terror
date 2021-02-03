@@ -32,7 +32,7 @@ void userFunctions(void)	{
 	int  DectoBCD (int Decimal)	{
   		 return (((Decimal/10) << 4) | (Decimal % 10));
 	}
-	
+
 	void printf(char msg[])	{
 		sys_req(WRITE, COM1, msg, &strlen(msg));
 	}
@@ -44,7 +44,7 @@ void userFunctions(void)	{
 		as SetTime(Hours, Minutes, Seconds).
 	*/
 	void SetTime(int hours, int minutes, int seconds)	{
-		
+
 		cli(); //outb(device + 1, 0x00); //disable interrupts
 		outb(0x70,0x04);
 		outb(0x71, DectoBCD(hours));// change to bcd
@@ -122,7 +122,7 @@ void userFunctions(void)	{
 		sys_req(WRITE, COM1, year, 2);
 	}
 
-	
+
 
 	/*
 		function: Version
@@ -144,6 +144,38 @@ void userFunctions(void)	{
         	}
     	return c;
     	}
+
+	/*
+	function: itoa
+	Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
+  */
+  char* itoa(int num)
+	{
+			int i,j,k,count;
+			i = num;
+			j = 0;
+			count = 0;
+		while(i){ // count number of digits
+			count++;
+			i /= 10;
+		}
+
+		char* arr1;
+		char arr2[count];
+		arr = (char*)malloc(count); //memory allocation
+
+		while(num){ // seperate last digit from number and add ASCII
+			arr2[++j] = num%10 + '0';
+			num /= 10;
+		}
+
+		for(k = 0; k < j; k++){ // reverse array results
+			arr1[k] = arr2[j-k];
+		}
+		arr1[k] = '\0';
+
+		return(char*)arr1;
+	}
 
 	/*
 		function: Help
