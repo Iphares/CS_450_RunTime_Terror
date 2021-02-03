@@ -16,7 +16,38 @@
 
 
 void userFunctions(void)	{
+   /*
+	function: itoa
+	Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
+  */
+  char* itoa(int num)
+	{
+			int i,j,k,count;
+			i = num;
+			j = 0;
+			count = 0;
+		while(i){ // count number of digits
+			count++;
+			i /= 10;
+		}
 
+		char* arr1;
+		char arr2[count];
+		arr = (char*)malloc(count); //memory allocation
+
+		while(num){ // seperate last digit from number and add ASCII
+			arr2[++j] = num%10 + '0';
+			num /= 10;
+		}
+
+		for(k = 0; k < j; k++){ // reverse array results
+			arr1[k] = arr2[j-k];
+		}
+		arr1[k] = '\0';
+
+		return(char*)arr1;
+	}
+	
 	/*
 		function: BCDtoDec
 		Description: Chnages binary number to decimal numbers.
@@ -72,13 +103,13 @@ void userFunctions(void)	{
 		char msg2[10] = "Time: ";
 		printf(msg2);
 		hour = BCDtoDec(hours);
-		sys_req(WRITE, COM1, hour, 2);
+		sys_req(WRITE, COM1, itoa(hour), 2);
 		printf(msg1);
 		minute = BCDtoDec(minutes);
-		sys_req(WRITE, COM1, minute, 2);
+		sys_req(WRITE, COM1, itoa(minute), 2);
 		printf(msg1);
 		second = BCDtoDec(seconds);
-		sys_req(WRITE, COM1, second, 2);
+		sys_req(WRITE, COM1, itoa(second), 2);
 	}
 
 
@@ -114,12 +145,12 @@ void userFunctions(void)	{
 		char msg[2] = "";
 		char msg3[10] = "Date: ";
 		printf(msg3);
-		sys_req(WRITE, COM1, day, 2);
+		sys_req(WRITE, COM1, day), 2);
 		printf(msg);
-		sys_req(WRITE, COM1, month, 3);
+		sys_req(WRITE, COM1, itoa(month), 3);
 		printf(msg);
-		sys_req(WRITE, COM1, millennial, 2);
-		sys_req(WRITE, COM1, year, 2);
+		sys_req(WRITE, COM1, itoa(millennial), 2);
+		sys_req(WRITE, COM1, itoa(year), 2);
 	}
 
 
@@ -146,38 +177,6 @@ void userFunctions(void)	{
     	}
 
 	/*
-	function: itoa
-	Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
-  */
-  char* itoa(int num)
-	{
-			int i,j,k,count;
-			i = num;
-			j = 0;
-			count = 0;
-		while(i){ // count number of digits
-			count++;
-			i /= 10;
-		}
-
-		char* arr1;
-		char arr2[count];
-		arr = (char*)malloc(count); //memory allocation
-
-		while(num){ // seperate last digit from number and add ASCII
-			arr2[++j] = num%10 + '0';
-			num /= 10;
-		}
-
-		for(k = 0; k < j; k++){ // reverse array results
-			arr1[k] = arr2[j-k];
-		}
-		arr1[k] = '\0';
-
-		return(char*)arr1;
-	}
-
-	/*
 		function: Help
 		Description: Can except a string as a pointer, if the pointer is null then the function will print a complete list of avaliable commands
 		to the console. If the pointer is a avaliable commands then instructions on how to use the command will be printed.
@@ -185,32 +184,32 @@ void userFunctions(void)	{
 	*/
 	void Help(char* request)	{
 		if (*request == '\0')	{
-			char msg[100]=	 "\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]="\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n";
+			sys_req(WRITE, COM1, "\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n", 58 );
 		}
 		else if (strcmp(request, "GetDate") == 0)	{
-			char msg[100]="GetDate returns the current date that is loaded onto the operating system.";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]="GetDate returns the current date that is loaded onto the operating system.";
+			sys_req(WRITE, COM1, "GetDate returns the current date that is loaded onto the operating system.", 75 );
 		}
 		else if (strcmp(request, "SetDate") == 0)	{
-			char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
+			sys_req(WRITE, COM1, "SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).", 100 );
 		}
 		else if (strcmp(request, "GetTime") == 0)	{
-			char msg[100]="GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]="GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.";
+			sys_req(WRITE, COM1,"GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.", 100 );
 		}
 		else if (strcmp(request, "SetTime") == 0)	{
-			char msg[100]="SetDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]="SetTime allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
+			sys_req(WRITE, COM1, "SetDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).", 100 );
 		}
 		else if (strcmp(request, "Version") == 0)	{
-			char msg[100]="GetTime returns the current operating software version that the system is running.";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]="Version returns the current operating software version that the system is running.";
+			sys_req(WRITE, COM1, "Version returns the current operating software version that the system is running.", 100 );
 		}
 		else	{
-			char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
-			sys_req(WRITE, COM1, msg, 100 );
+			//char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
+			sys_req(WRITE, COM1, "The requested command does not exist please refer to the Help function for a full list of commands.", 100 );
 		}
 	}
 }
