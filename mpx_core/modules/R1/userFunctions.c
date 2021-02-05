@@ -14,12 +14,20 @@
 #include <core/io.h>
 #include "../mpx_supt.h"
 
-
+/// Description for Class userFunctions
+///
+///
 void userFunctions(void)	{
    /*
 	function: itoa
 	Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
   */
+  /// Brief Description of itoa
+  ///
+  /// Detailed Description
+  /// @param num This is an integer
+  ///
+  ///
   char* itoa(int num)
 	{
 			int i,j,k,count;
@@ -47,7 +55,7 @@ void userFunctions(void)	{
 
 		return(char*)arr1;
 	}
-	
+
 	/*
 		function: BCDtoDec
 		Description: Chnages binary number to decimal numbers.
