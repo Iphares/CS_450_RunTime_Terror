@@ -1,3 +1,4 @@
+/// @file
 
 	//! Sets the time of the system
 	void SetTime(int hours, int minutes, int seconds);
