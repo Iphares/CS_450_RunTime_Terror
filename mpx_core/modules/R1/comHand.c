@@ -21,11 +21,11 @@
 	int comHand()	{
 
 		char cmdBuffer[100];
-		int bufferSize;
+		int bufferSize = 0;
 		int quit = 0;
 
 		while(quit != 1)	{
-		polling((int)*cmdBuffer, (int)*bufferSize);
+		sys_req(READ, COM1, cmdBuffer, (int*)bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
    			char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
@@ -36,19 +36,19 @@
 				Help('\0');
 			}
 			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"version") == 1)	{
-				Help(Version);
+				Help("Version");
 			}
 			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"getDate") == 1)	{
-				Help(GetDate);
+				Help("GetDate");
 			}
 			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"setDate") == 1)	{
-				Help(SetDate);
+				Help("SetDate");
 			}
 			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"getTime") == 1)	{
-				Help(GetTime);
+				Help("GetTime");
 			}
 			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"setTime") == 1)	{
-				Help(SetTime);
+				Help("SetTime");
 			}
 
 			else if(strcmp(FirstToken,"version") == 1)
@@ -58,19 +58,19 @@
 				GetDate();
 
 			else if(strcmp(FirstToken,"setdate") == 1)
-				SetDate(SecondToken, ThirdToken, FourthToken, FifthToken);	//input as Day-Month-Millenial-Year
+				SetDate((int)SecondToken, (int)ThirdToken, (int)FourthToken, (int)FifthToken);	//input as Day-Month-Millenial-Year
 			else if(strcmp(FirstToken,"gettime") == 1)	//Return the current time held by the registers.
 				GetTime();
 			else if(strcmp(FirstToken,"settime") == 1)
-				SetTime(SecondToken, ThirdToken, FourthToken);		//input as Hour-Minute-Seconds
+				SetTime((int)SecondToken, (int)ThirdToken, (int)FourthToken);		//input as Hour-Minute-Seconds
 			else if(strcmp(FirstToken,"quit") == 1)
 				quit = 1;
 
 		(void)FirstToken;
-   		(void)SecondToken;
+   	(void)SecondToken;
 		(void)ThirdToken;
 		(void)FourthToken;
 		(void)FifthToken;
 		}
-		return;	//shutdown procedure
+		return 0;	//shutdown procedure
 	}

@@ -13,11 +13,12 @@
 
 #include <core/io.h>
 #include "../mpx_supt.h"
+#include "userFunctions.h"
 
 /// Description for Class userFunctions
 ///
 ///
-void userFunctions(void)	{
+
    /*
 	function: itoa
 	Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
@@ -41,7 +42,7 @@ void userFunctions(void)	{
 
 		char* arr1;
 		char arr2[count];
-		//arr = (char*)malloc(count); //memory allocation
+		arr1 = (char*)sys_alloc_mem(count); //memory allocation
 
 		while(num){ // seperate last digit from number and add ASCII
 			arr2[++j] = num%10 + '0';
@@ -126,7 +127,7 @@ void userFunctions(void)	{
 		function: SetDate
 		Description:
 	*/
-  void Setdate(int day, int month,int millennial, int year)	{
+  void SetDate(int day, int month, int millennial, int year)	{
 		cli();
 		outb(0x70,0x07);
 		outb(0x71,DectoBCD (day));
@@ -171,7 +172,7 @@ void userFunctions(void)	{
 	*/
 	void Version()	{
 		//char msg[13]="Version: R1.1";
-		sys_req(WRITE, COM1, "Version: R1.1", 13 );
+		sys_req(WRITE, COM1, "Version: R1.1", (int*)13 );
 	}
 
 	/*
@@ -221,4 +222,3 @@ void userFunctions(void)	{
 			sys_req(WRITE, COM1, "The requested command does not exist please refer to the Help function for a full list of commands.", (int*)100 );
 		}
 	}
-}
