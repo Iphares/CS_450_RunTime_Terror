@@ -10,57 +10,67 @@
 #include <string.h>
 #include <system.h>
 
+#include <core/serial.h>
 #include <core/io.h>
+
 #include "../mpx_supt.h"
-#include "../userFunctions.h"
+#include "userFunctions.h"
 
 
 
 	int comHand()	{
-		char *cmdBuffer[100];
-		int bufferSize = numCharacters;
+
+		char cmdBuffer[100];
+		int bufferSize;
 		int quit = 0;
 
 		while(quit != 1)	{
+		polling((int)*cmdBuffer, (int)*bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
    			char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
 
-			if(FirstToken == "help" && SecondToken == NULL)		{
-				Help();
+			if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,NULL) == 1)		{
+				Help('\0');
 			}
-			else if((FirstToken == "help" && SecondToken == "version")	{
+			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"version") == 1)	{
 				Help(Version);
 			}
-			else if((FirstToken == "help" && SecondToken == "getDate")	{
+			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"getDate") == 1)	{
 				Help(GetDate);
 			}
-			else if((FirstToken == "help" && SecondToken == "setDate")	{
+			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"setDate") == 1)	{
 				Help(SetDate);
 			}
-			else if((FirstToken == "help" && SecondToken == "getTime")	{
+			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"getTime") == 1)	{
 				Help(GetTime);
 			}
-			else if((FirstToken == "help" && SecondToken == "setTime")	{
+			else if(strcmp(FirstToken,"help") == 1 && strcmp(SecondToken,"setTime") == 1)	{
 				Help(SetTime);
 			}
 
-			else if(FirstToken == "version")
+			else if(strcmp(FirstToken,"version") == 1)
 				Version();
-			else if(FirstToken == "getdate")
+
+			else if(strcmp(FirstToken,"getdate") == 1)
 				GetDate();
-			else if(FirstToken == "setdate")
+
+			else if(strcmp(FirstToken,"setdate") == 1)
 				SetDate(SecondToken, ThirdToken, FourthToken, FifthToken);	//input as Day-Month-Millenial-Year
-			else if(FirstToken == "gettime")	//Return the current time held by the registers.
+			else if(strcmp(FirstToken,"gettime") == 1)	//Return the current time held by the registers.
 				GetTime();
-			else if(FirstToken == "settime")
+			else if(strcmp(FirstToken,"settime") == 1)
 				SetTime(SecondToken, ThirdToken, FourthToken);		//input as Hour-Minute-Seconds
-			else if(FirstToken == "quit")
+			else if(strcmp(FirstToken,"quit") == 1)
 				quit = 1;
+
+		(void)FirstToken;
+   		(void)SecondToken;
+		(void)ThirdToken;
+		(void)FourthToken;
+		(void)FifthToken;
 		}
 		return;	//shutdown procedure
 	}
-}
-

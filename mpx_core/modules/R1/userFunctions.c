@@ -41,7 +41,7 @@ void userFunctions(void)	{
 
 		char* arr1;
 		char arr2[count];
-		arr = (char*)malloc(count); //memory allocation
+		//arr = (char*)malloc(count); //memory allocation
 
 		while(num){ // seperate last digit from number and add ASCII
 			arr2[++j] = num%10 + '0';
@@ -55,6 +55,7 @@ void userFunctions(void)	{
 
 		return(char*)arr1;
 	}
+
 
 	/*
 		function: BCDtoDec
@@ -72,8 +73,8 @@ void userFunctions(void)	{
   		 return (((Decimal/10) << 4) | (Decimal % 10));
 	}
 
-	void printf(char msg[])	{
-		sys_req(WRITE, COM1, msg, &strlen(msg));
+  void printf(char msg[])	{
+		sys_req(WRITE, COM1, msg, (int*)strlen(msg));
 	}
 
 
@@ -100,7 +101,7 @@ void userFunctions(void)	{
 		Description: retrieve and return the time values for hours, minutes, and seconds form the clock
 		register using inb(Port,address).
 	*/
-	int GetTime()	{
+  void GetTime()	{
 	int hour;
 	int minute;
 	int second;
@@ -111,13 +112,13 @@ void userFunctions(void)	{
 		char msg2[10] = "Time: ";
 		printf(msg2);
 		hour = BCDtoDec(hours);
-		sys_req(WRITE, COM1, itoa(hour), 2);
+		sys_req(WRITE, COM1, itoa(hour), (int*)2);
 		printf(msg1);
 		minute = BCDtoDec(minutes);
-		sys_req(WRITE, COM1, itoa(minute), 2);
+		sys_req(WRITE, COM1, itoa(minute), (int*)2);
 		printf(msg1);
 		second = BCDtoDec(seconds);
-		sys_req(WRITE, COM1, itoa(second), 2);
+		sys_req(WRITE, COM1, itoa(second), (int*)2);
 	}
 
 
@@ -125,7 +126,7 @@ void userFunctions(void)	{
 		function: SetDate
 		Description:
 	*/
-	void Setdate(int day, int month,int millennial, int year)	{
+  void Setdate(int day, int month,int millennial, int year)	{
 		cli();
 		outb(0x70,0x07);
 		outb(0x71,DectoBCD (day));
@@ -145,7 +146,7 @@ void userFunctions(void)	{
 		function: GetDate
 		Description: Returns the full date back to the user in decimal form.
 	*/
-	int GetDate()	{
+  void GetDate()	{
 		unsigned char day = BCDtoDec(inb(0x07));
 		unsigned char month = BCDtoDec(inb(0x08));
 		unsigned char millennial = BCDtoDec(inb(0x32));
@@ -153,12 +154,12 @@ void userFunctions(void)	{
 		char msg[2] = "";
 		char msg3[10] = "Date: ";
 		printf(msg3);
-		sys_req(WRITE, COM1, day), 2);
+		sys_req(WRITE, COM1, itoa(day), (int*)2);
 		printf(msg);
-		sys_req(WRITE, COM1, itoa(month), 3);
+		sys_req(WRITE, COM1, itoa(month), (int*)3);
 		printf(msg);
-		sys_req(WRITE, COM1, itoa(millennial), 2);
-		sys_req(WRITE, COM1, itoa(year), 2);
+		sys_req(WRITE, COM1, itoa(millennial), (int*)2);
+		sys_req(WRITE, COM1, itoa(year), (int*)2);
 	}
 
 
@@ -190,34 +191,34 @@ void userFunctions(void)	{
 		to the console. If the pointer is a avaliable commands then instructions on how to use the command will be printed.
 		If the command does not exist then a message explaining that it is not a valid command will be displayed.
 	*/
-	void Help(char* request)	{
+  void Help(char* request)	{
 		if (*request == '\0')	{
 			//char msg[100]="\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n";
-			sys_req(WRITE, COM1, "\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n", 58 );
+			sys_req(WRITE, COM1, "\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n", (int*)58 );
 		}
 		else if (strcmp(request, "GetDate") == 0)	{
 			//char msg[100]="GetDate returns the current date that is loaded onto the operating system.";
-			sys_req(WRITE, COM1, "GetDate returns the current date that is loaded onto the operating system.", 75 );
+			sys_req(WRITE, COM1, "GetDate returns the current date that is loaded onto the operating system.", (int*)75 );
 		}
 		else if (strcmp(request, "SetDate") == 0)	{
 			//char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
-			sys_req(WRITE, COM1, "SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).", 100 );
+			sys_req(WRITE, COM1, "SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).", (int*)100 );
 		}
 		else if (strcmp(request, "GetTime") == 0)	{
 			//char msg[100]="GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.";
-			sys_req(WRITE, COM1,"GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.", 100 );
+			sys_req(WRITE, COM1,"GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.", (int*)100 );
 		}
 		else if (strcmp(request, "SetTime") == 0)	{
 			//char msg[100]="SetTime allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
-			sys_req(WRITE, COM1, "SetDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).", 100 );
+			sys_req(WRITE, COM1, "SetDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).", (int*)100 );
 		}
 		else if (strcmp(request, "Version") == 0)	{
 			//char msg[100]="Version returns the current operating software version that the system is running.";
-			sys_req(WRITE, COM1, "Version returns the current operating software version that the system is running.", 100 );
+			sys_req(WRITE, COM1, "Version returns the current operating software version that the system is running.", (int*)100 );
 		}
 		else	{
 			//char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
-			sys_req(WRITE, COM1, "The requested command does not exist please refer to the Help function for a full list of commands.", 100 );
+			sys_req(WRITE, COM1, "The requested command does not exist please refer to the Help function for a full list of commands.", (int*)100 );
 		}
 	}
 }
