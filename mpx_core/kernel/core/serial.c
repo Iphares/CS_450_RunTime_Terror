@@ -97,9 +97,11 @@ int *polling(char *cmdBuffer, int *count){
 	int pointerLoc = 0;
 	int numCharacters = 0;
 
+  serial_print("Hello");
+
 	while (1)	{ // Run continuously
 		char letter = NULL;
-		
+
 		if(inb(COM1+5)&1)	{ // Is a character available?
 			letter = inb(COM1); //Get the character
 
@@ -153,7 +155,7 @@ int *polling(char *cmdBuffer, int *count){
 		//Backspace Case
 		else if (letter == 8){
 
-	
+
 			int bufIndex = NULL;
 			for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
 				cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
