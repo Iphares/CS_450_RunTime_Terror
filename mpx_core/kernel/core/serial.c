@@ -97,74 +97,99 @@ int *polling(char *cmdBuffer, int *count){
 	int pointerLoc = 0;
 	int numCharacters = 0;
 
-  serial_print("Hello");
 
+  char letter = NULL;
 	while (1)	{ // Run continuously
-		char letter = NULL;
 
 		if(inb(COM1+5)&1)	{ // Is a character available?
 			letter = inb(COM1); //Get the character
 
 		//Special Cases
+    if (letter == '\033'){
+        letter = inb(COM1);
+        if(letter == '['){
+          letter = inb(COM1);
+          if(letter == 'D'){
+            //right
+          }
+          else if(letter == 'C'){
+            //left
+          }
+          else if(letter == 'A'){
+            //up
+          }
+          else if(letter == 'B'){
+            //down
+          }
+          else if(letter == '3'){
+            letter = inb(COM1);
+            if(letter == '~'){
+              serial_println("DELETE");
+            }
+          }
+        }
+    }
+    else if(letter == 127){
+      serial_println("BACKSPACE");
+    }
 
-		//Enter Case
-		if (letter == 13){
-			cmdBuffer[pointerLoc] = '\0';
-			break;
-		}
-
-		//Delete Case
-		else if (letter == 46){
-			if (pointerLoc <= numCharacters)	{
-				int bufIndex = NULL;
-				for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
-					cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];
-				}
-				numCharacters--;
-				serial_print("\033[1D");
-				inb(COM1);
-			}
-		}
-
-		//Left Arrow Case
-		else if (letter == 37){
-			if (pointerLoc < numCharacters)	{
-				pointerLoc--;
-				serial_print("\033[1D");
-			}
-		}
-
-		//Right Arrow Case
-		else if (letter == 39){
-			if (pointerLoc < numCharacters)	{
-				pointerLoc++;
-				serial_print("\033[1C");
-			}
-		}
-
-		//Up Arrow Case
-		else if (letter == 38){
-
-		}
-
-		//Down Arrow Case
-		else if (letter == 40){
-
-		}
-
-		//Backspace Case
-		else if (letter == 8){
-
-
-			int bufIndex = NULL;
-			for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
-				cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
-			}
-			numCharacters--;
-			serial_print("\033[1D");
-			inb(COM1);
-			}
-		}
+		// //Enter Case
+		// if (letter == 13){
+		// 	cmdBuffer[pointerLoc] = '\0';
+		// 	break;
+		// }
+    //
+		// //Delete Case
+		// else if (letter == 46){
+		// 	if (pointerLoc <= numCharacters)	{
+		// 		int bufIndex = NULL;
+		// 		for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
+		// 			cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];
+		// 		}
+		// 		numCharacters--;
+		// 		inb(COM1);
+		// 	}
+		// }
+    //
+		// //Left Arrow Case
+		// else if (letter == '[D){
+		// 	if (pointerLoc < numCharacters)	{
+		// 		pointerLoc--;
+		// 		serial_print("\033[1D");
+		// 	}
+		// }
+    //
+		// //Right Arrow Case
+		// else if (letter == 39){
+		// 	if (pointerLoc < numCharacters)	{
+		// 		pointerLoc++;
+		// 		serial_print("\033[1C");
+		// 	}
+		// }
+    //
+		// //Up Arrow Case
+		// else if (letter == 38){
+    //
+		// }
+    //
+		// //Down Arrow Case
+		// else if (letter == 40){
+    //
+		// }
+    //
+		// //Backspace Case
+		// else if (letter == 8){
+    //
+    //
+		// 	int bufIndex = NULL;
+		// 	for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++)	{
+		// 		cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];	//replaces the last typed character with null.
+		// 	}
+		// 	numCharacters--;
+		// 	serial_print("\033[1D");
+		// 	inb(COM1);
+		// 	}
+		 }
 		//passes any other characters 0-9,a-z, upper and lower case to the command handler to be dealt with.
 		else {
 			if(numCharacters < *count)	{

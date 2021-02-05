@@ -21,11 +21,13 @@
 	int comHand()	{
 
 		char cmdBuffer[100];
-		int bufferSize = 0;
+		int bufferSize = 99;
 		int quit = 0;
 
+
 		while(quit != 1)	{
-		sys_req(READ, COM1, cmdBuffer, (int*)bufferSize);
+			memset(cmdBuffer, '\0', 100);
+		  sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
    			char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
