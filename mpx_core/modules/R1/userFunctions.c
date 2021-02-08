@@ -219,6 +219,6 @@
 		}
 		else	{
 			//char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
-			sys_req(WRITE, COM1, "The requested command does not exist please refer to the Help function for a full list of commands.", (int*)100 );
+			sys_req(WRITE, COM1, "\x1b[31m""The requested command does not exist please refer to the Help function for a full list of commands.""\x1b[0m", (int*)100 );
 		}
 	}
