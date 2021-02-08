@@ -1,3 +1,4 @@
+/// @file
 
 // Description: Includes all commands the user has access to along with their supporting functions.
 //
