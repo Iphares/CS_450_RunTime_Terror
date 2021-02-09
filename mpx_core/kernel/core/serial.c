@@ -106,6 +106,7 @@ int * polling(char * cmdBuffer, int * count) {
                         if (letter == '\n' || letter == '\r') {
                                 cmdBuffer[pointerLoc] = '\0';
                                 flag = 0;
+                                serial_print("\n");
                         }
 
                         else if (letter == '\033') {
