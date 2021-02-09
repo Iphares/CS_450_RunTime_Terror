@@ -144,7 +144,7 @@
   /// @param month Integer to be set in the Month position
   /// @param millenial Integer to be set in the Millenial position
   /// @param year Integer to be set in the Year position
-  void SetDate(int day, int month, int millennial, int year)	{
+  void SetDate(int day, int month, int millennium, int year)	{
 		cli();
 		outb(0x70,0x07);
 		outb(0x71,DectoBCD (day));
@@ -153,7 +153,7 @@
 		outb(0x71,DectoBCD (month));
 
 		outb(0x70,0x32);
-		outb(0x71,DectoBCD (millennial));
+		outb(0x71,DectoBCD (millennium));
 
 		outb(0x70,0x09);
 		outb(0x71,DectoBCD (year));
@@ -170,7 +170,7 @@
 		outb(0x70,0x08);
 		unsigned char month = BCDtoDec(inb(0x71));
 		outb(0x70,0x32);
-		unsigned char millennial = BCDtoDec(inb(0x71));
+		unsigned char millennium = BCDtoDec(inb(0x71));
 		outb(0x70,0x09);
 		unsigned char year = BCDtoDec(inb(0x71));
 		char msg[2] = "-";
@@ -180,7 +180,7 @@
 		printf(msg);
 		sys_req(WRITE, COM1, itoa(month), &check);
 		printf(msg);
-		sys_req(WRITE, COM1, itoa(millennial), &check);
+		sys_req(WRITE, COM1, itoa(millennium), &check);
 		sys_req(WRITE, COM1, itoa(year), &check);
 	  	printf("\n");
 	}
