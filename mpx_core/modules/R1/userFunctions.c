@@ -110,6 +110,7 @@
 		sys_req(WRITE, COM1, itoa(minute), &check);
 		printf(msg1);
 		second = BCDtoDec(seconds);
+	  	printf("\n");
 		sys_req(WRITE, COM1, itoa(second), &check);
 	}
 
@@ -157,6 +158,7 @@
 		printf(msg);
 		sys_req(WRITE, COM1, itoa(millennial), &check);
 		sys_req(WRITE, COM1, itoa(year), &check);
+	  	printf("\n");
 	}
 
   /// Description: Simply returns a char containing "Version: R(module).(the iteration that module is currently on).
