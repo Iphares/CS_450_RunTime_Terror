@@ -32,8 +32,8 @@
 	void Help(char* request);
 	// Prints
 	void printf(char msg[]);
-	// Checks a char to see if it is a digit
-	int isdigit(unisgned char c);
+	// Evaluates user input for setTime and setDate
+	int EdgeCase(char* pointer);
 	// Changes an uppercase char to a lowercase char
 	char toLowercase(char c);
 #endif

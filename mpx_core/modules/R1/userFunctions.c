@@ -77,20 +77,24 @@
 		sys_req(WRITE, COM1, msg, &check);
 	}
 
-  /// Description: checks if a char is a digit.
-  /// from
-  /// @param c characterto be checked if it is or is not a digit
-
-  /**
-      Title: isdigit
-      Author: Sandeep Dutta
-      Date: 1999
-      Availability: https://searchcode.com/codesearch/view/10200599/
-  */
-  char isdigit( unsigned char c) {
-    if ( c >= '0' && c <= '9' )
-      return 1;
-    return 0;
+  int EdgeCase(char* pointer)    {
+    int valid = 0;
+    if (strcmp(pointer, "00") == 0){
+      valid = 1;
+      return valid;
+    }
+    int i, j;
+    for (i = 0; i < strlen(pointer); i++){
+        valid = 0;
+        for(j = 0; j <= 99; j++){
+            if(strcmp(pointer,itoa(j)) == 0)
+                valid = 1;
+        }
+        if(valid == 0){
+          return valid;
+        }
+    }
+    return valid;
   }
 
   /// Description: sets the time register to the new values that the user inputed, all values must be inputed as SetTime(Hours, Minutes, Seconds).
