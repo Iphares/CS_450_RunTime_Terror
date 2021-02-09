@@ -67,7 +67,7 @@
 			else if(strcmp(FirstToken,"quit") == 0)
 				quit = 1;
 			else
-				printf("ERROR: Not a valid command\n");
+				printf("\nERROR: Not a valid command \n");
 		}
 		return 0;	//shutdown procedure
 	}
