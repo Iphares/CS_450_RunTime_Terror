@@ -56,7 +56,6 @@ void do_isr()
 {
   char in = inb(COM2);
   serial_print(&in);
-  serial_println("here");
   outb(0x20,0x20); //EOI
 }
 

@@ -175,8 +175,6 @@
 		unsigned char month = BCDtoDec(inb(0x71));
 		outb(0x70,0x32);
 		unsigned char millennium = BCDtoDec(inb(0x71));
-		outb(0x70,0x09);
-		unsigned char year = BCDtoDec(inb(0x71));
 		char msg[2] = "-";
 		char msg3[10] = "Date: ";
 		printf(msg3);
@@ -185,8 +183,15 @@
 		sys_req(WRITE, COM1, itoa(month), &check);
 		printf(msg);
 		sys_req(WRITE, COM1, itoa(millennium), &check);
-		sys_req(WRITE, COM1, itoa(year), &check);
-	  	printf("\n");
+    outb(0x70,0x09);
+    if(BCDtoDec(inb(0x71)) == 0){
+      sys_req(WRITE, COM1, "00", &check);
+    }
+    else {
+  		unsigned char year = BCDtoDec(inb(0x71));
+  		sys_req(WRITE, COM1, itoa(year), &check);
+    }
+    	printf("\n");
 	}
 
   /// Description: Simply returns a char containing "Version: R(module).(the iteration that module is currently on).

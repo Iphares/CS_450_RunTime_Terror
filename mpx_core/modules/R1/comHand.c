@@ -38,29 +38,29 @@
 			if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,NULL) == 0)		{
 				Help("\0");
 			}
-			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"version") == 0)	{
+			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"version") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 				Help("Version");
 			}
-			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"getDate") == 0)	{
+			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"getDate") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 				Help("GetDate");
 			}
-			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setDate") == 0)	{
+			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setDate") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 				Help("SetDate");
 			}
-			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"getTime") == 0)	{
+			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"getTime") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 				Help("GetTime");
 			}
-			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setTime") == 0)	{
+			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setTime") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 				Help("SetTime");
 			}
-			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"shutdown") == 0)	{
+			else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"shutdown") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 				Help("shutdown");
 			}
 
-			else if(strcmp(FirstToken,"version") == 0)
+			else if(strcmp(FirstToken,"version") == 0 && strcmp(SecondToken,NULL) == 0)
 				Version();
 
-			else if(strcmp(FirstToken,"getDate") == 0)
+			else if(strcmp(FirstToken,"getDate") == 0 && strcmp(SecondToken,NULL) == 0)
 				GetDate();
 
 			else if(strcmp(FirstToken,"setDate") == 0){
@@ -70,16 +70,16 @@
 				else
 					printf("\x1b[31m""\nERROR: Invalid parameters for setDate \n""\x1b[0m");
 			}
-			else if(strcmp(FirstToken,"getTime") == 0)	//Return the current time held by the registers.
+			else if(strcmp(FirstToken,"getTime") == 0 && strcmp(SecondToken,NULL) == 0)	//Return the current time held by the registers.
 				GetTime();
-			else if(strcmp(FirstToken,"setTime") == 0){
+			else if(strcmp(FirstToken,"setTime") == 0 && strcmp(FifthToken,NULL) == 0){
 				if (EdgeCase(SecondToken) == 1 && EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
 						SetTime(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken));		//input as Hour-Minute-Seconds
 				}
 				else
 					printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 				}
-			else if(strcmp(FirstToken,"shutdown") == 0)
+			else if(strcmp(FirstToken,"shutdown") == 0 && strcmp(SecondToken,NULL) == 0)
 				quit = 1;
 			else
 				printf("\x1b[31m""\nERROR: Not a valid command \n""\x1b[0m");
