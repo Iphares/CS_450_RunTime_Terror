@@ -181,33 +181,37 @@
 		if (request[0] == '\0')	{
 			//char msg[100]="\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n";
       check = 58;
-			sys_req(WRITE, COM1, "\n getDate \n setDate \n getTime \n setTime \n version \n", &check);
+			sys_req(WRITE, COM1, "\n getDate \n setDate \n getTime \n setTime \n version \n shutdown \n", &check);
 		}
 		else if (strcmp(request, "GetDate") == 0)	{
 			//char msg[100]="GetDate returns the current date that is loaded onto the operating system.";
       check = 75;
-			sys_req(WRITE, COM1, "\n GetDate returns the current date that is loaded onto the operating system.\n", &check);
+			sys_req(WRITE, COM1, "\n getDate returns the current date that is loaded onto the operating system.\n", &check);
 		}
 		else if (strcmp(request, "SetDate") == 0)	{
 			//char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
       check = 100;
-      sys_req(WRITE, COM1, "\n SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).\n", &check);
+      sys_req(WRITE, COM1, "\n setDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).\n", &check);
 		}
 		else if (strcmp(request, "GetTime") == 0)	{
 			//char msg[100]="GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.";
       check = 100;
-      sys_req(WRITE, COM1,"\n GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.\n", &check);
+      sys_req(WRITE, COM1,"\n getTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.\n", &check);
 		}
 		else if (strcmp(request, "SetTime") == 0)	{
 			//char msg[100]="SetTime allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
       check = 100;
-      sys_req(WRITE, COM1, "\n SetDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).\n", &check);
+      sys_req(WRITE, COM1, "\n setDate allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).\n", &check);
 		}
 		else if (strcmp(request, "Version") == 0)	{
 			//char msg[100]="Version returns the current operating software version that the system is running.";
       check = 100;
-      sys_req(WRITE, COM1, "\n Version returns the current operating software version that the system is running.\n", &check);
+      sys_req(WRITE, COM1, "\n version returns the current operating software version that the system is running.\n", &check);
 		}
+    else if(strcmp(request, "shutdown") == 0){
+      check = 100;
+      sys_req(WRITE, COM1, "\n shutdown shuts down the system.\n", &check);
+    }
 		else	{
 			//char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
       check = 104;
