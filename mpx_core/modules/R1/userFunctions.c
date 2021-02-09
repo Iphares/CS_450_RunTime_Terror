@@ -110,8 +110,8 @@
 		sys_req(WRITE, COM1, itoa(minute), &check);
 		printf(msg1);
 		second = BCDtoDec(seconds);
-	  	printf("\n");
 		sys_req(WRITE, COM1, itoa(second), &check);
+	  	printf("\n");
 	}
 
   /// Description: Sets the date register to the new values that the user inputed, all values must be inputed as SetDime(day, month, millenial, year).
