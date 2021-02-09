@@ -191,7 +191,7 @@
 		else if (strcmp(request, "SetDate") == 0)	{
 			//char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
       check = 100;
-      sys_req(WRITE, COM1, "\n setDate allows the user to reset the correct date into the system, as follows setDate-day-month-year.\n", &check);
+      sys_req(WRITE, COM1, "\n setDate allows the user to reset the correct date into the system, as follows setDate-"BLU"day"RESET"-"BLU"month"RESET"-"BLU"year"RESET".\n", &check);
 		}
 		else if (strcmp(request, "GetTime") == 0)	{
 			//char msg[100]="GetTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.";
@@ -201,7 +201,7 @@
 		else if (strcmp(request, "SetTime") == 0)	{
 			//char msg[100]="SetTime allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
       check = 100;
-      sys_req(WRITE, COM1, "\n setTime allows the user to reset the correct time into the system, as follows setTime-hour-minute-second.\n", &check);
+      sys_req(WRITE, COM1, "\n setTime allows the user to reset the correct time into the system, as follows setTime-"BLU"hour"RESET"-"BLU"minute"RESET"-"BLU"second"RESET".\n", &check);
 		}
 		else if (strcmp(request, "Version") == 0)	{
 			//char msg[100]="Version returns the current operating software version that the system is running.";
