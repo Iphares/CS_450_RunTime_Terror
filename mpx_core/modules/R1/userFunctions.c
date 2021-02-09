@@ -94,9 +94,12 @@
 	int hour;
 	int minute;
 	int second;
-		unsigned char hours = inb(0x04);
-		unsigned char minutes = inb(0x02);
-		unsigned char seconds = inb(0x00);
+		outb(0x70,0x04);
+		unsigned char hours = inb(0x71);
+		outb(0x70,0x02);
+		unsigned char minutes = inb(0x71);
+		outb(0x70,0x00);
+		unsigned char seconds = inb(0x71);
 		char msg1[2] = ":";
 		char msg2[10] = "Time: ";
 		printf(msg2);
@@ -137,11 +140,15 @@
   /// No parameters.
   void GetDate()	{
 	  int check = 2;
-		unsigned char day = BCDtoDec(inb(0x07));
-		unsigned char month = BCDtoDec(inb(0x08));
-		unsigned char millennial = BCDtoDec(inb(0x32));
-		unsigned char year = BCDtoDec(inb(0x09));
-		char msg[2] = "";
+	  	outb(0x70,0x07);
+		unsigned char day = BCDtoDec(inb(0x71));
+		outb(0x70,0x08);
+		unsigned char month = BCDtoDec(inb(0x71));
+		outb(0x70,0x32);
+		unsigned char millennial = BCDtoDec(inb(0x71));
+		outb(0x70,0x09);
+		unsigned char year = BCDtoDec(inb(0x71));
+		char msg[2] = "-";
 		char msg3[10] = "Date: ";
 		printf(msg3);
 		sys_req(WRITE, COM1, itoa(day), &check);
@@ -218,3 +225,5 @@
 			sys_req(WRITE, COM1, "\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m", &check);
 		}
 	}
+	
+	
