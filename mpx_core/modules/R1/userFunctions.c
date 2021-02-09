@@ -65,7 +65,8 @@
 	}
 
   void printf(char msg[])	{
-		sys_req(WRITE, COM1, msg, (int*)strlen(msg));
+	  int check =strlen(msg);
+		sys_req(WRITE, COM1, msg, &check);
 	}
 
   /// Description: sets the time register to the new values that the user inputed, all values must be inputed as SetTime(Hours, Minutes, Seconds).
@@ -89,6 +90,7 @@
   ///
   /// No parameters.
   void GetTime()	{
+	int check = 2;
 	int hour;
 	int minute;
 	int second;
@@ -99,13 +101,13 @@
 		char msg2[10] = "Time: ";
 		printf(msg2);
 		hour = BCDtoDec(hours);
-		sys_req(WRITE, COM1, itoa(hour), (int*)2);
+		sys_req(WRITE, COM1, itoa(hour), &check);
 		printf(msg1);
 		minute = BCDtoDec(minutes);
-		sys_req(WRITE, COM1, itoa(minute), (int*)2);
+		sys_req(WRITE, COM1, itoa(minute), &check);
 		printf(msg1);
 		second = BCDtoDec(seconds);
-		sys_req(WRITE, COM1, itoa(second), (int*)2);
+		sys_req(WRITE, COM1, itoa(second), &check);
 	}
 
   /// Description: Sets the date register to the new values that the user inputed, all values must be inputed as SetDime(day, month, millenial, year).
@@ -134,6 +136,7 @@
   ///
   /// No parameters.
   void GetDate()	{
+	  int check = 2;
 		unsigned char day = BCDtoDec(inb(0x07));
 		unsigned char month = BCDtoDec(inb(0x08));
 		unsigned char millennial = BCDtoDec(inb(0x32));
@@ -141,20 +144,21 @@
 		char msg[2] = "";
 		char msg3[10] = "Date: ";
 		printf(msg3);
-		sys_req(WRITE, COM1, itoa(day), (int*)2);
+		sys_req(WRITE, COM1, itoa(day), &check);
 		printf(msg);
-		sys_req(WRITE, COM1, itoa(month), (int*)3);
+		sys_req(WRITE, COM1, itoa(month), &check);
 		printf(msg);
-		sys_req(WRITE, COM1, itoa(millennial), (int*)2);
-		sys_req(WRITE, COM1, itoa(year), (int*)2);
+		sys_req(WRITE, COM1, itoa(millennial), &check);
+		sys_req(WRITE, COM1, itoa(year), &check);
 	}
 
   /// Description: Simply returns a char containing "Version: R(module).(the iteration that module is currently on).
   ///
   /// No parameters.
 	void Version()	{
+		int check = 13;
 		//char msg[13]="Version: R1.1";
-		sys_req(WRITE, COM1, "Version: R1.1", (int*)13 );
+		sys_req(WRITE, COM1, "Version: R1.1", &check);
 	}
 
   /// Description: If a letter is uppercase, it changes it to lowercase. (char)
@@ -206,7 +210,7 @@
 		}
 		else	{
 			//char msg[100]=" The requested command does not exist please refer to the Help function for a full list of commands.";
-      check = 100;
-			sys_req(WRITE, COM1, "\x1b[31m""The requested command does not exist please refer to the Help function for a full list of commands.""\x1b[0m", &check);
+      check = 104;
+			sys_req(WRITE, COM1, "\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m", &check);
 		}
 	}
