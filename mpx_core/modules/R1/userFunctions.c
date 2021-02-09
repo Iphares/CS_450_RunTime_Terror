@@ -62,7 +62,7 @@
   ///
   /// @param value Binary number to be changed to decimal
 	int BCDtoDec(int BCD)	{
-  		return (((BCD>>4)*10) + (BCD & 0xF))
+  		return (((BCD>>4)*10) + (BCD & 0xF));
 	}
 
   /// Description: Changes decimal numbers to binary numbers.
@@ -235,5 +235,3 @@
 			sys_req(WRITE, COM1, "\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m", &check);
 		}
 	}
-	
-	

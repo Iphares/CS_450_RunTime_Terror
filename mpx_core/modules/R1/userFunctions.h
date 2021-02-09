@@ -23,7 +23,7 @@
 	// Sets the date of the system
 	void SetDate(int day, int month, int millennial, int year);
 	// Changes Binary Converted Decimal to Decimal
-	int BCDtoDec(unsigned char value);
+	int BCDtoDec(int BCD);
 	// Gets the date of the system
 	void GetDate();
 	// States the version of the system

@@ -30,7 +30,7 @@
 			memset(cmdBuffer, '\0', 100);
 		  		sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
-   			char* SecondToken = strtok(NULL, "-");
+   		char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
@@ -64,11 +64,11 @@
 				GetDate();
 
 			else if(strcmp(FirstToken,"setDate") == 0)
-				SetDate((int)SecondToken, (int)ThirdToken, (int)FourthToken, (int)FifthToken);	//input as Day-Month-Millenial-Year
+				SetDate(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken), atoi(FifthToken));	//input as Day-Month-Millenial-Year
 			else if(strcmp(FirstToken,"getTime") == 0)	//Return the current time held by the registers.
 				GetTime();
 			else if(strcmp(FirstToken,"setTime") == 0)
-				SetTime((int)SecondToken, (int)ThirdToken, (int)FourthToken);		//input as Hour-Minute-Seconds
+				SetTime(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken));		//input as Hour-Minute-Seconds
 			else if(strcmp(FirstToken,"shutdown") == 0)
 				quit = 1;
 			else
