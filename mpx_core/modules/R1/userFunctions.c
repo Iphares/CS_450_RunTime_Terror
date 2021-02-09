@@ -77,6 +77,22 @@
 		sys_req(WRITE, COM1, msg, &check);
 	}
 
+  /// Description: checks if a char is a digit.
+  /// from
+  /// @param c characterto be checked if it is or is not a digit
+
+  /**
+      Title: isdigit
+      Author: Sandeep Dutta
+      Date: 1999
+      Availability: https://searchcode.com/codesearch/view/10200599/
+  */
+  char isdigit( unsigned char c) {
+    if ( c >= '0' && c <= '9' )
+      return 1;
+    return 0;
+  }
+
   /// Description: sets the time register to the new values that the user inputed, all values must be inputed as SetTime(Hours, Minutes, Seconds).
   ///
   /// @param hours Integer to be set in the Hour position
