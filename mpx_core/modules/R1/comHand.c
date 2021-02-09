@@ -15,11 +15,15 @@
 
 #include "../mpx_supt.h"
 #include "userFunctions.h"
-
+#include "startup-sound.
 
 
 	int comHand()	{
 
+		// Play startup sound from Windows XP
+		PlaySound("startup-sound.mp3", NULL, SND_ASYNC);
+		
+		
 		char cmdBuffer[100];
 		int bufferSize = 99;
 		int quit = 0;
