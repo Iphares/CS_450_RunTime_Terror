@@ -93,41 +93,43 @@ int set_serial_in(int device) {
 int * polling(char * cmdBuffer, int * count) {
         int pointerLoc = 0;
         int numCharacters = 0;
-
+        int flag = 1;
         char letter = NULL;
-        while (1) { // Run continuously
+        while (flag) { // Run continuously
 
                 if (inb(COM1 + 5) & 1) { // Is a character available?
                         letter = inb(COM1); //Get the character
 
                         //Special Cases
-                        if (letter == '\033') {
+
+                        //ENTER
+                        if (letter == '\n' || letter == '\r') {
+                                cmdBuffer[pointerLoc] = '\0';
+                                flag = 0;
+                        }
+
+                        else if (letter == '\033') {
                                 letter = inb(COM1);
                                 if (letter == '[') {
                                         letter = inb(COM1);
 
-                                        //ENTER
-                                        if (letter == '\n') {
-                                                cmdBuffer[pointerLoc] = '\0';
-                                                break;
-                                        }
-
                                         //Right Arrow Case
-                                        if (letter == 'D') {
-                                                if (pointerLoc < numCharacters) {
+                                        if (letter == 'C') {
+                                                if (pointerLoc <= numCharacters) {
                                                         pointerLoc++;
-                                                        serial_print("\033[1C");
+                                                        serial_print("\033[C");
                                                 }
                                         }
 
                                         //Left Arrow Case
-                                        else if (letter == 'C') {
-                                                if (pointerLoc < numCharacters) {
+                                        else if (letter == 'D') {
+                                                if (pointerLoc > 0) {
                                                         pointerLoc--;
-                                                        serial_print("\033[1D");
+                                                        serial_print("\033[D");
                                                 }
 
-                                        } else if (letter == 'A') {
+                                        }
+                                        else if (letter == 'A') {
                                         //up
                                         }
                                         else if (letter == 'B') {
@@ -140,7 +142,7 @@ int * polling(char * cmdBuffer, int * count) {
                                                 if (letter == '~') {
                                                         if (pointerLoc <= numCharacters) {
                                                                 int bufIndex;
-                                                                for (bufIndex = pointerLoc; pointerLoc < *count; bufIndex++) {
+                                                                for (bufIndex = pointerLoc; bufIndex < *count; bufIndex++) {
                                                                         cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1];
                                                                 }
                                                                 serial_print("\033[1P");
@@ -149,33 +151,37 @@ int * polling(char * cmdBuffer, int * count) {
                                                         }
                                                 }
                                         }
+                                }
+                        }
+
+                        //BACKSPACE
+                        else if (letter == 127 && pointerLoc > 0) {
+                                if(pointerLoc > numCharacters){
+                                        cmdBuffer[pointerLoc - 1] = NULL;
+                                }
+                                else{
+                                        int bufIndex;
+                                        for (bufIndex = pointerLoc; bufIndex > 0 && bufIndex <= numCharacters; bufIndex++) {
+                                                cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1]; //replaces the last typed character with null.
+                                        }
+                                }
+                                numCharacters--;
+                                pointerLoc--;
+                                serial_print("\033[D\033[P");
+                                inb(COM1);
+                        }
+
+
+                        //passes any other characters 0-9,a-z, upper and lower case to the command handler to be dealt with.
+                        else {
+                                if (numCharacters < * count) {
+                                        cmdBuffer[pointerLoc] = letter;
+                                        serial_print(&cmdBuffer[pointerLoc]);
+                                        pointerLoc++; //increments the pointer location per input.
+                                        numCharacters++; //increments the total number of characters passed in so far.
+                                }
                         }
                 }
-
-                //BACKSPACE
-                else if (letter == 127) {
-                        int bufIndex = NULL;
-                        for (bufIndex = pointerLoc; pointerLoc < * count; bufIndex++) {
-                                cmdBuffer[bufIndex] = cmdBuffer[bufIndex + 1]; //replaces the last typed character with null.
-                        }
-                        numCharacters--;
-                        serial_print("\033[1D");
-                        inb(COM1);
-
-                }
-
-
-                //passes any other characters 0-9,a-z, upper and lower case to the command handler to be dealt with.
-                  else {
-                      if (numCharacters < * count) {
-                        cmdBuffer[pointerLoc] = letter;
-                        serial_print("\x1b[33m"&cmdBuffer[pointerLoc]"\x1b[0m");
-                        pointerLoc++; //increments the pointer location per input.
-                        numCharacters++; //increments the total number of characters passed in so far.
-                      }
-
-                }
-            }
         }
         return 0;
 }
