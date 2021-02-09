@@ -12,8 +12,6 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 
-
-
 	// Sets the time of the system
 	void SetTime(int hours, int minutes, int seconds);
 	// Gets the time of the system
