@@ -15,7 +15,7 @@
 
 #include "../mpx_supt.h"
 #include "userFunctions.h"
-#include "startup-sound.
+#include "startup-sound.mp3"
 
 
 	int comHand()	{
