@@ -1,3 +1,5 @@
+/// @file
+
 #ifndef _MPX_SUPT_H
 #define _MPX_SUPT_H
 
@@ -40,7 +42,7 @@ typedef struct {
   Description..: Generate interrupt 60H
   Params..: int op_code one of (IDLE, EXIT, READ, WRITE)
 */
-int sys_req( int op_code, int device_id, char *buffer_ptr, 
+int sys_req( int op_code, int device_id, char *buffer_ptr,
 			int *count_ptr );
 
 /*

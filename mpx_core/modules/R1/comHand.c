@@ -1,7 +1,7 @@
+/// @file
+
 /*
   ----- comHand.c -----
-  Description..: Interprets user input to call the appropriate user functions.
-
       Initial Implementation -- by Isiah Phares, 2021.
       Modifications by:    Morgan Bartley 2021, Jordan Potter 2021, Greg Potts 2021.
 */
@@ -17,13 +17,15 @@
 #include "userFunctions.h"
 #include "startup-sound.mp3"
 
+/// Description: Interprets user input to call the appropriate user functions.
+///
 
 	int comHand()	{
 
 		// Play startup sound from Windows XP
 		PlaySound("startup-sound.mp3", NULL, SND_ASYNC);
-		
-		
+
+
 		char cmdBuffer[100];
 		int bufferSize = 99;
 		int quit = 0;
