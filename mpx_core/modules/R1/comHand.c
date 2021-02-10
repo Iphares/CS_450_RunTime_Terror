@@ -15,15 +15,11 @@
 
 #include "../mpx_supt.h"
 #include "userFunctions.h"
-#include "startup-sound.mp3"
 
 /// Description: Interprets user input to call the appropriate user functions.
 ///
 
 	int comHand()	{
-
-		// Play startup sound from Windows XP
-		PlaySound("startup-sound.mp3", NULL, SND_ASYNC);
 
 
 		char cmdBuffer[100];
@@ -32,9 +28,9 @@
 
 		while(quit != 1)	{
 			memset(cmdBuffer, '\0', 100);
-		  sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
+		  		sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
-   		char* SecondToken = strtok(NULL, "-");
+   			char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
