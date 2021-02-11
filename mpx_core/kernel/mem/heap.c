@@ -1,3 +1,5 @@
+/// @file
+
 /*
   ----- heap.c -----
 
@@ -69,7 +71,7 @@ u32int alloc(u32int size, heap *h, int align)
 }
 
 heap* make_heap(u32int base, u32int max, u32int min)
-{  
+{
   no_warn(base||max||min);
   return (heap*)kmalloc(sizeof(heap));
 }

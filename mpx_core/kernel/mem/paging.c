@@ -1,3 +1,5 @@
+/// @file
+
 /*
   ----- paging.c -----
 
@@ -58,7 +60,7 @@ u32int get_bit(u32int addr)
   u32int frame  = addr/page_size;
   u32int index  = frame/32;
   u32int offset = frame%32;
-  return (frames[index] & (1 << offset));  
+  return (frames[index] & (1 << offset));
 }
 
 /*
@@ -79,7 +81,7 @@ u32int find_free()
 
 /*
   Procedure..: get_page
-  Description..: Finds and returns a page, allocating a new 
+  Description..: Finds and returns a page, allocating a new
    page table if necessary.
 */
 page_entry* get_page(u32int addr, page_dir *dir, int make_table)
@@ -87,11 +89,11 @@ page_entry* get_page(u32int addr, page_dir *dir, int make_table)
   u32int phys_addr;
   u32int index = addr / page_size / 1024;
   u32int offset = addr / page_size % 1024;
-  
+
   //return it if it exists
   if (dir->tables[index])
     return &dir->tables[index]->pages[offset];
-  
+
   //create it
   else if (make_table){
     dir->tables[index] = (page_table*)_kmalloc(sizeof(page_table), 1, &phys_addr);
@@ -103,7 +105,7 @@ page_entry* get_page(u32int addr, page_dir *dir, int make_table)
 
 /*
   Procedure..: init_paging
-  Description..: Initializes the kernel page directory and 
+  Description..: Initializes the kernel page directory and
     initial kernel heap area. Performs identity mapping of
     the kernel frames such that the virtual addresses are
     equivalent to the physical addresses.
@@ -175,7 +177,7 @@ void new_frame(page_entry *page)
   u32int index;
   if (page->frameaddr != 0) return;
   if ( (u32int)(-1) == (index=find_free()) ) kpanic("Out of memory");
-  
+
   //mark a frame as in-use
   set_bit(index*page_size);
   page->present   = 1;

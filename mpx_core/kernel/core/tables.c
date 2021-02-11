@@ -1,3 +1,5 @@
+/// @file
+
 /*
   ----- tables.c -----
 
@@ -37,7 +39,7 @@ void idt_set_gate(u8int idx, u32int base, u16int sel,
 
 /*
   Procedure..: init_idt
-  Description..: Creates the interrupt descriptor table and 
+  Description..: Creates the interrupt descriptor table and
       writes the pointer using the defined assembly function.
 */
 void init_idt()
@@ -45,7 +47,7 @@ void init_idt()
   idt_ptr.limit = 256*sizeof(idt_descriptor) - 1;
   idt_ptr.base  = (u32int)idt_entries;
   memset(idt_entries, 0, 256*sizeof(idt_descriptor));
-  
+
   write_idt_ptr((u32int)&idt_ptr);
 }
 
@@ -54,7 +56,7 @@ void init_idt()
   Description..: Installs a new table entry into the global
       descriptor table.
 */
-void gdt_init_entry(int idx, u32int base, u32int limit, 
+void gdt_init_entry(int idx, u32int base, u32int limit,
 		    u8int access, u8int flags)
 {
   gdt_entry *new_entry = &gdt_entries[idx];

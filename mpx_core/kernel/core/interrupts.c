@@ -1,3 +1,5 @@
+/// @file
+
 /*
   ----- interrupt.c -----
 
@@ -64,7 +66,7 @@ void do_isr()
       the first 32 irq lines. Most do a panic for now.
 */
 void init_irq(void)
-{  
+{
   int i;
 
   // Necessary interrupt handlers for protected mode

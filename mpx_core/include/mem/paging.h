@@ -1,3 +1,5 @@
+/// @file
+
 #ifndef _PAGING_H
 #define _PAGING_H
 
@@ -62,7 +64,7 @@ u32int first_free();
 
 /*
   Procedure..: init_paging
-  Description..: Initializes the kernel page directory and 
+  Description..: Initializes the kernel page directory and
     initial kernel heap area. Performs identity mapping of
     the kernel frames such that the virtual addresses are
     equivalent to the physical addresses.
@@ -81,7 +83,7 @@ void load_page_dir(page_dir *new_page_dir);
 
 /*
   Procedure..: get_page
-  Description..: Finds and returns a page, allocating a new 
+  Description..: Finds and returns a page, allocating a new
    page table if necessary.
 */
 page_entry* get_page(u32int addr, page_dir *dir, int make_table);
