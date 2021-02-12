@@ -77,6 +77,9 @@
 		sys_req(WRITE, COM1, msg, &check);
 	}
 
+  /// Description: Compares pointer char to validate if it is a number or not.
+  ///
+  /// @param Compares pointer char to validate if it is a number or not.
   int EdgeCase(char* pointer)    {
     int valid = 0;
     if (strcmp(pointer, "00") == 0){
