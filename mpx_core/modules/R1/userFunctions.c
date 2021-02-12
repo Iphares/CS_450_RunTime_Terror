@@ -61,8 +61,8 @@
 	/// Description: Changes binary number to decimal numbers.
   ///
   /// @param value Binary number to be changed to decimal
-	int BCDtoDec(unsigned char value)	{
-		return(value-6*(value>>4));
+	int BCDtoDec(int BCD)	{
+  		return (((BCD>>4)*10) + (BCD & 0xF))
 	}
 
   /// Description: Changes decimal numbers to binary numbers.
