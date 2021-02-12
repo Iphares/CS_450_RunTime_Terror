@@ -226,7 +226,7 @@
 			sys_req(WRITE, COM1, "\n getDate returns the current date that is loaded onto the operating system.\n", &check);
 		}
 		else if (strcmp(request, "SetDate") == 0)	{
-			//char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year).";
+			//char msg[100]="SetDate allows the user to reset the correct date into the system, as follows Setdate (day, month, year). Date must be inputed as a two digit number, Example 02 or 12";
       check = 100;
       sys_req(WRITE, COM1, "\n setDate allows the user to reset the correct date into the system, as follows setDate-"BLU"day"RESET"-"BLU"month"RESET"-"BLU"year"RESET".\n", &check);
 		}
@@ -236,7 +236,7 @@
       sys_req(WRITE, COM1,"\n getTime returns the current time as hours, minutes, seconds that is loaded onto the operating system.\n", &check);
 		}
 		else if (strcmp(request, "SetTime") == 0)	{
-			//char msg[100]="SetTime allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second).";
+			//char msg[100]="SetTime allows the user to reset the correct time into the system, as follows SetTime (hour, minute, second). Time must be inputed as a two digit number, Example 02 or 00";
       check = 100;
       sys_req(WRITE, COM1, "\n setTime allows the user to reset the correct time into the system, as follows setTime-"BLU"hour"RESET"-"BLU"minute"RESET"-"BLU"second"RESET".\n", &check);
 		}
