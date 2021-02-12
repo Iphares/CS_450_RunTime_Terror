@@ -20,7 +20,8 @@
 ///
 
 	int comHand()	{
-
+		
+		Help("\0");
 
 		char cmdBuffer[100];
 		int bufferSize = 99;
@@ -80,7 +81,12 @@
 					printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 				}
 			else if(strcmp(FirstToken,"shutdown") == 0 && strcmp(SecondToken,NULL) == 0)
-				quit = 1;
+				printf("\x1b[33m""\n Are you sure you want to shutdwon? \n""\x1b[0m");
+					if(strcmp(FirstToken,"yes") == 0)	{
+						quit = 1;
+					}
+					else 
+						break;
 			else
 				printf("\x1b[31m""\nERROR: Not a valid command \n""\x1b[0m");
 		}
