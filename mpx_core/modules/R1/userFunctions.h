@@ -21,7 +21,7 @@
 	//
 	char* itoa(int num);
 	// Sets the date of the system
-	void SetDate(int day, int month, int millennial, int year);
+	void SetDate(int day, int month, int millennium, int year);
 	// Changes Binary Converted Decimal to Decimal
 	int BCDtoDec(int BCD);
 	// Gets the date of the system
