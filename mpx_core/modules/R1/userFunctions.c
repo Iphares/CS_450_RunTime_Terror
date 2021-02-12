@@ -225,6 +225,8 @@
     int check = 1;
 		if (request[0] == '\0')	{
 			//char msg[100]="\n GetDate \n SetDate \n GetTime \n SetTime \n Version \n";
+      check = 67;
+      sys_req(WRITE, COM1, "\n to chain commands and parameters, please use \"-\" between keywords", &check);
       check = 58;
 			sys_req(WRITE, COM1, "\n getDate \n setDate \n getTime \n setTime \n version \n shutdown \n", &check);
 		}
