@@ -175,7 +175,7 @@
 	void Version()	{
 		int check = 13;
 		//char msg[13]="Version: R1.1";
-		sys_req(WRITE, COM1, "Version: R1.1", &check);
+		sys_req(WRITE, COM1, "Version: R1.1 \n", &check);
 	}
 
   /// Description: If a letter is uppercase, it changes it to lowercase. (char)
