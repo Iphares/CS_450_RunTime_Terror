@@ -106,7 +106,12 @@
   /// @param minutes Integer to be set in the Minutes position
   /// @param seconds Integer to be set in the Seconds position
 	void SetTime(int hours, int minutes, int seconds)	{
-
+    outb(0x70,0x04);
+    unsigned char tempHours = BCDtoDec(inb(0x71));
+    outb(0x70,0x02);
+    unsigned char tempMinutes = BCDtoDec(inb(0x71));
+    outb(0x70,0x00);
+    unsigned char tempSeconds = BCDtoDec(inb(0x71));
 		cli(); //outb(device + 1, 0x00); //disable interrupts
 		outb(0x70,0x04);
 		outb(0x71, DectoBCD(hours));// change to bcd
@@ -115,16 +120,35 @@
 		outb(0x70,0x00);
 		outb(0x71, DectoBCD(seconds));
 		sti();  //outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
+    outb(0x70,0x04);
+    unsigned char newHours = BCDtoDec(inb(0x71));
+    outb(0x70,0x02);
+    unsigned char newMinutes = BCDtoDec(inb(0x71));
+    outb(0x70,0x00);
+    unsigned char newSeconds = BCDtoDec(inb(0x71));
+    if(newHours != hours || newMinutes != minutes || newSeconds != seconds){
+      printf("Your input was invalid\n");
+      cli(); //outb(device + 1, 0x00); //disable interrupts
+  		outb(0x70,0x04);
+  		outb(0x71, DectoBCD(tempHours));// change to bcd
+  		outb(0x70,0x02);
+  		outb(0x71, DectoBCD(tempMinutes));
+  		outb(0x70,0x00);
+  		outb(0x71, DectoBCD(tempSeconds));
+  		sti();  //outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
+    }
+    else
+      printf("Time Set\n");
 	}
 
   /// Description: retrieve and return the time values for hours, minutes, and seconds form the clock register using inb(Port,address).
   ///
   /// No parameters.
   void GetTime()	{
-	int check = 2;
-	int hour;
-	int minute;
-	int second;
+  	int check = 2;
+  	int hour;
+  	int minute;
+  	int second;
 		outb(0x70,0x04);
 		unsigned char hours = inb(0x71);
 		outb(0x70,0x02);
@@ -142,7 +166,7 @@
 		printf(msg1);
 		second = BCDtoDec(seconds);
 		sys_req(WRITE, COM1, itoa(second), &check);
-	  	printf("\n");
+	  printf("\n");
 	}
 
   /// Description: Sets the date register to the new values that the user inputed, all values must be inputed as SetDime(day, month, millenial, year).
@@ -152,19 +176,47 @@
   /// @param millenial Integer to be set in the Millenial position
   /// @param year Integer to be set in the Year position
   void SetDate(int day, int month, int millennium, int year)	{
-		cli();
+    outb(0x70,0x07);
+    int tempDay = BCDtoDec(inb(0x71));
+    outb(0x70,0x08);
+    int tempMonth = BCDtoDec(inb(0x71));
+    outb(0x70,0x32);
+    int tempMillennium = BCDtoDec(inb(0x71));
+    outb(0x70,0x09);
+    int tempYear = BCDtoDec(inb(0x71));
+    cli();
 		outb(0x70,0x07);
 		outb(0x71,DectoBCD (day));
-
 		outb(0x70,0x08);
 		outb(0x71,DectoBCD (month));
-
 		outb(0x70,0x32);
 		outb(0x71,DectoBCD (millennium));
-
 		outb(0x70,0x09);
 		outb(0x71,DectoBCD (year));
 		sti();
+    outb(0x70,0x07);
+    unsigned char newDay = BCDtoDec(inb(0x71));
+    outb(0x70,0x08);
+    unsigned char newMonth = BCDtoDec(inb(0x71));
+    outb(0x70,0x32);
+    unsigned char newMillennium = BCDtoDec(inb(0x71));
+    outb(0x70,0x09);
+    unsigned char newYear = BCDtoDec(inb(0x71));
+    if(newDay != day || newMonth != month || newMillennium != millennium || newYear != year){
+      printf("Your input was invalid\n");
+      cli();
+  		outb(0x70,0x07);
+  		outb(0x71,DectoBCD (tempDay));
+  		outb(0x70,0x08);
+  		outb(0x71,DectoBCD (tempMonth));
+  		outb(0x70,0x32);
+  		outb(0x71,DectoBCD (tempMillennium));
+  		outb(0x70,0x09);
+  		outb(0x71,DectoBCD (tempYear));
+  		sti();
+    }
+    else
+      printf("Date Set\n");
 	}
 
   /// Description: Returns the full date back to the user in decimal form.
@@ -172,7 +224,7 @@
   /// No parameters.
   void GetDate()	{
 	  int check = 2;
-	  	outb(0x70,0x07);
+	  outb(0x70,0x07);
 		unsigned char day = BCDtoDec(inb(0x71));
 		outb(0x70,0x08);
 		unsigned char month = BCDtoDec(inb(0x71));
@@ -228,7 +280,7 @@
       check = 67;
       sys_req(WRITE, COM1, "\n to chain commands and parameters, please use \"-\" between keywords", &check);
       check = 58;
-			sys_req(WRITE, COM1, "\n getDate \n setDate \n getTime \n setTime \n version \n shutdown \n", &check);
+			sys_req(WRITE, COM1, "\n getDate \n setDate \n getTime \n setTime \n version \n shutdown \n\n", &check);
 		}
 		else if (strcmp(request, "GetDate") == 0)	{
 			//char msg[100]="GetDate returns the current date that is loaded onto the operating system.";
