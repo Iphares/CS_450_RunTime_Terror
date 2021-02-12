@@ -22,6 +22,14 @@
   ///
   /// @param num integer to be put into array
   ///
+
+/**
+    Title: itoa
+    Author: Neha Mahajan
+    Date: 29 May, 2017
+    Availability: https://www.geeksforgeeks.org/implement-itoa/
+*/
+
   char* itoa(int num)
 	{
 			int i,j,k,count;
