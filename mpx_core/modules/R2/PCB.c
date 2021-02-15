@@ -7,7 +7,7 @@
 #DEFINE 5KMEM 16384;
 
 typedef struct Queue	{
-    
+
         int count;
         PCB *head
         PCB *tail
@@ -43,7 +43,7 @@ Queue AllocatePCB()	{
 PCB SetupPCB(char[] Name, int Class, int Level )	{
 	if()
 		PCB *Name;
-        Name = (PCBsys_alloc_mem();
+        Name = (PCBsys_alloc_mem());
 		Name.State = READY;
 		Name.Priority = Level;
 		Name.Process_Name = Name;
@@ -54,10 +54,10 @@ PCB SetupPCB(char[] Name, int Class, int Level )	{
 
 PCB FindPCB(char[] Name)	{
 	while(stack.head != stack.tail && block.head != block.tail)	{
-		
-	
+
+
 		if(strcmp(stack.head.name,Name) == 0)	{
-			
+
 			return printf("\n The pcb was found at ")
 		}
 		else	{
@@ -66,8 +66,8 @@ PCB FindPCB(char[] Name)	{
 	}
 }
 InsertPCBA(	)	{
-	
+
 }
 RemovePCB( )	{
-	
+
 }
