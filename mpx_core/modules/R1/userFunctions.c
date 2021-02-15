@@ -329,38 +329,36 @@
 /*********************************************************************
 R2 Functions
 *********************************************************************/
-
-
-Suspend()	{
+void Suspend(Char *Process_Name)	{
 	
 }
-Resume()	{
+void Resume(Char *Process_Name)	{
 	
 }
-Set_Priority()	{
+void Set_Priority(Char *Process_Name, int Priority)	{
 	
 }
-Show_PCB()	{
+void Show_PCB(Char *Process_Name)	{
 	
 }
-Show_All()	{
+void Show_All()	{
 	
 }
-Show_Ready()	{
+void Show_Ready()	{
 	
 }
-Show_Blocked()	{
+void Show_Blocked()	{
 	
 }
-Create_PCB()	{
+void Create_PCB(char *Process_Name, int Priority, int Class )	{
 	
 }
-Delete_PCB()	{
+void Delete_PCB(Char *Process_Name)	{
 	
 }
-Block()	{
+void Block(Char *Process_Name)	{
 	
 }
-Unblock()	{
+void Unblock(Char *Process_Name)	{
 	
 }
