@@ -36,4 +36,19 @@
 	int EdgeCase(char* pointer);
 	// Changes an uppercase char to a lowercase char
 	char toLowercase(char c);
+
+
+void Suspend(Char *Process_Name);
+void Resume(Char *Process_Name);
+void Set_Priority(Char *Process_Name, int Priority);
+void Show_PCB(Char *Process_Name);
+void Show_All();
+void Show_Ready();
+void Show_Blocked();
+void Create_PCB(char *Process_Name, int Priority, int Class );
+void Delete_PCB(Char *Process_Name);
+void Block(Char *Process_Name);
+void Unblock(Char *Process_Name);
+
+
 #endif
