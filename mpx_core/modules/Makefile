@@ -13,7 +13,8 @@ ASFLAGS = -f elf -g
 OBJFILES =\
 mpx_supt.o\
 R1/userFunctions.o\
-R1/comHand.o
+R1/comHand.o\
+R2/PCB.o
 
 .c.s:
 	$(CC) $(CFLAGS) -S -o $@ $<
