@@ -317,3 +317,50 @@
 			sys_req(WRITE, COM1, "\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m", &check);
 		}
 	}
+
+
+
+
+
+
+
+
+
+/*********************************************************************
+R2 Functions
+*********************************************************************/
+
+
+Suspend()	{
+	
+}
+Resume()	{
+	
+}
+Set_Priority()	{
+	
+}
+Show_PCB()	{
+	
+}
+Show_All()	{
+	
+}
+Show_Ready()	{
+	
+}
+Show_Blocked()	{
+	
+}
+Create_PCB()	{
+	
+}
+Delete_PCB()	{
+	
+}
+Block()	{
+	
+}
+Unblock()	{
+	
+}
