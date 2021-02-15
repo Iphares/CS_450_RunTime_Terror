@@ -5,12 +5,16 @@
 #DEFINE 3KMEM 4096;
 #DEFINE 4KMEM 8192;
 #DEFINE 5KMEM 16384;
+#DEFINE READY 0;
+#DEFINE BLOCKED 1;
+#DEFINE READY_SUSPENDED 2;
+#DEFINE BLOCKED_SUSPENDED 3;
 
 typedef struct Queue	{
 
         int count;
-        PCB *head
-        PCB *tail
+        PCB *head;
+        PCB *tail;
 }
 typedef struct PCB	{
 	char[1KMEM] stack;
@@ -32,18 +36,18 @@ Queue AllocatePCB()	{
 	sys_alloc_mem(1024);
 }
 
- char FreePCB(*PCB)	{
+char FreePCB(*PCB)	{
 	sys_free_mem(PCB);
 	if(sys_free_mem(PCB) != -1)
-		return printf("\nMemory release successful \n")
+		return printf("\nMemory release successful \n");
 	else
-		return printf("\nMemory cannot be released from the requested PCB\n")
+		return printf("\nMemory cannot be released from the requested PCB\n");
 }
 
 PCB SetupPCB(char[] Name, int Class, int Level )	{
 	if()
 		PCB *Name;
-        Name = (PCBsys_alloc_mem());
+    Name = (PCBsys_alloc_mem());
 		Name.State = READY;
 		Name.Priority = Level;
 		Name.Process_Name = Name;
@@ -54,20 +58,17 @@ PCB SetupPCB(char[] Name, int Class, int Level )	{
 
 PCB FindPCB(char[] Name)	{
 	while(stack.head != stack.tail && block.head != block.tail)	{
-
-
-		if(strcmp(stack.head.name,Name) == 0)	{
-
-			return printf("\n The pcb was found at ")
-		}
-		else	{
-			return printf("\n ")
-		}
+		if(strcmp(stack.head.name,Name) == 0)
+			return printf("\n The pcb was found at ");
+		else
+			return printf("\n ");
 	}
 }
+
 InsertPCBA(	)	{
 
 }
+
 RemovePCB( )	{
 
 }
