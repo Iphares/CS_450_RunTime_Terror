@@ -32,7 +32,7 @@ Queue AllocatePCB()	{
 	sys_alloc_mem(1024);
 }
 
- char FreePCB(*PCB)	{
+char FreePCB(*PCB)	{
 	sys_free_mem(PCB);
 	if(sys_free_mem(PCB) != -1)
 		return printf("\nMemory release successful \n")
