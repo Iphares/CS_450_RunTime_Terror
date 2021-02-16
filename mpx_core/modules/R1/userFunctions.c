@@ -337,6 +337,12 @@ R2 Functions
 /// @param Process_Name Character pointer that matches the name of process.
 void Suspend(Char *Process_Name)	{
 
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
+
 }
 
 /// Brief Description: Places a PCD in the not suspended state and reinserts it into the appropriate queue.
@@ -345,6 +351,13 @@ void Suspend(Char *Process_Name)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Resume(Char *Process_Name)	{
+
+
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
 
 }
 
@@ -355,6 +368,22 @@ void Resume(Char *Process_Name)	{
 /// @param Process_Name Character pointer that matches the name of process.
 /// @param Priority integer that matches the priority number.
 void Set_Priority(Char *Process_Name, int Priority)	{
+  int i;
+
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
+  // Priority error check
+  for(i = 0; i < 9; i++){
+    if(Priority == i){
+      break;
+    }
+    else{
+      printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m")
+    }
+  }
 
 }
 
@@ -365,16 +394,16 @@ void Set_Priority(Char *Process_Name, int Priority)	{
 /// @param Process_Name Character pointer that matches the name of process
 void Show_PCB(Char *Process_Name)	{
   int check = 20;
-  sys_req(WRITE, COM1, Process_Name, &check);
-  sys_req(WRITE, COM1, Class, &check);
-  sys_req(WRITE, COM1, State, &check);
-  sys_req(WRITE, COM1, Status, &check);
-  sys_req(WRITE, COM1, Priority, &check);
-
-  // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
+  if(Process_Name != Valid Name){
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  }
+  else{
+    sys_req(WRITE, COM1, Process_Name, &check);
+    sys_req(WRITE, COM1, Class, &check);
+    sys_req(WRITE, COM1, State, &check);
+    sys_req(WRITE, COM1, Status, &check);
+    sys_req(WRITE, COM1, Priority, &check);
+}
 }
 
 
@@ -458,6 +487,12 @@ void Show_Blocked()	{
 /// @param Class integer that matches the class number.
 void Create_PCB(char *Process_Name, int Priority, int Class )	{
 
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
+
 }
 
 /// Brief Description: Removes PCB from appropriate queue and frees all associated memory.
@@ -466,6 +501,11 @@ void Create_PCB(char *Process_Name, int Priority, int Class )	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Delete_PCB(Char *Process_Name)	{
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
 
 }
 
@@ -475,6 +515,11 @@ void Delete_PCB(Char *Process_Name)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Block(Char *Process_Name)	{
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
 
 }
 
@@ -484,5 +529,11 @@ void Block(Char *Process_Name)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Unblock(Char *Process_Name)	{
+
+  // Name Error check
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
 
 }
