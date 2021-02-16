@@ -8,16 +8,16 @@ typedef struct Queue	{
   int count;
   PCB *head;
   PCB *tail;
-}
+};
 
-ReadyQueue {
+static struct Queue ReadyQueue {
   sys_alloc_mem(sizeof(Queue));
   ReadyQueue->count = 0;
   ReadyQueue->head = NULL;
   ReadyQueue->tail = NULL;
 }
 
-BlockedQueue {
+static struct Queue BlockedQueue {
   sys_alloc_mem(sizeof(Queue));
   BlockedQueue->count = 0;
   BlockedQueue->head = NULL;
