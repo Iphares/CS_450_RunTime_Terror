@@ -30,16 +30,20 @@
 
 		while(quit != 1)	{
 			memset(cmdBuffer, '\0', 100);
-		  		sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
+		  sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
    		char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
 			if(shutdown == 0){
+/************************************************************************************
+				R1 comHand
+************************************************************************************/
 				if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,NULL) == 0)		{
 					Help("\0");
 				}
+				//R1 Commands
 				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"version") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 					Help("Version");
 				}
@@ -55,6 +59,7 @@
 				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setTime") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 					Help("SetTime");
 				}
+				// R2 Commands
 				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"suspend") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 					Help("suspend");
 				}
@@ -113,7 +118,7 @@
 						printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 				}
 /************************************************************************************
-				R2 userfunctions
+				R2 comHand
 ************************************************************************************/
 				if(strcmp(FirstToken,"suspend") == 0 && strcmp(SecondToken,NULL) == 0) {
 					Suspend();
@@ -137,7 +142,7 @@
 					showBlocked();
 				}
 
-/********** R2 Temp Commands **********/
+				/********** R2 Temp Commands **********/
 				else if(strcmp(FirstToken,"createPCB") == 0 && strcmp(SecondToken,NULL) == 0) {
 					Create_PCB();
 				}
@@ -151,6 +156,9 @@
 					Unblock();
 				}
 
+/************************************************************************************
+				shutdown comHand
+************************************************************************************/
 				else if(strcmp(FirstToken,"shutdown") == 0 && strcmp(SecondToken,NULL) == 0){
 					printf("\x1b[33m""\nAre you sure you want to shutdown? [yes/no]\n""\x1b[0m");
 					shutdown = 1;
