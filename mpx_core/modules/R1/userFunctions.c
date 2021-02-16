@@ -416,27 +416,27 @@ void Show_All()	{
   int j;
   for(i = 0; i < sizeof(ready queue);i++)	{
     char rProcess_Name = ready queue [i] Process_Name;
-    char rClass =  ready queue [i] class;
+    int rClass =  ready queue [i] class;
     char rState = ready queue[i] state;
     char rStatus = ready queue[i] status;
-    char rPriority = ready queue[i] priority;
+    int rPriority = ready queue[i] priority;
     sys_req(WRITE, COM1, rProcess_Name, &check);
-    sys_req(WRITE, COM1, rClass, &check);
+    sys_req(WRITE, COM1, itoa(rClass), &check);
     sys_req(WRITE, COM1, rState, &check);
     sys_req(WRITE, COM1, rStatus, &check);
-    sys_req(WRITE, COM1, rPriority, &check);
+    sys_req(WRITE, COM1, itoa(rPriority), &check);
   }
   for(j = 0; j < sizeof(blocked queue); j++){
     char bProcess_Name = blocked queue [j] Process_Name;
-    char bClass =  blocked queue [j] class;
+    int bClass =  blocked queue [j] class;
     char bState = blocked queue[j] state;
     char bStatus = blocked queue[j] status;
-    char bPriority = blocked queue[j] priority;
+    int bPriority = blocked queue[j] priority;
     sys_req(WRITE, COM1, bProcess_Name, &check);
-    sys_req(WRITE, COM1, bClass, &check);
+    sys_req(WRITE, COM1, itoa(bClass), &check);
     sys_req(WRITE, COM1, bState, &check);
     sys_req(WRITE, COM1, bStatus, &check);
-    sys_req(WRITE, COM1, bPriority, &check);
+    sys_req(WRITE, COM1, itoa(bPriority), &check);
   }
 }
 
