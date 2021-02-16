@@ -10,6 +10,20 @@ typedef struct Queue	{
   PCB *tail;
 }
 
+ReadyQueue {
+  sys_alloc_mem(sizeof(Queue));
+  ReadyQueue->count = 0;
+  ReadyQueue->head = NULL;
+  ReadyQueue->tail = NULL;
+}
+
+BlockedQueue {
+  sys_alloc_mem(sizeof(Queue));
+  BlockedQueue->count = 0;
+  BlockedQueue->head = NULL;
+  BlockedQueue->tail = NULL;
+}
+
 typedef struct PCB	{
 	unsigned char stack[1KMEM];
 	unsigned char* stackTop;
@@ -48,13 +62,15 @@ PCB* SetupPCB(char[] Name, int Class, int Level )	{
 }
 
 
-PCB FindPCB(char[] Name)	{
-	while(stack->head != stack->tail && block->head != block->tail)	{
+PCB* FindPCB(char[] Name)	{
+	while(temp != ReadyQueue->tail && temp != block->tail)	{
 		if(strcmp(stack->head->name,Name) == 0)
-			return printf("\n The pcb-> was found at ");
-		else
-			return printf("\n ");
-	}
+			return &head
+		else{
+      printf("\n Error: There is no such PCB \n");
+			return NULL;
+    }
+  }
 }
 
 void InsertPCB(PCB** head)	{

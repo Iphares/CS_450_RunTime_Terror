@@ -392,7 +392,7 @@ void Set_Priority(Char *Process_Name, int Priority)	{
 /// Description: Can except a string as a pointer that is the Process Name.  The process name, claas, state, suspend status, and priority of a PCB are displayed.  An error check for a valid name occurs.
 ///
 /// @param Process_Name Character pointer that matches the name of process
-void Show_PCB(Char *Process_Name)	{
+void Show_PCB(char *Process_Name)	{
   int check = 20;
   if(Process_Name != Valid Name){
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
