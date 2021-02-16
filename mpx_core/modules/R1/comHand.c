@@ -81,6 +81,18 @@
 					else
 						printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 				}
+/************************************************************************************
+				R2 userfunctions
+************************************************************************************/
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				else if(strcmp(FirstToken,"shutdown") == 0 && strcmp(SecondToken,NULL) == 0){
 					printf("\x1b[33m""\nAre you sure you want to shutdown? [yes/no]\n""\x1b[0m");
 					shutdown = 1;
