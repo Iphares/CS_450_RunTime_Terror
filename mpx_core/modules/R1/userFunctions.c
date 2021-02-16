@@ -329,36 +329,160 @@
 /*********************************************************************
 R2 Functions
 *********************************************************************/
+
+/// Brief Description: Places a PCD in the suspended state and reinserts it into the appropriate queue.
+///
+/// Description: Can except a string as a pointer that is the Process Name.  Places a PCB in the suspended state and reinserts it into the appropriate queue.  An error check for valid Process Name.
+///
+/// @param Process_Name Character pointer that matches the name of process.
 void Suspend(Char *Process_Name)	{
-	
+
 }
+
+/// Brief Description: Places a PCD in the not suspended state and reinserts it into the appropriate queue.
+///
+/// Description: Can except a string as a pointer that is the Process Name.  Places a PCB in the not suspended state and reinserts it into the appropriate queue.  An error check for valid Process Name.
+///
+/// @param Process_Name Character pointer that matches the name of process.
 void Resume(Char *Process_Name)	{
-	
+
 }
+
+/// Brief Description: Sets PCB priority and reinserts the process into the correct place in the correct queue.
+///
+/// Description: Can except a string as a pointer that is the Process Name. Can accept and integer than is the Priority. Sets a PCB's priority and reinserts the process into the correct place in the correct queue.  An error check for valid Process Name and an error check for a valid priority 1 - 9.
+///
+/// @param Process_Name Character pointer that matches the name of process.
+/// @param Priority integer that matches the priority number.
 void Set_Priority(Char *Process_Name, int Priority)	{
-	
+
 }
+
+/// Brief Description: Displays the process name, class, state, suspended status, and priority of a PCB.
+///
+/// Description: Can except a string as a pointer that is the Process Name.  The process name, claas, state, suspend status, and priority of a PCB are displayed.  An error check for a valid name occurs.
+///
+/// @param Process_Name Character pointer that matches the name of process
 void Show_PCB(Char *Process_Name)	{
-	
+  int check = 20;
+  sys_req(WRITE, COM1, Process_Name, &check);
+  sys_req(WRITE, COM1, Class, &check);
+  sys_req(WRITE, COM1, State, &check);
+  sys_req(WRITE, COM1, Status, &check);
+  sys_req(WRITE, COM1, Priority, &check);
+
+  // Error check (Valid Name)
+  //if (Process_Name != valid name){
+  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  //}
 }
+
+
+/// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the ready and blocked queues.
+///
+/// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready and blocked queues.
 void Show_All()	{
-	
+  int check = 20;
+  int i;
+  int j;
+  for(i = 0; i < sizeof(ready queue);i++)	{
+    char rProcess_Name = ready queue [i] Process_Name;
+    char rClass =  ready queue [i] class;
+    char rState = ready queue[i] state;
+    char rStatus = ready queue[i] status;
+    char rPriority = ready queue[i] priority;
+    sys_req(WRITE, COM1, rProcess_Name, &check);
+    sys_req(WRITE, COM1, rClass, &check);
+    sys_req(WRITE, COM1, rState, &check);
+    sys_req(WRITE, COM1, rStatus, &check);
+    sys_req(WRITE, COM1, rPriority, &check);
+  }
+  for(j = 0; j < sizeof(blocked queue); j++){
+    char bProcess_Name = blocked queue [j] Process_Name;
+    char bClass =  blocked queue [j] class;
+    char bState = blocked queue[j] state;
+    char bStatus = blocked queue[j] status;
+    char bPriority = blocked queue[j] priority;
+    sys_req(WRITE, COM1, bProcess_Name, &check);
+    sys_req(WRITE, COM1, bClass, &check);
+    sys_req(WRITE, COM1, bState, &check);
+    sys_req(WRITE, COM1, bStatus, &check);
+    sys_req(WRITE, COM1, bPriority, &check);
+  }
 }
+
+/// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the ready queue.
+///
+/// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
 void Show_Ready()	{
-	
+  int check = 20;
+  int i;
+  for(i = 0; i < sizeof(ready queue);i++)	{
+    char Process_Name = ready queue [i] Process_Name;
+    char Class =  ready queue [i] class;
+    char State = ready queue[i] state;
+    char Status = ready queue[i] status;
+    char Priority = ready queue[i] priority;
+    sys_req(WRITE, COM1, Process_Name, &check);
+    sys_req(WRITE, COM1, Class, &check);
+    sys_req(WRITE, COM1, State, &check);
+    sys_req(WRITE, COM1, Status, &check);
+    sys_req(WRITE, COM1, Priority, &check);
+  }
 }
+
+/// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the blocked queue.
+///
+/// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the blocked queue.
 void Show_Blocked()	{
-	
+  for(i = 0; i < sizeof(blocked queue); i++){
+    char Process_Name = blocked queue [i] Process_Name;
+    char Class =  blocked queue [i] class;
+    char State = blocked queue[i] state;
+    char Status = blocked queue[i] status;
+    char Priority = blocked queue[i] priority;
+    sys_req(WRITE, COM1, Process_Name, &check);
+    sys_req(WRITE, COM1, Class, &check);
+    sys_req(WRITE, COM1, State, &check);
+    sys_req(WRITE, COM1, Status, &check);
+    sys_req(WRITE, COM1, Priority, &check);
+
 }
+
+/// Brief Description: Calls SetupPCB() and inserts PCB into appropriate queue.
+///
+/// Description: Can except a string as a pointer that is the Process Name. Can accept two integers, Priority and Class. SetupPCB() will be called and the PCB will be inserted into the appropriate queue.  An error check for unique and valid Process Name, an error check for valid  process class, and an error check for process priority.
+///
+/// @param Process_Name Character pointer that matches the name of process.
+/// @param Priority integer that matches the priority number.
+/// @param Class integer that matches the class number.
 void Create_PCB(char *Process_Name, int Priority, int Class )	{
-	
+
 }
+
+/// Brief Description: Removes PCB from appropriate queue and frees all associated memory.
+///
+/// Description: Can except a string as a pointer that is the Process Name. Removes PCB from the appropriate queue and then frees all associated memory.  An error check to make sure process name is valid.
+///
+/// @param Process_Name Character pointer that matches the name of process.
 void Delete_PCB(Char *Process_Name)	{
-	
+
 }
+
+/// Brief Description: Places a PCD in the blocked state and reinserts it into the correct queue.
+///
+/// Description: Can except a string as a pointer that is the Process Name.  The specified PCB will be places in a blocked state and reinserted into the appropriate queue.  An error check for a valid name occurs.
+///
+/// @param Process_Name Character pointer that matches the name of process.
 void Block(Char *Process_Name)	{
-	
+
 }
+
+/// Brief Description: Places a PCD in the unblocked state and reinserts it into the correct queue.
+///
+/// Description: Can except a string as a pointer that is the Process Name.  The specified PCB will be places in an unblocked state and reinserted into the appropriate queue.  An error check for a valid name occurs.
+///
+/// @param Process_Name Character pointer that matches the name of process.
 void Unblock(Char *Process_Name)	{
-	
+
 }
