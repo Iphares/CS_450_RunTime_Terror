@@ -10,30 +10,41 @@
 #DEFINE 5KMEM 16384;
 
 typedef struct Queue	{
+  int count;
+  PCB *head;
+  PCB *tail;
+};
 
-        int count;
-        PCB *head
-        PCB *tail
+static struct Queue ReadyQueue {
+  sys_alloc_mem(sizeof(Queue));
+  ReadyQueue->count = 0;
+  ReadyQueue->head = NULL;
+  ReadyQueue->tail = NULL;
 }
+
+static struct Queue BlockedQueue {
+  sys_alloc_mem(sizeof(Queue));
+  BlockedQueue->count = 0;
+  BlockedQueue->head = NULL;
+  BlockedQueue->tail = NULL;
+}
+
 typedef struct PCB	{
-	char[1KMEM] stack;
-	char[10] Process_Name;
-	int Process_Class;
-        int Priority;
-        int State;
-        int Process_Stack;
-        int *PCB_Pointer;
-}
+  unsigned char stack[1KMEM];
+  unsigned char* stackTop;
+  struct PCB* prev;
+  struct PCB* next;
+  char Process_Name[10];
+  int Process_Class;
+  int Priority;
+  int ReadyState;
+  int SuspendedState;
+};
 
 
-
-
-
-
-
-Queue AllocatePCB();
-char FreePCB(*PCB);
-PCB SetupPCB(char[] Name, int Class, int Level );
-PCB FindPCB(char[] Name);
-InsertPCBA(	);
-RemovePCB( );
+PCB* AllocatePCB();
+void FreePCB(*PCB);
+PCB* SetupPCB(char[] Name, int Class, int Priority);
+PCB* FindPCB(char[] Name);
+void InsertPCB(PCB*);
+void RemovePCB(PCB*);

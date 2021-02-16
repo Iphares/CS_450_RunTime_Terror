@@ -34,30 +34,30 @@ typedef struct PCB	{
   int Priority;
   int ReadyState;
 	int SuspendedState;
-}
+};
 
 PCB* AllocatePCB()	{
 	return sys_alloc_mem(sizeof(PCB));
 }
 
-char FreePCB(*PCB)	{
+void FreePCB(*PCB)	{
 	if(sys_free_mem(PCB) != -1)
-		return printf("\nMemory release successful \n");
+		printf("\nMemory release successful \n");
 	else
-		return printf("\nMemory cannot be released from the requested pcb->\n");
+		printf("\nMemory cannot be released from the requested pcb->\n");
 }
 
-PCB* SetupPCB(char[] Name, int Class, int Level )	{
-		PCB* pcb-> = AllocatePCB();
-		pcb->stackTop = 1024 + pcb->stack;
-		memset(pcb->stack, 0, 1024);
-		pcb->prev = NULL;
-		pcb->next = NULL;
-		pcb->ReadyState = READY;
-		pcb->SuspendedState = RUNNING;
-		pcb->Priority = Level;
-		strcpy(pcb->Process_Name,Name);
-		pcb->Process_Class = Class;
+PCB* SetupPCB(char[] Name, int Class, int Priority)	{
+	PCB* pcb-> = AllocatePCB();
+	pcb->stackTop = 1024 + pcb->stack;
+	memset(pcb->stack, 0, 1024);
+	pcb->prev = NULL;
+	pcb->next = NULL;
+	pcb->ReadyState = READY;
+	pcb->SuspendedState = RUNNING;
+	pcb->Priority = Level;
+	strcpy(pcb->Process_Name,Name);
+	pcb->Process_Class = Class;
 	return Name;
 }
 
@@ -111,48 +111,30 @@ void InsertPCB(PCB* pcb)	{
 }
 
 void RemovePCB(PCB* pcb)	{
-  if(pcb -> ReadyState == READY){
-    if(ReadyQueue -> head == pcb){
-      if(pcb -> next != NULL){
-        ReadyQueue -> head == pcb -> next;
-        pcb -> next -> prev == NULL;
-      }
-      else{
-        pcb
-      }
-      }
+  Queue* queue;
+  if(pcb -> ReadyState == READY)
+    queue = ReadyQueue;
+  else
+    queue = BlockedQueue;
+  
+  if(queue -> head == pcb){
+    if(pcb -> next != NULL){
+      queue -> head == pcb -> next;
+      pcb -> next -> prev == NULL;
+      pcb -> next == NULL;
     }
-    if(pcb -> next != NULL && pcb -> prev != NULL){
-
-    }
-    else if(pcb ->)
+    else
+      queue -> head == NULL;
   }
   else{
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-  //if the ReadyQueue is empty->
-  if(Ready -> count == 0) {
-    printf("Queue is Empty\n");
-  }
-  //otherwise we can remove the specific pcb-> from the queue->
-  else {
-    if(pcb -> prev != NULL && pcb -> next){
-      pcb -> prev -> next
+    if(pcb -> next != NULL && pcb -> prev != NULL){
+      pcb -> prev -> next = pcb -> next -> prev;
+      pcb -> next = NULL;
+      pcb -> prev = NULL;
     }
-    if(pcb -> next != NULL){
-      pcb -> next -> prev
-    }
+    else if(pcb -> next != NULL){
+      queue -> tail = pcb -> prev;
+      pcb -> prev = NULL;
     }
   }
 }
