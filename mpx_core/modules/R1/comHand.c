@@ -55,8 +55,39 @@
 				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setTime") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 					Help("SetTime");
 				}
-				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"shutdown") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-					Help("shutdown");
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"suspend") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("suspend");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"resume") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("resume");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"setPriority") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("setPriority");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"showPCB") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("showPCB");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"showAll") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("showAll");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"showReady") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("showReady");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"showBlocked") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("showBlocked");
+				}
+				// Temporary R2 commands
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"createPCB") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("createPCB");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("deletePCB");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("block");
+				}
+				else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					Help("unblock");
 				}
 
 				else if(strcmp(FirstToken,"version") == 0 && strcmp(SecondToken,NULL) == 0)
@@ -84,15 +115,42 @@
 /************************************************************************************
 				R2 userfunctions
 ************************************************************************************/
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				if(strcmp(FirstToken,"suspend") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Suspend();
+				}
+				else if(strcmp(FirstToken,"resume") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Resume();
+				}
+				else if(strcmp(FirstToken,"setPriority") == 0 && strcmp(SecondToken,NULL) == 0) {
+					setPriority();
+				}
+				else if(strcmp(FirstToken,"showPCB") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Show_PCB();
+				}
+				else if(strcmp(FirstToken,"showAll") == 0 && strcmp(SecondToken,NULL) == 0) {
+					showAll();
+				}
+				else if(strcmp(FirstToken,"showReady") == 0 && strcmp(SecondToken,NULL) == 0) {
+					showReady();
+				}
+				else if(strcmp(FirstToken,"showBlocked") == 0 && strcmp(SecondToken,NULL) == 0) {
+					showBlocked();
+				}
+
+/********** R2 Temp Commands **********/
+				else if(strcmp(FirstToken,"createPCB") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Create_PCB();
+				}
+				else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Delete_PCB();
+				}
+				else if(strcmp(FirstToken,"block") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Block();
+				}
+				else if(strcmp(FirstToken,"unblock") == 0 && strcmp(SecondToken,NULL) == 0) {
+					Unblock();
+				}
+
 				else if(strcmp(FirstToken,"shutdown") == 0 && strcmp(SecondToken,NULL) == 0){
 					printf("\x1b[33m""\nAre you sure you want to shutdown? [yes/no]\n""\x1b[0m");
 					shutdown = 1;
