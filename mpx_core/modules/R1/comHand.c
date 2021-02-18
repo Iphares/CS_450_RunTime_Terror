@@ -120,40 +120,48 @@
 /************************************************************************************
 				R2 comHand
 ************************************************************************************/
-				if(strcmp(FirstToken,"suspend") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Suspend();
+				if(strcmp(FirstToken,"suspend") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					Suspend(atoi(SecondToken));
 				}
-				else if(strcmp(FirstToken,"resume") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Resume();
+				else if(strcmp(FirstToken,"resume") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					Resume(atoi(SecondToken));
 				}
-				else if(strcmp(FirstToken,"setPriority") == 0 && strcmp(SecondToken,NULL) == 0) {
-					setPriority();
+				else if(strcmp(FirstToken,"setPriority") == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					if(EdgeCase(ThirdToken) == 1)	{
+						setPriority(atoi(SecondToken), atoi(ThirdToken));			//input as setPriority-Process_Name-Priority
+					}
+					else
+						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB \n""\x1b[0m");
 				}
-				else if(strcmp(FirstToken,"showPCB") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Show_PCB();
+				else if(strcmp(FirstToken,"showPCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					Show_PCB(atoi(SecondToken));
 				}
-				else if(strcmp(FirstToken,"showAll") == 0 && strcmp(SecondToken,NULL) == 0) {
+				else if(strcmp(FirstToken,"showAll") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 					showAll();
 				}
-				else if(strcmp(FirstToken,"showReady") == 0 && strcmp(SecondToken,NULL) == 0) {
+				else if(strcmp(FirstToken,"showReady") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 					showReady();
 				}
-				else if(strcmp(FirstToken,"showBlocked") == 0 && strcmp(SecondToken,NULL) == 0) {
+				else if(strcmp(FirstToken,"showBlocked") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 					showBlocked();
 				}
 
 				/********** R2 Temp Commands **********/
-				else if(strcmp(FirstToken,"createPCB") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Create_PCB();
+				else if(strcmp(FirstToken,"createPCB") == 0) {
+					if(EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
+						Create_PCB(atoi(SecondToke), atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class 
+					}
+					else
+						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB \n""\x1b[0m");
 				}
-				else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Delete_PCB();
+				else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					Delete_PCB(atoi(SecondToke));
 				}
-				else if(strcmp(FirstToken,"block") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Block();
+				else if(strcmp(FirstToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					Block(atoi(SecondToke));
 				}
-				else if(strcmp(FirstToken,"unblock") == 0 && strcmp(SecondToken,NULL) == 0) {
-					Unblock();
+				else if(strcmp(FirstToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					Unblock(atoi(SecondToke));
 				}
 
 /************************************************************************************
@@ -171,7 +179,7 @@
 					quit = 1;
 				}
 				else if(strcmp(FirstToken,"no") == 0){
-					printf("\x1b[33m""\nShutdown Cancelled\x1b[0m");
+					printf("\x1b[33m""\nShutdown Cancelled\x1b[0m \n");
 					shutdown = 0;
 				}
 				else
