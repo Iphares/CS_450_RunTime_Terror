@@ -420,7 +420,6 @@ void Show_PCB(char *Process_Name)	{
   state = pcb->ReadyState;
   status = pcb->SuspendedState;
   prior = pcb->Priority;
-
   if(name == NULL){
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   } else{
@@ -428,8 +427,8 @@ void Show_PCB(char *Process_Name)	{
     sys_req(WRITE, COM1, itoa(class), &check);
     sys_req(WRITE, COM1, itoa(state), &check);
     sys_req(WRITE, COM1, itoa(status), &check);
-    sys_req(WRITE, COM1, itoa(priot), &check);
-}
+    sys_req(WRITE, COM1, itoa(prior), &check);
+  }
 }
 
 
@@ -437,32 +436,80 @@ void Show_PCB(char *Process_Name)	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready and blocked queues.
 void Show_All()	{
-  int check = 20;
-  int i;
-  int j;
-  for(i = 0; i < sizeof(ready queue);i++)	{
-    char rProcess_Name = ready queue [i] Process_Name;
-    int rClass =  ready queue [i] class;
-    char rState = ready queue[i] state;
-    char rStatus = ready queue[i] status;
-    int rPriority = ready queue[i] priority;
-    sys_req(WRITE, COM1, rProcess_Name, &check);
-    sys_req(WRITE, COM1, itoa(rClass), &check);
-    sys_req(WRITE, COM1, rState, &check);
-    sys_req(WRITE, COM1, rStatus, &check);
-    sys_req(WRITE, COM1, itoa(rPriority), &check);
+  int class, check, state, prior, i, j;
+  char[] name;
+  char[] ready = "Ready Queue:\n";
+  char[] block = "Blocked Queue: \n";
+  char[] cname = "Name: ";
+  char[] cclass = "Class: ";
+  char[] cstate = "State: ";
+  char[] cstatus = "Status: ";
+  char[] cprior = "Priority: ";
+  char[] line = "\n";
+  char[] dline = "\n\n";
+  check = 15;
+
+  sys_req(WRITE, COM1, ready, &check );
+  for(i = 0; i <= sizeof(ReadyQueue); i++){
+    char* Process_Name = ReadyQueue[i];
+    PCB* pcb = FindPCB(Process_Name);
+
+    class = pcb->Process_Class;
+    name = pcb->Process_Name;
+    state = pcb->ReadyState;
+    status = pcb->SuspendedState;
+    prior = pcb->Priority;
+
+    sys_req(WRITE, COM1, cname, &check);
+    sys_req(WRITE, COM1, name, &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cclass, &check);
+    sys_req(WRITE, COM1, itoa(class), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstate, &check);
+    sys_req(WRITE, COM1, itoa(state), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstatus, &check);
+    sys_req(WRITE, COM1, itoa(status), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cprior, &check);
+    sys_req(WRITE, COM1, itoa(prior), &check);
+    sys_req(WRITE, COM1, dline, &check);
   }
-  for(j = 0; j < sizeof(blocked queue); j++){
-    char bProcess_Name = blocked queue [j] Process_Name;
-    int bClass =  blocked queue [j] class;
-    char bState = blocked queue[j] state;
-    char bStatus = blocked queue[j] status;
-    int bPriority = blocked queue[j] priority;
-    sys_req(WRITE, COM1, bProcess_Name, &check);
-    sys_req(WRITE, COM1, itoa(bClass), &check);
-    sys_req(WRITE, COM1, bState, &check);
-    sys_req(WRITE, COM1, bStatus, &check);
-    sys_req(WRITE, COM1, itoa(bPriority), &check);
+
+  sys_req(WRITE, COM1, block, &check );
+  for(j = 0; j <= sizeof(BlockedQueue); j++){
+    char* Process_Name = BlockedQueue[j];
+    PCB* pcb = FindPCB(Process_Name);
+
+    class = pcb->Process_Class;
+    name = pcb->Process_Name;
+    state = pcb->ReadyState;
+    status = pcb->SuspendedState;
+    prior = pcb->Priority;
+
+    sys_req(WRITE, COM1, cname, &check);
+    sys_req(WRITE, COM1, name, &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cclass, &check);
+    sys_req(WRITE, COM1, itoa(class), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstate, &check);
+    sys_req(WRITE, COM1, itoa(state), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstatus, &check);
+    sys_req(WRITE, COM1, itoa(status), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cprior, &check);
+    sys_req(WRITE, COM1, itoa(prior), &check);
   }
 }
 
@@ -470,19 +517,46 @@ void Show_All()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
 void Show_Ready()	{
-  int check = 20;
-  int i;
-  for(i = 0; i < sizeof(ready queue);i++)	{
-    char Process_Name = ready queue [i] Process_Name;
-    char Class =  ready queue [i] class;
-    char State = ready queue[i] state;
-    char Status = ready queue[i] status;
-    char Priority = ready queue[i] priority;
-    sys_req(WRITE, COM1, Process_Name, &check);
-    sys_req(WRITE, COM1, Class, &check);
-    sys_req(WRITE, COM1, State, &check);
-    sys_req(WRITE, COM1, Status, &check);
-    sys_req(WRITE, COM1, Priority, &check);
+  int class, check, state, prior, i, j;
+  char[] name;
+  char[] ready = "Ready Queue:\n";
+  char[] cname = "Name: ";
+  char[] cclass = "Class: ";
+  char[] cstate = "State: ";
+  char[] cstatus = "Status: ";
+  char[] cprior = "Priority: ";
+  char[] line = "\n";
+  check = 15;
+
+  sys_req(WRITE, COM1, ready, &check );
+  for(i = 0; i <= sizeof(ReadyQueue); i++){
+    char* Process_Name = ReadyQueue[i];
+    PCB* pcb = FindPCB(Process_Name);
+
+    class = pcb->Process_Class;
+    name = pcb->Process_Name;
+    state = pcb->ReadyState;
+    status = pcb->SuspendedState;
+    prior = pcb->Priority;
+
+    sys_req(WRITE, COM1, cname, &check);
+    sys_req(WRITE, COM1, name, &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cclass, &check);
+    sys_req(WRITE, COM1, itoa(class), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstate, &check);
+    sys_req(WRITE, COM1, itoa(state), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstatus, &check);
+    sys_req(WRITE, COM1, itoa(status), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cprior, &check);
+    sys_req(WRITE, COM1, itoa(prior), &check);
   }
 }
 
@@ -490,18 +564,47 @@ void Show_Ready()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the blocked queue.
 void Show_Blocked()	{
-  for(i = 0; i < sizeof(blocked queue); i++){
-    char Process_Name = blocked queue [i] Process_Name;
-    char Class =  blocked queue [i] class;
-    char State = blocked queue[i] state;
-    char Status = blocked queue[i] status;
-    char Priority = blocked queue[i] priority;
-    sys_req(WRITE, COM1, Process_Name, &check);
-    sys_req(WRITE, COM1, Class, &check);
-    sys_req(WRITE, COM1, State, &check);
-    sys_req(WRITE, COM1, Status, &check);
-    sys_req(WRITE, COM1, Priority, &check);
+  int class, check, state, prior, i, j;
+  char[] name;
+  char[] block = "Blocked Queue: \n";
+  char[] cname = "Name: ";
+  char[] cclass = "Class: ";
+  char[] cstate = "State: ";
+  char[] cstatus = "Status: ";
+  char[] cprior = "Priority: ";
+  char[] line = "\n";
+  check = 15;
 
+  sys_req(WRITE, COM1, block, &check );
+  for(j = 0; j <= sizeof(BlockedQueue); j++){
+    char* Process_Name = BlockedQueue[j];
+    PCB* pcb = FindPCB(Process_Name);
+
+    class = pcb->Process_Class;
+    name = pcb->Process_Name;
+    state = pcb->ReadyState;
+    status = pcb->SuspendedState;
+    prior = pcb->Priority;
+
+    sys_req(WRITE, COM1, cname, &check);
+    sys_req(WRITE, COM1, name, &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cclass, &check);
+    sys_req(WRITE, COM1, itoa(class), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstate, &check);
+    sys_req(WRITE, COM1, itoa(state), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cstatus, &check);
+    sys_req(WRITE, COM1, itoa(status), &check);
+    sys_req(WRITE, COM1, line, &check);
+
+    sys_req(WRITE, COM1, cprior, &check);
+    sys_req(WRITE, COM1, itoa(prior), &check);
+  }
 }
 
 /// Brief Description: Calls SetupPCB() and inserts PCB into appropriate queue.
