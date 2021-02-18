@@ -411,9 +411,14 @@ void Set_Priority(Char *Process_Name, int Priority)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process
 void Show_PCB(char *Process_Name)	{
-  int class, check, state, prior;
+  int class, check, state, prior, i, j;
   char[] name;
-  check = 10;
+  char[] cname = "Name: ";
+  char[] cclass = "Class: ";
+  char[] cstate = "State: ";
+  char[] cstatus = "Status: ";
+  char[] cprior = "Priority: ";
+  char[] line = "\n";
   PCB* pcb = FindPCB(Process_Name);
   class = pcb->Process_Class;
   name = pcb->Process_Name;
@@ -423,10 +428,19 @@ void Show_PCB(char *Process_Name)	{
   if(name == NULL){
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   } else{
-    sys_req(WRITE, COM1, name, &check);
+    printf(cclass);
     sys_req(WRITE, COM1, itoa(class), &check);
+    printf(line);
+
+    printf(cstate);
     sys_req(WRITE, COM1, itoa(state), &check);
+    printf(line);
+
+    printf(cstatus);
     sys_req(WRITE, COM1, itoa(status), &check);
+    printf(line);
+
+    printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
   }
 }
@@ -460,25 +474,25 @@ void Show_All()	{
     status = pcb->SuspendedState;
     prior = pcb->Priority;
 
-    sys_req(WRITE, COM1, cname, &check);
-    sys_req(WRITE, COM1, name, &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(cname);
+    printf(name);
+    printf(line);
 
-    sys_req(WRITE, COM1, cclass, &check);
+    printf(cclass);
     sys_req(WRITE, COM1, itoa(class), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstate, &check);
+    printf(cstate);
     sys_req(WRITE, COM1, itoa(state), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstatus, &check);
+    printf(cstatus);
     sys_req(WRITE, COM1, itoa(status), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cprior, &check);
+    printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-    sys_req(WRITE, COM1, dline, &check);
+    printf(dline);
   }
 
   sys_req(WRITE, COM1, block, &check );
@@ -492,23 +506,23 @@ void Show_All()	{
     status = pcb->SuspendedState;
     prior = pcb->Priority;
 
-    sys_req(WRITE, COM1, cname, &check);
-    sys_req(WRITE, COM1, name, &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(cname);
+    printf(name);
+    printf(line);
 
-    sys_req(WRITE, COM1, cclass, &check);
+    printf(cclass);
     sys_req(WRITE, COM1, itoa(class), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstate, &check);
+    printf(cstate);
     sys_req(WRITE, COM1, itoa(state), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstatus, &check);
+    printf(cstatus);
     sys_req(WRITE, COM1, itoa(status), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cprior, &check);
+    printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
   }
 }
@@ -539,23 +553,23 @@ void Show_Ready()	{
     status = pcb->SuspendedState;
     prior = pcb->Priority;
 
-    sys_req(WRITE, COM1, cname, &check);
-    sys_req(WRITE, COM1, name, &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(cname);
+    printf(name);
+    printf(line);
 
-    sys_req(WRITE, COM1, cclass, &check);
+    printf(cclass);
     sys_req(WRITE, COM1, itoa(class), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstate, &check);
+    printf(cstate);
     sys_req(WRITE, COM1, itoa(state), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstatus, &check);
+    printf(cstatus);
     sys_req(WRITE, COM1, itoa(status), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cprior, &check);
+    printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
   }
 }
@@ -586,23 +600,23 @@ void Show_Blocked()	{
     status = pcb->SuspendedState;
     prior = pcb->Priority;
 
-    sys_req(WRITE, COM1, cname, &check);
-    sys_req(WRITE, COM1, name, &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(cname);
+    printf(name);
+    printf(line);
 
-    sys_req(WRITE, COM1, cclass, &check);
+    printf(cclass);
     sys_req(WRITE, COM1, itoa(class), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstate, &check);
+    printf(cstate);
     sys_req(WRITE, COM1, itoa(state), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cstatus, &check);
+    printf(cstatus);
     sys_req(WRITE, COM1, itoa(status), &check);
-    sys_req(WRITE, COM1, line, &check);
+    printf(line);
 
-    sys_req(WRITE, COM1, cprior, &check);
+    printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
   }
 }
