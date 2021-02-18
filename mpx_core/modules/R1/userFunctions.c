@@ -253,9 +253,7 @@
   ///
   /// No parameters.
 	void Version()	{
-		int check = 13;
-		//char msg[13]="Version: R1.5";
-		sys_req(WRITE, COM1, "Version: R1.5 \n", &check);
+		printf("Version: R2.0 \n");
 	}
 
   /// Description: If a letter is uppercase, it changes it to lowercase. (char)
@@ -292,12 +290,10 @@
      			printf("\n setTime allows the user to reset the correct time into the system, as follows setTime-"BLU"hour"RESET"-"BLU"minute"RESET"-"BLU"second"RESET".\n Time must be inputed as a two digit number, Example 02 or 00");
       		}
 		else if (strcmp(request, "Version") == 0)	{
-      			check = 100;
-      			sys_req(WRITE, COM1, "\n version returns the current operating software version that the system is running.\n");
+      			printf("\n version returns the current operating software version that the system is running.\n");
 		}
-    else if(strcmp(request, "shutdown") == 0){
-      check = 100;
-      sys_req(WRITE, COM1, "\n shutdown shuts down the system.\n");
+    else if(strcmp(request, "shutdown") == 0)	{
+      printf("\n shutdown shuts down the system.\n");
     }
 	  
 /************************R2 Commands****************************************************/
@@ -308,33 +304,33 @@
 	printf("\n Resume takes in the name of a PCB then removes it from the suspended state and adds it to the correct queue.\n");
     }
     else if(strcmp(FirstToken,"setPriority") == 0) {
-	printf("\n SetPriority takes in the name of a PCB and the priority it needs to be set to then reinstates the specified PCB into a new location by priority.\n);
+	printf("\n SetPriority takes in the name of a PCB and the priority it needs to be set to then reinstates the specified PCB into a new location by priority.\n");
     }
     else if(strcmp(FirstToken,"showPCB") == 0) {
-	printf("\n ShowPCB takes in the name of a PCB and returns all the associated attributes to the user.\n);
+	printf("\n ShowPCB takes in the name of a PCB and returns all the associated attributes to the user.\n");
     }
     else if(strcmp(FirstToken,"showAll") == 0) {
-	printf("\n ShowAll takes no parameters but returns all PCB's that are currently in any of the queues.\n);
+	printf("\n ShowAll takes no parameters but returns all PCB's that are currently in any of the queues.\n");
     }
     else if(strcmp(FirstToken,"showReady") == 0) {
-	printf("\n ShowReady takes in no parameters but returns all PCB's and there attributes that currently are in the ready state.\n); 
+	printf("\n ShowReady takes in no parameters but returns all PCB's and there attributes that currently are in the ready state.\n"); 
     }
     else if(strcmp(FirstToken,"showBlocked") == 0) {
-	printf("\n ShowBlocked takes in no parameters but returns all PCB's and there attributes that currently are in the blocked state.\n); 
+	printf("\n ShowBlocked takes in no parameters but returns all PCB's and there attributes that currently are in the blocked state.\n"); 
     }
 
 /********************************* R2 Temp Commands *********************************************************/
     else if(strcmp(FirstToken,"createPCB") == 0) {
-	printf("\n  CreatePCB takes in the process_name, process_class, and process_priority. Then assigns this new process into the correct queue.\n);
+	printf("\n  CreatePCB takes in the process_name, process_class, and process_priority. Then assigns this new process into the correct queue.\n");
     }
     else if(strcmp(FirstToken,"deletePCB") == 0) {
-	printf("\n DeletePCB takes in the process_name then deletes it from the queue and free's all the memory that was previously allocated to the specified PCB.\n);
+	printf("\n DeletePCB takes in the process_name then deletes it from the queue and free's all the memory that was previously allocated to the specified PCB.\n");
     }
     else if(strcmp(FirstToken,"block") == 0) {
-	printf("\n Block takes in the process_name then sets it's state to blocked and reinserts it back into the correct queue.\n);
+	printf("\n Block takes in the process_name then sets it's state to blocked and reinserts it back into the correct queue.\n");
     }
     else if(strcmp(FirstToken,"unblock") == 0) {
-	printf("\n Unblock takes in the process_name then sets it's state to ready and reinserts it back into the correct queue.\n);
+	printf("\n Unblock takes in the process_name then sets it's state to ready and reinserts it back into the correct queue.\n");
     }
     else	{
 	 printf("\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m");
@@ -349,7 +345,7 @@
 
 
 /*********************************************************************
-R2 Functions
+			R2 Functions
 *********************************************************************/
 
 /// Brief Description: Places a PCD in the suspended state and reinserts it into the appropriate queue.
