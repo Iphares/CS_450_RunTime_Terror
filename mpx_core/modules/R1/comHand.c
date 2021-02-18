@@ -131,7 +131,7 @@
 						setPriority(atoi(SecondToken), atoi(ThirdToken));			//input as setPriority-Process_Name-Priority
 					}
 					else
-						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB \n""\x1b[0m");
+						printf("\x1b[31m""\nERROR: Invalid parameters for setPriority, priority must be entered as a integer. \n""\x1b[0m");
 				}
 				else if(strcmp(FirstToken,"showPCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 					Show_PCB(atoi(SecondToken));
@@ -152,7 +152,7 @@
 						Create_PCB(atoi(SecondToke), atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class 
 					}
 					else
-						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB \n""\x1b[0m");
+						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, class and priority must be entered as integers. \n""\x1b[0m");
 				}
 				else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 					Delete_PCB(atoi(SecondToke));
