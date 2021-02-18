@@ -295,7 +295,7 @@
     else if(strcmp(request, "shutdown") == 0)	{
       printf("\n shutdown shuts down the system.\n");
     }
-	  
+
 /************************R2 Commands****************************************************/
     else if(strcmp(request,"suspend") == 0) {
 	printf("\n Suspend takes in the name of a PCB then places it into the suspended state and reinserts it into the correct queue.\n");
@@ -313,10 +313,10 @@
 	printf("\n ShowAll takes no parameters but returns all PCB's that are currently in any of the queues.\n");
     }
     else if(strcmp(FirstToken,"showReady") == 0) {
-	printf("\n ShowReady takes in no parameters but returns all PCB's and there attributes that currently are in the ready state.\n"); 
+	printf("\n ShowReady takes in no parameters but returns all PCB's and there attributes that currently are in the ready state.\n");
     }
     else if(strcmp(FirstToken,"showBlocked") == 0) {
-	printf("\n ShowBlocked takes in no parameters but returns all PCB's and there attributes that currently are in the blocked state.\n"); 
+	printf("\n ShowBlocked takes in no parameters but returns all PCB's and there attributes that currently are in the blocked state.\n");
     }
 
 /********************************* R2 Temp Commands *********************************************************/
@@ -411,16 +411,24 @@ void Set_Priority(Char *Process_Name, int Priority)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process
 void Show_PCB(char *Process_Name)	{
-  int check = 20;
-  if(Process_Name != Valid Name){
+  int class, check, state, prior;
+  char[] name;
+  check = 10;
+  PCB* pcb = FindPCB(Process_Name);
+  class = pcb->Process_Class;
+  name = pcb->Process_Name;
+  state = pcb->ReadyState;
+  status = pcb->SuspendedState;
+  prior = pcb->Priority;
+
+  if(name == NULL){
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  }
-  else{
-    sys_req(WRITE, COM1, Process_Name, &check);
-    sys_req(WRITE, COM1, Class, &check);
-    sys_req(WRITE, COM1, State, &check);
-    sys_req(WRITE, COM1, Status, &check);
-    sys_req(WRITE, COM1, Priority, &check);
+  } else{
+    sys_req(WRITE, COM1, name, &check);
+    sys_req(WRITE, COM1, itoa(class), &check);
+    sys_req(WRITE, COM1, itoa(state), &check);
+    sys_req(WRITE, COM1, itoa(status), &check);
+    sys_req(WRITE, COM1, itoa(priot), &check);
 }
 }
 
