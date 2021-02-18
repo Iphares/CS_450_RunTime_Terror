@@ -54,7 +54,7 @@ PCB* SetupPCB(char[] Name, int Class, int Level )	{
 		pcb->prev = NULL;
 		pcb->next = NULL;
 		pcb->ReadyState = READY;
-		pcb->SuspendedState = NULL;
+		pcb->SuspendedState = RUNNING;
 		pcb->Priority = Level;
 		strcpy(pcb->Process_Name,Name);
 		pcb->Process_Class = Class;
@@ -63,32 +63,96 @@ PCB* SetupPCB(char[] Name, int Class, int Level )	{
 
 
 PCB* FindPCB(char[] Name)	{
-	while(temp != ReadyQueue->tail && temp != block->tail)	{
-		if(strcmp(stack->head->name,Name) == 0)
-			return &head
-		else{
-      printf("\n Error: There is no such PCB \n");
-			return NULL;
+  // assign temp to start of ReadyQueue
+  PCB* temp = ReadyQueue -> head;
+  // while node exists
+	while(temp != NULL)	{
+    // check for PCB Name
+		if(strcmp(temp -> name,Name) == 0)
+			return &temp;
+    // else if end of ReadyQueue, switch to BlockedQueue
+    else if(temp == ReadyQueue -> tail)
+      temp = BlockedQueue -> head;
+    // else switch to next node if exists
+    else if(temp -> next != NULL)
+      temp = temp -> next;
+  }
+  // returns NULL if node does not exist
+  return NULL;
+}
+
+void InsertPCB(PCB* pcb)	{
+	if(pcb -> ReadyState == READY){
+    PCB* start = ReadyQueue -> head;
+    if(start == NULL){
+      ReadyQueue -> head = pcb;
+      ReadyQueue -> tail = pcb;
+    }
+    else{
+      //ReadyQueue has highest priority at head
+      for(start; start -> next -> Priority >= start -> Priority; start = start -> next);
+      if(start -> next != NULL && start -> prev != NULL){
+        pcb -> prev = start;
+        pcb -> next = start -> next;
+        start -> next = pcb;
+        pcb -> next -> prev = pcb;
+      }
+      else{
+        pcb -> prev = start;
+        start -> next = pcb;
+        ReadyQueue -> tail = pcb;
+      }
     }
   }
+  else{
+    BlockedQueue -> tail -> next = pcb -> prev;
+    BlockedQueue -> tail = pcb;
+  }
 }
 
-void InsertPCB(PCB** head)	{
-	PCB*
-}
+void RemovePCB(PCB* pcb)	{
+  if(pcb -> ReadyState == READY){
+    if(ReadyQueue -> head == pcb){
+      if(pcb -> next != NULL){
+        ReadyQueue -> head == pcb -> next;
+        pcb -> next -> prev == NULL;
+      }
+      else{
+        pcb
+      }
+      }
+    }
+    if(pcb -> next != NULL && pcb -> prev != NULL){
 
-void RemovePCB( )	{
-	//if the Ready queue is empty->
-  if(Ready->count==0)	{
-          printf("Queue is Empty\n");
-          return;
+    }
+    else if(pcb ->)
+  }
+  else{
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+  //if the ReadyQueue is empty->
+  if(Ready -> count == 0) {
+    printf("Queue is Empty\n");
   }
   //otherwise we can remove the specific pcb-> from the queue->
-  else	{
-    Ready->count--;
-    Q->front++;
-    if(Q->front==Q->capacity)	{
-      Q->front=0;
+  else {
+    if(pcb -> prev != NULL && pcb -> next){
+      pcb -> prev -> next
+    }
+    if(pcb -> next != NULL){
+      pcb -> next -> prev
+    }
     }
   }
 }
