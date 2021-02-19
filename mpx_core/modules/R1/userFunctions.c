@@ -364,8 +364,8 @@ void Suspend(Char *Process_Name)	{
 		printf("\x1b[32m""\nThis Process is already SUSPENDED \n""\x1b[0m"
 	}
 	else	{
-		Process_Name->SuspendedState = SUSPENDED;	
-	} 
+		Process_Name->SuspendedState = SUSPENDED;
+	}
   }
 
 }
@@ -386,7 +386,7 @@ void Resume(Char *Process_Name)	{
 		printf("\x1b[32m""\nThis Process is already in the RUNNING state \n""\x1b[0m"
 	}
 	else	{
-		Process_Name->SuspendedState = RUNNING;	
+		Process_Name->SuspendedState = RUNNING;
 	}
   }
 }
@@ -401,7 +401,7 @@ void Set_Priority(Char *Process_Name, int Priority)	{
   PCB* pcb = FindPCB(Process_Name);
   if (pcb = NULL)    {
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  } else if(Priority < 9){
+  } else if(Priority < 10){
         printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m")
   } else {
     RemovePCB(pcb);
@@ -634,15 +634,20 @@ void Show_Blocked()	{
 /// @param Priority integer that matches the priority number.
 /// @param Class integer that matches the class number.
 void Create_PCB(char *Process_Name, int Priority, int Class )	{
-  // Name Error check
-  // Error check (Valid Name)
   if (FindPCB(Process_Name) = NULL)	{
-    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+    if(Priority < 0 && Priority < 10){
+      if(Class == 0 || Class == 1){
+        PCB* pcb = SetupPCB(Process_Name, Class, Priority);
+        InsertPCB(pcb);
+      } else{
+        printf("\x1b[31m""\nERROR: Not a valid Class \n""\x1b[0m");
+      }
+    } else{
+      printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m");
+    }
+  } else{
+    printf("\x1b[31m""\nERROR: Not a valid Process Name \n""\x1b[0m");
   }
-  else {
-	  
-  }
-
 }
 
 /// Brief Description: Removes PCB from appropriate queue and frees all associated memory.
@@ -657,7 +662,7 @@ void Delete_PCB(Char *Process_Name)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
   else {
-	  
+
   }
 
 }
@@ -678,8 +683,8 @@ void Block(Char *Process_Name)	{
 		printf("\x1b[32m""\nThis Process is already BLOCKED \n""\x1b[0m"
 	}
 	else	{
-		Process_Name->ReadyState = BLOCKED;	
-	} 
+		Process_Name->ReadyState = BLOCKED;
+	}
   }
 }
 
@@ -699,7 +704,7 @@ void Unblock(Char *Process_Name)	{
 		printf("\x1b[32m""\nThis Process is already in the READY state \n""\x1b[0m"
 	}
 	else	{
-		Process_Name->ReadyState = READY;	
-	} 
+		Process_Name->ReadyState = READY;
+	}
   }
 }
