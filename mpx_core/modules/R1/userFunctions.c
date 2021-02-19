@@ -417,13 +417,13 @@ void Set_Priority(Char *Process_Name, int Priority)	{
 /// @param Process_Name Character pointer that matches the name of process
 void Show_PCB(char *Process_Name)	{
   int class, check, state, prior, i, j;
-  char[] name;
-  char[] cname = "Name: ";
-  char[] cclass = "Class: ";
-  char[] cstate = "State: ";
-  char[] cstatus = "Status: ";
-  char[] cprior = "Priority: ";
-  char[] line = "\n";
+  char name[];
+  char cname[] = "Name: ";
+  char cclass[] = "Class: ";
+  char cstate[] = "State: ";
+  char cstatus[] = "Status: ";
+  char cprior[] = "Priority: ";
+  char line[] = "\n";
   PCB* pcb = FindPCB(Process_Name);
   class = pcb->Process_Class;
   name = pcb->Process_Name;
@@ -456,16 +456,16 @@ void Show_PCB(char *Process_Name)	{
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready and blocked queues.
 void Show_All()	{
   int class, check, state, prior, i, j;
-  char[] name;
-  char[] ready = "Ready Queue:\n";
-  char[] block = "Blocked Queue: \n";
-  char[] cname = "Name: ";
-  char[] cclass = "Class: ";
-  char[] cstate = "State: ";
-  char[] cstatus = "Status: ";
-  char[] cprior = "Priority: ";
-  char[] line = "\n";
-  char[] dline = "\n\n";
+  char name[];
+  char ready[] = "Ready Queue:\n";
+  char block[] = "Blocked Queue: \n";
+  char cname[] = "Name: ";
+  char cclass[] = "Class: ";
+  char cstate[] = "State: ";
+  char cstatus[] = "Status: ";
+  char cprior[] = "Priority: ";
+  char line[] = "\n";
+  char dline[] = "\n\n";
   check = 15;
 
   sys_req(WRITE, COM1, ready, &check );
@@ -537,14 +537,14 @@ void Show_All()	{
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
 void Show_Ready()	{
   int class, check, state, prior, i, j;
-  char[] name;
-  char[] ready = "Ready Queue:\n";
-  char[] cname = "Name: ";
-  char[] cclass = "Class: ";
-  char[] cstate = "State: ";
-  char[] cstatus = "Status: ";
-  char[] cprior = "Priority: ";
-  char[] line = "\n";
+  char name[];
+  char ready[] = "Ready Queue:\n";
+  char cname[] = "Name: ";
+  char cclass[] = "Class: ";
+  char cstate[] = "State: ";
+  char cstatus[] = "Status: ";
+  char cprior[] = "Priority: ";
+  char line[] = "\n";
   check = 15;
 
   sys_req(WRITE, COM1, ready, &check );
@@ -584,14 +584,14 @@ void Show_Ready()	{
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the blocked queue.
 void Show_Blocked()	{
   int class, check, state, prior, i, j;
-  char[] name;
-  char[] block = "Blocked Queue: \n";
-  char[] cname = "Name: ";
-  char[] cclass = "Class: ";
-  char[] cstate = "State: ";
-  char[] cstatus = "Status: ";
-  char[] cprior = "Priority: ";
-  char[] line = "\n";
+  char name[];
+  char block[] = "Blocked Queue: \n";
+  char cname[] = "Name: ";
+  char cclass[] = "Class: ";
+  char cstate[] = "State: ";
+  char cstatus[] = "Status: ";
+  char cprior[] = "Priority: ";
+  char line[] = "\n";
   check = 15;
 
   sys_req(WRITE, COM1, block, &check );
