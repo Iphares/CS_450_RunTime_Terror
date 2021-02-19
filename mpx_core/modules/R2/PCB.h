@@ -1,38 +1,18 @@
-#DEFINE READY 0;
-#DEFINE BLOCKED 1;
-#DEFINE RUNNING 0;
-#DEFINE SUSPENDED 1;
-#DEFINE SYSTEM 0;
-#DEFINE APPLICATION 1;
+#define READY 0
+#define BLOCKED 1
+#define NO 0
+#define YES 1
+#define SYSTEM 0
+#define APPLICATION 1
 
-#DEFINE 1KMEM 1024;
-#DEFINE 2KMEM 2048;
-#DEFINE 3KMEM 4096;
-#DEFINE 4KMEM 8192;
-#DEFINE 5KMEM 16384;
-
-typedef struct Queue	{
-  int count;
-  PCB *head;
-  PCB *tail;
-};
-
-static struct Queue ReadyQueue {
-  sys_alloc_mem(sizeof(Queue));
-  ReadyQueue->count = 0;
-  ReadyQueue->head = NULL;
-  ReadyQueue->tail = NULL;
-}
-
-static struct Queue BlockedQueue {
-  sys_alloc_mem(sizeof(Queue));
-  BlockedQueue->count = 0;
-  BlockedQueue->head = NULL;
-  BlockedQueue->tail = NULL;
-}
+#define MEM1K 1024
+#define MEM2K 2048
+#define MEM3K 4096
+#define MEM4K 8192
+#define MEM5K 16384
 
 typedef struct PCB	{
-  unsigned char stack[1KMEM];
+  unsigned char stack[MEM1K];
   unsigned char* stackTop;
   struct PCB* prev;
   struct PCB* next;
@@ -41,12 +21,17 @@ typedef struct PCB	{
   int Priority;
   int ReadyState;
   int SuspendedState;
-};
+} PCB;
 
+typedef struct Queue	{
+  int count;
+  PCB *head;
+  PCB *tail;
+} Queue;
 
 PCB* AllocatePCB();
-void FreePCB(*PCB);
-PCB* SetupPCB(char[] Name, int Class, int Priority);
-PCB* FindPCB(char[] Name);
-void InsertPCB(PCB*);
-void RemovePCB(PCB*);
+void FreePCB(PCB* pcb);
+PCB* SetupPCB(char Name[], int Class, int Priority);
+PCB* FindPCB(char Name[]);
+void InsertPCB(PCB* pcb);
+void RemovePCB(PCB* pcb);
