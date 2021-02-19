@@ -41,13 +41,13 @@
 	R2 Functions
 	*********************************************************************/
 	// Places PCB in suspended state and reinserts to appropriate queue
-	void Suspend(char *Process_Name);
+	void Suspend(char *ProcessName);
 	// Places PCB in unsuspended state and reinserts to appropriate queue
-	void Resume(char *Process_Name);
+	void Resume(char *ProcessName);
 	// Sets PCB priority and reinserts into correct place and correct queue
-	void Set_Priority(char *Process_Name, int Priority);
+	void Set_Priority(char *ProcessName, int Priority);
 	// Displays information for a PCB
-	void Show_PCB(char *Process_Name);
+	void Show_PCB(char *ProcessName);
 	// Displays information for each PCB in the ready and blocked queues
 	void Show_All();
 	// Displays information for each PCB in the ready queue
@@ -55,13 +55,13 @@
 	// Displays information for each PCB in the blocked queue
 	void Show_Blocked();
 	// Sets up PCB and puts it in the appropriate queue
-	void Create_PCB(char *Process_Name, int Priority, int Class );
+	void Create_PCB(char *ProcessName, int Priority, int Class );
 	// Removes the PCB for the appropriate queue and frees memory
-	void Delete_PCB(char *Process_Name);
+	void Delete_PCB(char *ProcessName);
 	// Finds PCB sets it to blocked state and reinserts it into the appropriate queue
-	void Block(char *Process_Name);
+	void Block(char *ProcessName);
 	// Finds PCB sets it to unblocked state and reinserts into the appropriate queue
-	void Unblock(char *Process_Name);
+	void Unblock(char *ProcessName);
 
 
 #endif

@@ -353,10 +353,10 @@
 /// Description: Can except a string as a pointer that is the Process Name.  Places a PCB in the suspended state and reinserts it into the appropriate queue.  An error check for valid Process Name.
 ///
 /// @param Process_Name Character pointer that matches the name of process.
-void Suspend(char *Process_Name)	{
+void Suspend(char *ProcessName)	{
   // Name Error check
   // Error check (Valid Name)
-  PCB* pcb = FindPCB(Process_Name);
+  PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -376,10 +376,10 @@ void Suspend(char *Process_Name)	{
 /// Description: Can except a string as a pointer that is the Process Name.  Places a PCB in the not suspended state and reinserts it into the appropriate queue.  An error check for valid Process Name.
 ///
 /// @param Process_Name Character pointer that matches the name of process.
-void Resume(char *Process_Name)	{
+void Resume(char *ProcessName)	{
   // Name Error check
   // Error check (Valid Name)
-  PCB* pcb = FindPCB(Process_Name);
+  PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -399,8 +399,8 @@ void Resume(char *Process_Name)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 /// @param Priority integer that matches the priority number.
-void Set_Priority(char *Process_Name, int Priority)	{
-  PCB* pcb = FindPCB(Process_Name);
+void Set_Priority(char *ProcessName, int Priority)	{
+  PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)    {
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   } else if(Priority < 10){
@@ -417,25 +417,28 @@ void Set_Priority(char *Process_Name, int Priority)	{
 /// Description: Can except a string as a pointer that is the Process Name.  The process name, claas, state, suspend status, and priority of a PCB are displayed.  An error check for a valid name occurs.
 ///
 /// @param Process_Name Character pointer that matches the name of process
-void Show_PCB(char *Process_Name)	{
-  int class, check, state, prior, status;
-  check = 5;
-  char name[];
+void Show_PCB(char *ProcessName)	{
+  int check = 5;
+  char name[10];
   char cname[] = "Name: ";
   char cclass[] = "Class: ";
   char cstate[] = "State: ";
   char cstatus[] = "Status: ";
   char cprior[] = "Priority: ";
   char line[] = "\n";
-  PCB* pcb = FindPCB(Process_Name);
-  class = pcb->Process_Class;
-  name = pcb->Process_Name;
-  state = pcb->ReadyState;
-  status = pcb->SuspendedState;
-  prior = pcb->Priority;
+  PCB* pcb = FindPCB(ProcessName);
+  strcpy(name,pcb->Process_Name);
+  int class = pcb->Process_Class;
+  int state = pcb->ReadyState;
+  int status = pcb->SuspendedState;
+  int prior = pcb->Priority;
   if(name == NULL){
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   } else{
+    printf(cname);
+    printf(ProcessName);
+    printf(line);
+
     printf(cclass);
     sys_req(WRITE, COM1, itoa(class), &check);
     printf(line);
@@ -458,8 +461,8 @@ void Show_PCB(char *Process_Name)	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready and blocked queues.
 void Show_All()	{
-  int class, check, state, prior, status;
-  char name[];
+  int class, check, state, prior, status, i,j;
+  char name[10];
   char ready[] = "Ready Queue:\n";
   char block[] = "Blocked Queue: \n";
   char cname[] = "Name: ";
@@ -473,11 +476,11 @@ void Show_All()	{
 
   sys_req(WRITE, COM1, ready, &check );
   for(i = 0; i <= sizeof(ReadyQueue); i++){
-    char* Process_Name = ReadyQueue[i];
-    PCB* pcb = FindPCB(Process_Name);
+    char* ProcessName1 = ReadyQueue[i];
+    PCB* pcb = FindPCB(ProcessName1);
 
     class = pcb->Process_Class;
-    name = pcb->Process_Name;
+    strcpy(name,pcb->Process_Name);
     state = pcb->ReadyState;
     status = pcb->SuspendedState;
     prior = pcb->Priority;
@@ -505,11 +508,11 @@ void Show_All()	{
 
   sys_req(WRITE, COM1, block, &check );
   for(j = 0; j <= sizeof(BlockedQueue); j++){
-    char* Process_Name = BlockedQueue[j];
-    PCB* pcb = FindPCB(Process_Name);
+    char* ProcessName2 = BlockedQueue[j];
+    PCB* pcb = FindPCB(ProcessName2);
 
     class = pcb->Process_Class;
-    name = pcb->Process_Name;
+    strcpy(name,pcb->Process_Name);
     state = pcb->ReadyState;
     status = pcb->SuspendedState;
     prior = pcb->Priority;
@@ -539,8 +542,8 @@ void Show_All()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
 void Show_Ready()	{
-  int class, check, state, prior, status;
-  char name[];
+  int class, check, state, prior, status, i;
+  char name[10];
   char ready[] = "Ready Queue:\n";
   char cname[] = "Name: ";
   char cclass[] = "Class: ";
@@ -548,15 +551,15 @@ void Show_Ready()	{
   char cstatus[] = "Status: ";
   char cprior[] = "Priority: ";
   char line[] = "\n";
-  check = 15;
+  check = 5;
 
   sys_req(WRITE, COM1, ready, &check );
   for(i = 0; i <= sizeof(ReadyQueue); i++){
-    char* Process_Name = ReadyQueue[i];
-    PCB* pcb = FindPCB(Process_Name);
+    char* ProcessName = ReadyQueue[i];
+    PCB* pcb = FindPCB(ProcessName);
 
     class = pcb->Process_Class;
-    name = pcb->Process_Name;
+    strcpy(name,pcb->Process_Name);
     state = pcb->ReadyState;
     status = pcb->SuspendedState;
     prior = pcb->Priority;
@@ -586,8 +589,8 @@ void Show_Ready()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the blocked queue.
 void Show_Blocked()	{
-  int class, check, state, prior, status;
-  char name[];
+  int class, check, state, prior, status, j;
+  char name[20];
   char block[] = "Blocked Queue: \n";
   char cname[] = "Name: ";
   char cclass[] = "Class: ";
@@ -599,11 +602,11 @@ void Show_Blocked()	{
 
   sys_req(WRITE, COM1, block, &check );
   for(j = 0; j <= sizeof(BlockedQueue); j++){
-    char* Process_Name = BlockedQueue[j];
-    PCB* pcb = FindPCB(Process_Name);
+    char* ProcessName = BlockedQueue[j];
+    PCB* pcb = FindPCB(ProcessName);
 
     class = pcb->Process_Class;
-    name = pcb->Process_Name;
+    strcpy(name,pcb->Process_Name);
     state = pcb->ReadyState;
     status = pcb->SuspendedState;
     prior = pcb->Priority;
@@ -636,11 +639,11 @@ void Show_Blocked()	{
 /// @param Process_Name Character pointer that matches the name of process.
 /// @param Priority integer that matches the priority number.
 /// @param Class integer that matches the class number.
-void Create_PCB(char *Process_Name, int Priority, int Class )	{
-  if (FindPCB(Process_Name) == NULL)	{
+void Create_PCB(char *ProcessName, int Priority, int Class )	{
+  if (FindPCB(ProcessName) == NULL)	{
     if(Priority < 0 && Priority < 10){
       if(Class == 0 || Class == 1){
-        PCB* pcb = SetupPCB(Process_Name, Class, Priority);
+        PCB* pcb = SetupPCB(ProcessName, Class, Priority);
         InsertPCB(pcb);
       } else{
         printf("\x1b[31m""\nERROR: Not a valid Class \n""\x1b[0m");
@@ -658,15 +661,14 @@ void Create_PCB(char *Process_Name, int Priority, int Class )	{
 /// Description: Can except a string as a pointer that is the Process Name. Removes PCB from the appropriate queue and then frees all associated memory.  An error check to make sure process name is valid.
 ///
 /// @param Process_Name Character pointer that matches the name of process.
-void Delete_PCB(char *Process_Name)	{
-  // Name Error check
-  // Error check (Valid Name)
-  if (FindPCB(Process_Name) == NULL)	{
+void Delete_PCB(char *ProcessName)	{
+  PCB* pcb = FindPCB(ProcessName);
+  if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
   else {
-	 RemovePCB(Process_Name);
-	 FreePCB(Process_Name);
+	 RemovePCB(pcb);
+	 FreePCB(pcb);
   }
 }
 
@@ -675,10 +677,10 @@ void Delete_PCB(char *Process_Name)	{
 /// Description: Can except a string as a pointer that is the Process Name.  The specified PCB will be places in a blocked state and reinserted into the appropriate queue.  An error check for a valid name occurs.
 ///
 /// @param Process_Name Character pointer that matches the name of process.
-void Block(char *Process_Name)	{
+void Block(char *ProcessName)	{
   // Name Error check
   // Error check (Valid Name)
-  PCB* pcb = FindPCB(Process_Name);
+  PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -697,10 +699,8 @@ void Block(char *Process_Name)	{
 /// Description: Can except a string as a pointer that is the Process Name.  The specified PCB will be places in an unblocked state and reinserted into the appropriate queue.  An error check for a valid name occurs.
 ///
 /// @param Process_Name Character pointer that matches the name of process.
-void Unblock(char *Process_Name)	{
-  // Name Error check
-  // Error check (Valid Name)
-    PCB* pcb = FindPCB(Process_Name);
+void Unblock(char *ProcessName)	{
+  PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
