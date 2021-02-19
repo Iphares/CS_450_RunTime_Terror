@@ -148,20 +148,24 @@
 
 				/********** R2 Temp Commands **********/
 				else if(strcmp(FirstToken,"createPCB") == 0) {
-					if(EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
-						Create_PCB(atoi(SecondToke), atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class 
-					}
+					if( strlen(SecondToken) < 11)	{
+						if(EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
+							Create_PCB(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class 
+						}
+						else
+							printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, class and priority must be entered as integers. \n""\x1b[0m");
 					else
-						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, class and priority must be entered as integers. \n""\x1b[0m");
+						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, Process_name must only contain 10 or fewer characters. \n""\x1b[0m");
+					}
 				}
 				else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Delete_PCB(atoi(SecondToke));
+					Delete_PCB(atoi(SecondToken));
 				}
 				else if(strcmp(FirstToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Block(atoi(SecondToke));
+					Block(atoi(SecondToken));
 				}
 				else if(strcmp(FirstToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Unblock(atoi(SecondToke));
+					Unblock(atoi(SecondToken));
 				}
 
 /************************************************************************************
