@@ -354,10 +354,18 @@
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Suspend(Char *Process_Name)	{
-
-  if(name == NULL){
+  // Name Error check
+  // Error check (Valid Name)
+  if (FindPCB(Process_Name) = NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  } else{
+  }
+  else {
+	if(Process_Name->SuspendedState == SUSPENDED)	{
+		printf("\x1b[32m""\nThis Process is already suspended \n""\x1b[0m"
+	}
+	else	{
+		Process_Name->SuspendedState = SUSPENDED;	
+	} 
   }
 
 }
@@ -368,14 +376,19 @@ void Suspend(Char *Process_Name)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Resume(Char *Process_Name)	{
-
-
   // Name Error check
   // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
-
+  if (FindPCB(Process_Name) = NULL)	{
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  }
+  else {
+	if(Process_Name->SuspendedState == RUNNING)	{
+		printf("\x1b[32m""\nThis Process is already in the running state \n""\x1b[0m"
+	}
+	else	{
+		Process_Name->SuspendedState = RUNNING;	
+	}
+  }
 }
 
 /// Brief Description: Sets PCB priority and reinserts the process into the correct place in the correct queue.
@@ -621,12 +634,14 @@ void Show_Blocked()	{
 /// @param Priority integer that matches the priority number.
 /// @param Class integer that matches the class number.
 void Create_PCB(char *Process_Name, int Priority, int Class )	{
-
   // Name Error check
   // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
+  if (FindPCB(Process_Name) = NULL)	{
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  }
+  else {
+	  
+  }
 
 }
 
@@ -638,9 +653,12 @@ void Create_PCB(char *Process_Name, int Priority, int Class )	{
 void Delete_PCB(Char *Process_Name)	{
   // Name Error check
   // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
+  if (FindPCB(Process_Name) = NULL)	{
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  }
+  else {
+	  
+  }
 
 }
 
@@ -652,9 +670,12 @@ void Delete_PCB(Char *Process_Name)	{
 void Block(Char *Process_Name)	{
   // Name Error check
   // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
+  if (FindPCB(Process_Name) = NULL)	{
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  }
+  else {
+	  
+  }
 
 }
 
@@ -664,11 +685,12 @@ void Block(Char *Process_Name)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Unblock(Char *Process_Name)	{
-
   // Name Error check
   // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
-
+  if (FindPCB(Process_Name) = NULL)	{
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  }
+  else {
+	  
+  }
 }
