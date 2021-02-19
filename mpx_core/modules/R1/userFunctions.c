@@ -662,9 +662,15 @@ void Delete_PCB(Char *Process_Name)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
   else {
+<<<<<<< HEAD
 
   }
 
+=======
+	 RemovePCB(Process_Name);
+	 FreePCB(Process_Name);		 
+  }  
+>>>>>>> 7aef860896c64296c68e543fc72faf3c8d76bed3
 }
 
 /// Brief Description: Places a PCD in the blocked state and reinserts it into the correct queue.
