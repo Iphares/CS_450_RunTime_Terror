@@ -275,7 +275,7 @@
     int check = 1;
 		if (request[0] == '\0')	{
       			printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-			printf("\n getDate \n setDate \n getTime \n setTime \n version \n shutdown \n\n");
+			printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked \n createPCB \n deletePCB \n block \n unblock \n shutdown \n\n");
 		}
 		else if (strcmp(request, "GetDate") == 0)	{
 	      		printf("\n getDate returns the current date that is loaded onto the operating system.\n");
