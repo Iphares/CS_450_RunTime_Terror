@@ -355,11 +355,10 @@
 /// @param Process_Name Character pointer that matches the name of process.
 void Suspend(Char *Process_Name)	{
 
-  // Name Error check
-  // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
+  if(name == NULL){
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  } else{
+  }
 
 }
 
@@ -386,23 +385,16 @@ void Resume(Char *Process_Name)	{
 /// @param Process_Name Character pointer that matches the name of process.
 /// @param Priority integer that matches the priority number.
 void Set_Priority(Char *Process_Name, int Priority)	{
-  int i;
-
-  // Name Error check
-  // Error check (Valid Name)
-  //if (Process_Name != valid name){
-  //  printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  //}
-  // Priority error check
-  for(i = 0; i < 9; i++){
-    if(Priority == i){
-      break;
-    }
-    else{
-      printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m")
-    }
+  PCB* pcb = FindPCB(Process_Name);
+  if (pcb = NULL)    {
+    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+  } else if(Priority < 9){
+        printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m")
+  } else {
+    RemovePCB(pcb);
+    pcb->Priority = Priority;
+    InsertPCB(pcb);
   }
-
 }
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of a PCB.
