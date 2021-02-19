@@ -361,7 +361,7 @@ void Suspend(Char *Process_Name)	{
   }
   else {
 	if(Process_Name->SuspendedState == SUSPENDED)	{
-		printf("\x1b[32m""\nThis Process is already suspended \n""\x1b[0m"
+		printf("\x1b[32m""\nThis Process is already SUSPENDED \n""\x1b[0m"
 	}
 	else	{
 		Process_Name->SuspendedState = SUSPENDED;	
@@ -383,7 +383,7 @@ void Resume(Char *Process_Name)	{
   }
   else {
 	if(Process_Name->SuspendedState == RUNNING)	{
-		printf("\x1b[32m""\nThis Process is already in the running state \n""\x1b[0m"
+		printf("\x1b[32m""\nThis Process is already in the RUNNING state \n""\x1b[0m"
 	}
 	else	{
 		Process_Name->SuspendedState = RUNNING;	
@@ -674,9 +674,13 @@ void Block(Char *Process_Name)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
   else {
-	  
+	if(Process_Name->ReadyState == BLOCKED)	{
+		printf("\x1b[32m""\nThis Process is already BLOCKED \n""\x1b[0m"
+	}
+	else	{
+		Process_Name->ReadyState = BLOCKED;	
+	} 
   }
-
 }
 
 /// Brief Description: Places a PCD in the unblocked state and reinserts it into the correct queue.
@@ -691,6 +695,11 @@ void Unblock(Char *Process_Name)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
   else {
-	  
+	if(Process_Name->ReadyState == READY)	{
+		printf("\x1b[32m""\nThis Process is already in the READY state \n""\x1b[0m"
+	}
+	else	{
+		Process_Name->ReadyState = READY;	
+	} 
   }
 }
