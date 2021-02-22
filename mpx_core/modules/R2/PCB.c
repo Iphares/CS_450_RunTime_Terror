@@ -18,6 +18,7 @@ struct Queue ReadyQueue ={
 };
 
 struct Queue BlockedQueue ={
+  BlockedQueue = sys_alloc_mem(sizeof(struct Queue));
   .count = 0,
   .head = NULL,
   .tail = NULL
