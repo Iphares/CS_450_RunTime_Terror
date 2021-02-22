@@ -12,6 +12,7 @@
 #include "PCB.h"
 
 struct Queue ReadyQueue ={
+  ReadyQueue = sys_alloc_mem(sizeof(struct Queue));
   .count = 0,
   .head = NULL,
   .tail = NULL
