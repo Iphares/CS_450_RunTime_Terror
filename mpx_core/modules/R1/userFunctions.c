@@ -461,7 +461,7 @@ void Show_PCB(char *ProcessName)	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready and blocked queues.
 void Show_All()	{
-  int class, check, state, prior, status, i,j;
+  int class, check, state, prior, status;
   char name[10];
   char ready[] = "Ready Queue:\n";
   char block[] = "Blocked Queue: \n";
@@ -551,7 +551,7 @@ void Show_All()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
 void Show_Ready()	{
-  int class, check, state, prior, status, i;
+  int class, check, state, prior, status;
   char name[10];
   char ready[] = "Ready Queue:\n";
   char cname[] = "Name: ";
@@ -602,7 +602,7 @@ void Show_Ready()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the blocked queue.
 void Show_Blocked()	{
-  int class, check, state, prior, status, j;
+  int class, check, state, prior, status;
   char name[20];
   char block[] = "Blocked Queue: \n";
   char cname[] = "Name: ";
