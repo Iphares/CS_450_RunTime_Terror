@@ -78,7 +78,14 @@ void kmain(void)
    // NOTE:  You will only have about 70000 bytes of dynamic memory
    klogv("Initializing virtual memory...");
 	 init_paging();
-
+	struct Queue * ReadyQueue(const char * label, int val) {
+	     struct thingy * p = sys_alloc_mem(sizeof(struct thingy));
+	     if (p) {
+		  p->label = label;
+		  p->val = val;
+	     }
+	     return p;
+	}
    sys_alloc_mem(sizeof(BlockedQueue));
    sys_alloc_mem(sizeof(ReadyQueue));
 
