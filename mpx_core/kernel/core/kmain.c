@@ -24,6 +24,7 @@
 
 #include <modules/mpx_supt.h>
 #include "modules/R1/comHand.h"
+#include "modules/R2/PCB.h"
 
 void kmain(void)
 {
@@ -77,6 +78,9 @@ void kmain(void)
    // NOTE:  You will only have about 70000 bytes of dynamic memory
    klogv("Initializing virtual memory...");
 	 init_paging();
+
+   sys_alloc_mem(sizeof(BlockedQueue));
+   sys_alloc_mem(sizeof(ReadyQueue));
 
    // 6) Call YOUR command handler -  interface method
    klogv("Transferring control to commhand...");
