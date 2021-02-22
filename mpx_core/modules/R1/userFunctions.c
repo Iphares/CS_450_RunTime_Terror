@@ -475,9 +475,13 @@ void Show_All()	{
   check = 15;
 
   sys_req(WRITE, COM1, ready, &check );
-  for(i = 0; i <= sizeof(ReadyQueue); i++){
-    char* ProcessName1 = ReadyQueue[i];
-    PCB* pcb = FindPCB(ProcessName1);
+
+  if(ReadyQueue.head != NULL)
+    PCB* pcb = ReadyQueue.head;
+
+  do {
+    if(pcb != ReadyQueue.head)
+      pcb = pcb.next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -504,7 +508,8 @@ void Show_All()	{
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
     printf(dline);
-  }
+
+  } while(pcb.next != NULL);
 
   sys_req(WRITE, COM1, block, &check );
   for(j = 0; j <= sizeof(BlockedQueue); j++){
