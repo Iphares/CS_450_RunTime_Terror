@@ -512,9 +512,13 @@ void Show_All()	{
   } while(pcb.next != NULL);
 
   sys_req(WRITE, COM1, block, &check );
-  for(j = 0; j <= sizeof(BlockedQueue); j++){
-    char* ProcessName2 = BlockedQueue[j];
-    PCB* pcb = FindPCB(ProcessName2);
+
+  if(BlockedQueue.head != NULL)
+    PCB* pcb = BlockedQueue.head;
+
+  do {
+    if(pcb != BlockedQueue.head)
+      pcb = pcb.next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -540,7 +544,7 @@ void Show_All()	{
 
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-  }
+  } while(pcb.next != NULL);
 }
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the ready queue.
@@ -559,9 +563,13 @@ void Show_Ready()	{
   check = 5;
 
   sys_req(WRITE, COM1, ready, &check );
-  for(i = 0; i <= sizeof(ReadyQueue); i++){
-    char* ProcessName = ReadyQueue[i];
-    PCB* pcb = FindPCB(ProcessName);
+
+  if(ReadyQueue.head != NULL)
+    PCB* pcb = ReadyQueue.head;
+
+  do {
+    if(pcb != ReadyQueue.head)
+      pcb = pcb.next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -587,7 +595,7 @@ void Show_Ready()	{
 
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-  }
+  } while(pcb.next != NULL);
 }
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the blocked queue.
@@ -606,9 +614,12 @@ void Show_Blocked()	{
   check = 15;
 
   sys_req(WRITE, COM1, block, &check );
-  for(j = 0; j <= sizeof(BlockedQueue); j++){
-    char* ProcessName = BlockedQueue[j];
-    PCB* pcb = FindPCB(ProcessName);
+  if(BlockedQueue.head != NULL)
+    PCB* pcb = BlockedQueue.head;
+
+  do {
+    if(pcb != BlockedQueue.head)
+      pcb = pcb.next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -634,7 +645,7 @@ void Show_Blocked()	{
 
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-  }
+  } while(pcb.next != NULL);
 }
 
 /// Brief Description: Calls SetupPCB() and inserts PCB into appropriate queue.
