@@ -83,18 +83,22 @@
   /// @param Compares pointer char to validate if it is a number or not.
   int EdgeCase(char* pointer)    {
     int valid = 0;
-    if (strcmp(pointer, "00") == 0){
+    if (strcmp(pointer, "00") == 0) {
       valid = 1;
       return valid;
     }
-    int i, j;
-    for (i = 0; i < strlen(pointer); i++){
+    else if (strcmp(pointer, "0") == 0) {
+      valid = 1;
+      return valid;
+    }
+    else  {
+    int j;
         valid = 0;
-        for(j = 0; j <= 99; j++){
+        for(j = 0; j <= 99; j++)  {
             if(strcmp(pointer,itoa(j)) == 0)
                 valid = 1;
         }
-        if(valid == 0){
+        if(valid == 0)  {
           return valid;
         }
     }
@@ -403,7 +407,7 @@ void Set_Priority(char *ProcessName, int Priority)	{
   PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)    {
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  } else if(Priority < 10){
+  } else if(Priority >= 10){
         printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m");
   } else {
     RemovePCB(pcb);
@@ -432,6 +436,7 @@ void Show_PCB(char *ProcessName)	{
   int state = pcb->ReadyState;
   int status = pcb->SuspendedState;
   int prior = pcb->Priority;
+
   if(name == NULL){
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   } else{
@@ -440,19 +445,39 @@ void Show_PCB(char *ProcessName)	{
     printf(line);
 
     printf(cclass);
-    sys_req(WRITE, COM1, itoa(class), &check);
+    if(pcb->Process_Class == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(class), &check);
+    }
     printf(line);
 
     printf(cstate);
-    sys_req(WRITE, COM1, itoa(state), &check);
+    if(pcb->ReadyState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(state), &check);
+    }
     printf(line);
 
     printf(cstatus);
-    sys_req(WRITE, COM1, itoa(status), &check);
+    if(pcb->SuspendedState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(status), &check);
+    }
     printf(line);
 
     printf(cprior);
-    sys_req(WRITE, COM1, itoa(prior), &check);
+    if(pcb->Priority == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(prior), &check);
+    }
   }
 }
 
@@ -483,9 +508,9 @@ void Show_All()	{
   }
 
   do {
-    if(pcb != getReady()->head)
+    if(pcb != getReady()->head) {
       pcb = pcb->next;
-
+    }
     pcb = pcb->next;
 
     class = pcb->Process_Class;
@@ -498,20 +523,48 @@ void Show_All()	{
     printf(name);
     printf(line);
 
+    printf(cclass);if(pcb->Process_Class == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(class), &check);
+    }
+    printf(line);
+
     printf(cclass);
-    sys_req(WRITE, COM1, itoa(class), &check);
+    if(pcb->Process_Class == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(class), &check);
+    }
     printf(line);
 
     printf(cstate);
-    sys_req(WRITE, COM1, itoa(state), &check);
+    if(pcb->ReadyState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(state), &check);
+    }
     printf(line);
 
     printf(cstatus);
-    sys_req(WRITE, COM1, itoa(status), &check);
+    if(pcb->SuspendedState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(status), &check);
+    }
     printf(line);
 
     printf(cprior);
-    sys_req(WRITE, COM1, itoa(prior), &check);
+    if(pcb->Priority == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(prior), &check);
+    }
     printf(dline);
 
   } while(pcb->next != NULL);
@@ -537,19 +590,39 @@ void Show_All()	{
     printf(line);
 
     printf(cclass);
-    sys_req(WRITE, COM1, itoa(class), &check);
+    if(pcb->Process_Class == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(class), &check);
+    }
     printf(line);
 
     printf(cstate);
-    sys_req(WRITE, COM1, itoa(state), &check);
+    if(pcb->ReadyState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(state), &check);
+    }
     printf(line);
 
     printf(cstatus);
-    sys_req(WRITE, COM1, itoa(status), &check);
+    if(pcb->SuspendedState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(status), &check);
+    }
     printf(line);
 
     printf(cprior);
-    sys_req(WRITE, COM1, itoa(prior), &check);
+    if(pcb->Priority == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(prior), &check);
+    }
   } while(pcb->next != NULL);
 }
 
@@ -591,19 +664,39 @@ void Show_Ready()	{
     printf(line);
 
     printf(cclass);
-    sys_req(WRITE, COM1, itoa(class), &check);
+    if(pcb->Process_Class == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(class), &check);
+    }
     printf(line);
 
     printf(cstate);
-    sys_req(WRITE, COM1, itoa(state), &check);
+    if(pcb->ReadyState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(state), &check);
+    }
     printf(line);
 
     printf(cstatus);
-    sys_req(WRITE, COM1, itoa(status), &check);
+    if(pcb->SuspendedState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(status), &check);
+    }
     printf(line);
 
     printf(cprior);
-    sys_req(WRITE, COM1, itoa(prior), &check);
+    if(pcb->Priority == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(prior), &check);
+    }
   } while(pcb->next != NULL);
 }
 
@@ -645,19 +738,39 @@ void Show_Blocked()	{
     printf(line);
 
     printf(cclass);
-    sys_req(WRITE, COM1, itoa(class), &check);
+    if(pcb->Process_Class == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(class), &check);
+    }
     printf(line);
 
     printf(cstate);
-    sys_req(WRITE, COM1, itoa(state), &check);
+    if(pcb->ReadyState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(state), &check);
+    }
     printf(line);
 
     printf(cstatus);
-    sys_req(WRITE, COM1, itoa(status), &check);
+    if(pcb->SuspendedState == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(status), &check);
+    }
     printf(line);
 
     printf(cprior);
-    sys_req(WRITE, COM1, itoa(prior), &check);
+    if(pcb->Priority == 0)  {
+      printf("0");
+    }
+    else  {
+      sys_req(WRITE, COM1, itoa(prior), &check);
+    }
   } while(pcb->next != NULL);
 }
 
