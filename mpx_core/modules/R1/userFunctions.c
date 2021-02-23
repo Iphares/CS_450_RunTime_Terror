@@ -19,6 +19,10 @@
 #include "../R2/PCB.h"
 #include "userFunctions.h"
 
+/********************************************************************************************************
+				Bonus functions
+********************************************************************************************************/
+
   /// Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
   ///
   /// @param num integer to be put into array
@@ -78,6 +82,15 @@
 		sys_req(WRITE, COM1, msg, &check);
 	}
 
+
+
+
+
+
+/********************************************************************************************************
+				EdgeCase functions
+********************************************************************************************************/
+
   /// Description: Compares pointer char to validate if it is a number or not.
   ///
   /// @param Compares pointer char to validate if it is a number or not.
@@ -104,6 +117,17 @@
     }
     return valid;
   }
+
+
+
+
+
+
+
+
+/********************************************************************************************************
+				R1 functions
+********************************************************************************************************/
 
   /// Description: sets the time register to the new values that the user inputed, all values must be inputed as SetTime(Hours, Minutes, Seconds).
   ///
@@ -271,6 +295,11 @@
     	return c;
     	}
 
+
+/********************************************************************************************************
+				Help function
+********************************************************************************************************/
+
   /// Brief Description: Gives helpful information for one of the functions
   ///
   /// Description: Can except a string as a pointer, if the pointer is null then the function will print a complete list of avaliable commands to the console. If the pointer is a avaliable commands then instructions on how to use the command will be printed. If the command does not exist then a message explaining that it is not a valid command will be displayed.
@@ -300,7 +329,10 @@
       printf("\n shutdown shuts down the system.\n");
     }
 
-/************************R2 Commands****************************************************/
+	  
+/********************************************************************************************************
+				R2 Commands
+********************************************************************************************************/
     else if(strcmp(request,"suspend") == 0) {
 	printf("\n Suspend takes in the name of a PCB then places it into the suspended state and reinserts it into the correct queue.\n");
     }
