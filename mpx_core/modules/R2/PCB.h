@@ -29,6 +29,8 @@ typedef struct Queue	{
   PCB *tail;
 } Queue;
 
+Queue* getReady();
+Queue* getBlocked();
 PCB* AllocatePCB();
 void FreePCB(PCB* pcb);
 PCB* SetupPCB(char Name[], int Class, int Priority);

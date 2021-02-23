@@ -121,51 +121,51 @@
 				R2 comHand
 ************************************************************************************/
 				if(strcmp(FirstToken,"suspend") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Suspend(atoi(SecondToken));
+					Suspend(SecondToken);
 				}
 				else if(strcmp(FirstToken,"resume") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Resume(atoi(SecondToken));
+					Resume(SecondToken);
 				}
 				else if(strcmp(FirstToken,"setPriority") == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 					if(EdgeCase(ThirdToken) == 1)	{
-						setPriority(atoi(SecondToken), atoi(ThirdToken));			//input as setPriority-Process_Name-Priority
+						Set_Priority(SecondToken, atoi(ThirdToken));			//input as setPriority-Process_Name-Priority
 					}
 					else
 						printf("\x1b[31m""\nERROR: Invalid parameters for setPriority, priority must be entered as a integer. \n""\x1b[0m");
 				}
 				else if(strcmp(FirstToken,"showPCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Show_PCB(atoi(SecondToken));
+					Show_PCB(SecondToken);
 				}
 				else if(strcmp(FirstToken,"showAll") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					showAll();
+					Show_All();
 				}
 				else if(strcmp(FirstToken,"showReady") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					showReady();
+					Show_Ready();
 				}
 				else if(strcmp(FirstToken,"showBlocked") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					showBlocked();
+					Show_Blocked();
 				}
 
 				/********** R2 Temp Commands **********/
 				else if(strcmp(FirstToken,"createPCB") == 0) {
 					if( strlen(SecondToken) < 11)	{
-						if(EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
-							Create_PCB(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class 
-						}
-						else
-							printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, class and priority must be entered as integers. \n""\x1b[0m");
+						// if(EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
+							Create_PCB(SecondToken, atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class
+						// }
+						// else
+							// printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, class and priority must be entered as integers. \n""\x1b[0m");
+					}
 					else
 						printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, Process_name must only contain 10 or fewer characters. \n""\x1b[0m");
-					}
 				}
 				else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Delete_PCB(atoi(SecondToken));
+					Delete_PCB(SecondToken);
 				}
 				else if(strcmp(FirstToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Block(atoi(SecondToken));
+					Block(SecondToken);
 				}
 				else if(strcmp(FirstToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					Unblock(atoi(SecondToken));
+					Unblock(SecondToken);
 				}
 
 /************************************************************************************
@@ -177,7 +177,7 @@
 				}
 				else
 					printf("\x1b[31m""\nERROR: Not a valid command \n""\x1b[0m");
-			}
+				}
 			else{
 				if(strcmp(FirstToken,"yes") == 0 && shutdown == 1)	{
 					quit = 1;

@@ -11,15 +11,13 @@
 #include "../R1/userFunctions.h"
 #include "PCB.h"
 
-struct Queue ReadyQueue ={
-  ReadyQueue = sys_alloc_mem(sizeof(struct Queue));
+Queue ReadyQueue ={
   .count = 0,
   .head = NULL,
   .tail = NULL
 };
 
-struct Queue BlockedQueue ={
-  BlockedQueue = sys_alloc_mem(sizeof(struct Queue));
+Queue BlockedQueue ={
   .count = 0,
   .head = NULL,
   .tail = NULL
@@ -48,6 +46,14 @@ PCB* SetupPCB(char Name[], int Class, int Priority)	{
 	strcpy(pcb->Process_Name,Name);
 	pcb->Process_Class = Class;
 	return pcb;
+}
+
+Queue* getReady(){
+  return &ReadyQueue;
+}
+
+Queue* getBlocked(){
+  return &BlockedQueue;
 }
 
 

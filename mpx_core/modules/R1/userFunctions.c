@@ -476,12 +476,17 @@ void Show_All()	{
 
   sys_req(WRITE, COM1, ready, &check );
 
-  if(ReadyQueue.head != NULL)
-    PCB* pcb = ReadyQueue.head;
+  PCB* pcb;
+
+  if(getReady()->head != NULL){
+    pcb = getReady()->head;
+  }
 
   do {
-    if(pcb != ReadyQueue.head)
-      pcb = pcb.next;
+    if(pcb != getReady()->head)
+      pcb = pcb->next;
+
+    pcb = pcb->next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -509,16 +514,17 @@ void Show_All()	{
     sys_req(WRITE, COM1, itoa(prior), &check);
     printf(dline);
 
-  } while(pcb.next != NULL);
+  } while(pcb->next != NULL);
 
   sys_req(WRITE, COM1, block, &check );
 
-  if(BlockedQueue.head != NULL)
-    PCB* pcb = BlockedQueue.head;
+  if(getBlocked()->head != NULL){
+    pcb = getBlocked()->head;
+  }
 
   do {
-    if(pcb != BlockedQueue.head)
-      pcb = pcb.next;
+    if(pcb != getBlocked()->head)
+      pcb = pcb->next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -544,7 +550,7 @@ void Show_All()	{
 
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-  } while(pcb.next != NULL);
+  } while(pcb->next != NULL);
 }
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the ready queue.
@@ -564,12 +570,15 @@ void Show_Ready()	{
 
   sys_req(WRITE, COM1, ready, &check );
 
-  if(ReadyQueue.head != NULL)
-    PCB* pcb = ReadyQueue.head;
+  PCB* pcb;
+
+  if(getReady()->head != NULL){
+    pcb = getReady()->head;
+  }
 
   do {
-    if(pcb != ReadyQueue.head)
-      pcb = pcb.next;
+    if(pcb != getReady()->head)
+      pcb = pcb->next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -595,7 +604,7 @@ void Show_Ready()	{
 
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-  } while(pcb.next != NULL);
+  } while(pcb->next != NULL);
 }
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the blocked queue.
@@ -614,12 +623,16 @@ void Show_Blocked()	{
   check = 15;
 
   sys_req(WRITE, COM1, block, &check );
-  if(BlockedQueue.head != NULL)
-    PCB* pcb = BlockedQueue.head;
+
+  PCB* pcb;
+
+  if(getBlocked()->head != NULL){
+    pcb = getBlocked()->head;
+  }
 
   do {
-    if(pcb != BlockedQueue.head)
-      pcb = pcb.next;
+    if(pcb != getBlocked()->head)
+      pcb = pcb->next;
 
     class = pcb->Process_Class;
     strcpy(name,pcb->Process_Name);
@@ -645,7 +658,7 @@ void Show_Blocked()	{
 
     printf(cprior);
     sys_req(WRITE, COM1, itoa(prior), &check);
-  } while(pcb.next != NULL);
+  } while(pcb->next != NULL);
 }
 
 /// Brief Description: Calls SetupPCB() and inserts PCB into appropriate queue.
@@ -657,7 +670,7 @@ void Show_Blocked()	{
 /// @param Class integer that matches the class number.
 void Create_PCB(char *ProcessName, int Priority, int Class )	{
   if (FindPCB(ProcessName) == NULL)	{
-    if(Priority < 0 && Priority < 10){
+    if(Priority >= 0 && Priority < 10){
       if(Class == 0 || Class == 1){
         PCB* pcb = SetupPCB(ProcessName, Class, Priority);
         InsertPCB(pcb);
