@@ -425,6 +425,7 @@ void Resume(char *ProcessName)	{
   	}
   	else	{
   		pcb->SuspendedState = NO;
+		 printf("\n");
   	}
   }
 }
@@ -445,6 +446,7 @@ void Set_Priority(char *ProcessName, int Priority)	{
     RemovePCB(pcb);
     pcb->Priority = Priority;
     InsertPCB(pcb);
+    printf("\n");
   }
 }
 
@@ -513,6 +515,7 @@ void Show_PCB(char *ProcessName)	{
 	    }
 	    else  {
 	      sys_req(WRITE, COM1, itoa(prior), &check);
+		    printf("\n");
 	    }
 	  }
 	}
@@ -656,9 +659,11 @@ void Show_All()	{
     printf(cprior);
     if(pcb->Priority == 0)  {
       printf("0");
+	    printf("\n");
     }
     else  {
       sys_req(WRITE, COM1, itoa(prior), &check);
+	    printf("\n");
     }
   } while(pcb->next != NULL);
 }
@@ -730,9 +735,11 @@ void Show_Ready()	{
     printf(cprior);
     if(pcb->Priority == 0)  {
       printf("0");
+	    printf("\n");
     }
     else  {
       sys_req(WRITE, COM1, itoa(prior), &check);
+	    printf("\n");
     }
   } while(pcb->next != NULL);
 }
@@ -804,9 +811,11 @@ void Show_Blocked()	{
     printf(cprior);
     if(pcb->Priority == 0)  {
       printf("0");
+	    printf("\n");
     }
     else  {
       sys_req(WRITE, COM1, itoa(prior), &check);
+	    printf("\n");
     }
   } while(pcb->next != NULL);
 }
@@ -824,6 +833,7 @@ void Create_PCB(char *ProcessName, int Priority, int Class )	{
       if(Class == 0 || Class == 1){
         PCB* pcb = SetupPCB(ProcessName, Class, Priority);
         InsertPCB(pcb);
+	      printf("\n");
       } else{
         printf("\x1b[31m""\nERROR: Not a valid Class \n""\x1b[0m");
       }
@@ -848,6 +858,7 @@ void Delete_PCB(char *ProcessName)	{
   else {
 	 RemovePCB(pcb);
 	 FreePCB(pcb);
+	  printf("\n");
   }
 }
 
@@ -869,6 +880,7 @@ void Block(char *ProcessName)	{
     }
     else	{
     	pcb->ReadyState = BLOCKED;
+	    printf("\n");
     }
   }
 }
@@ -889,6 +901,7 @@ void Unblock(char *ProcessName)	{
     }
     else	{
     	pcb->ReadyState = READY;
+	    printf("\n");
     }
   }
 }
