@@ -35,6 +35,7 @@ void FreePCB(PCB* pcb)	{
 }
 
 PCB* SetupPCB(char Name[], int Class, int Priority)	{
+
 	PCB* pcb = AllocatePCB();
 	pcb->stackTop = 1024 + pcb->stack;
 	memset(pcb->stack, 0, 1024);
@@ -48,46 +49,58 @@ PCB* SetupPCB(char Name[], int Class, int Priority)	{
 	return pcb;
 }
 
-Queue* getReady(){
+Queue* getReady() {
   return &ReadyQueue;
 }
 
-Queue* getBlocked(){
+Queue* getBlocked() {
   return &BlockedQueue;
 }
 
 
 PCB* FindPCB(char Name[])	{
   // assign temp to start of ReadyQueue
-  PCB* temp = ReadyQueue.head;
+  PCB* tempR = ReadyQueue.head;
+  PCB* tempB = BlockedQueue.head;
   // while node exists
-	while(temp != NULL)	{
+	while(tempR != NULL )	{
     // check for PCB Name
-		if(strcmp(temp -> Process_Name,Name) == 0)
-			return temp;
+		if(strcmp(tempR -> Process_Name,Name) == 0)
+			return tempR;
     // else if end of ReadyQueue, switch to BlockedQueue
-    else if(temp == ReadyQueue.tail)
-      temp = BlockedQueue.head;
+    //else if(temp == ReadyQueue.tail)
+      //temp = BlockedQueue.head;
     // else switch to next node if exists
-    else if(temp -> next != NULL)
-      temp = temp -> next;
+    else if(tempR -> next != NULL)
+      tempR = tempR -> next;
+  }
+  while(tempB != NULL )	{
+    // check for PCB Name
+		if(strcmp(tempB -> Process_Name,Name) == 0)
+			return tempB;
+    // else if end of ReadyQueue, switch to BlockedQueue
+    //else if(temp == ReadyQueue.tail)
+      //temp = BlockedQueue.head;
+    // else switch to next node if exists
+    else if(tempB -> next != NULL)
+      tempB = tempB -> next;
   }
   // returns NULL if node does not exist
   return NULL;
 }
 
 void InsertPCB(PCB* pcb)	{
-	if(pcb -> ReadyState == READY){
+	if(pcb -> ReadyState == READY) {
     PCB* start = ReadyQueue.head;
-    if(start == NULL){
+    if(start == NULL) {
       ReadyQueue.head = pcb;
       ReadyQueue.tail = pcb;
     }
-    else{
+    else  {
       //ReadyQueue has highest priority at head
       while(start -> next -> Priority >= start -> Priority)
         start = start -> next;
-      if(start -> next != NULL && start -> prev != NULL){
+      if(start -> next != NULL && start -> prev != NULL)  {
         pcb -> prev = start;
         pcb -> next = start -> next;
         start -> next = pcb;
@@ -113,8 +126,8 @@ void RemovePCB(PCB* pcb)	{
   else
     queue = &BlockedQueue;
 
-  if(queue -> head == pcb){
-    if(pcb -> next != NULL){
+  if(queue -> head == pcb)  {
+    if(pcb -> next != NULL) {
       queue -> head = pcb -> next;
       pcb -> next -> prev = NULL;
       pcb -> next = NULL;
@@ -123,14 +136,15 @@ void RemovePCB(PCB* pcb)	{
       queue -> head = NULL;
   }
   else{
-    if(pcb -> next != NULL && pcb -> prev != NULL){
+    if(pcb -> next != NULL && pcb -> prev != NULL)  {
       pcb -> prev -> next = pcb -> next -> prev;
       pcb -> next = NULL;
       pcb -> prev = NULL;
     }
-    else if(pcb -> next != NULL){
+    else if(pcb -> next != NULL)  {
       queue -> tail = pcb -> prev;
       pcb -> prev = NULL;
     }
   }
 }
+
