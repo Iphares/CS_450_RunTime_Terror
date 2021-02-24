@@ -383,27 +383,34 @@
 /*********************************************************************
 			R2 Functions
 *********************************************************************/
-
 /// Brief Description: Places a PCD in the suspended state and reinserts it into the appropriate queue.
 ///
 /// Description: Can except a string as a pointer that is the Process Name.  Places a PCB in the suspended state and reinserts it into the appropriate queue.  An error check for valid Process Name.
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Suspend(char *ProcessName)	{
-  PCB* pcb = FindPCB(ProcessName);
-  if (pcb == NULL)	{
-    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  }
-  else {
-  	if(pcb->SuspendedState == YES)	{
-  		printf("\x1b[32m""\nThis Process is already SUSPENDED \n""\x1b[0m");
-  	}
-  	else	{
-  		pcb->SuspendedState = YES;
-  	}
-  }
+	  PCB* pcb = FindPCB(ProcessName);
+	  if (pcb == NULL)	{
+	    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+	  }
+	  else {
+		if(pcb->SuspendedState == YES)	{
+			printf("\x1b[32m""\nThis Process is already SUSPENDED \n""\x1b[0m");
+		}
+		else	{
+			pcb->SuspendedState = YES;
+			PCB* Temp = pcb;
+			//remove and reinsert into the new location.
+			RemovePCB(pcb);
+			insertPCB(Temp);	
+		}
+	  }
 
 }
+
+
+
+
 
 /// Brief Description: Places a PCD in the not suspended state and reinserts it into the appropriate queue.
 ///
@@ -411,20 +418,27 @@ void Suspend(char *ProcessName)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Resume(char *ProcessName)	{
-  PCB* pcb = FindPCB(ProcessName);
-  if (pcb == NULL)	{
-    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  }
-  else {
-  	if(pcb->SuspendedState == NO)	{
-  		printf("\x1b[32m""\nThis Process is already in the RUNNING state \n""\x1b[0m");
-  	}
-  	else	{
-  		pcb->SuspendedState = NO;
-		 printf("\n");
-  	}
-  }
+	  PCB* pcb = FindPCB(ProcessName);
+	  if (pcb == NULL)	{
+	    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+	  }
+	  else {
+		if(pcb->SuspendedState == NO)	{
+			printf("\x1b[32m""\nThis Process is already in the RUNNING state \n""\x1b[0m");
+		}
+		else	{
+			pcb->SuspendedState = NO;
+			PCB* Temp = pcb;
+			//remove and reinsert into the new location.
+			RemovePCB(pcb);
+			insertPCB(Temp);
+		}
+	  }
 }
+
+
+
+
 
 /// Brief Description: Sets PCB priority and reinserts the process into the correct place in the correct queue.
 ///
@@ -433,18 +447,23 @@ void Resume(char *ProcessName)	{
 /// @param Process_Name Character pointer that matches the name of process.
 /// @param Priority integer that matches the priority number.
 void Set_Priority(char *ProcessName, int Priority)	{
-  PCB* pcb = FindPCB(ProcessName);
-  if (pcb == NULL)    {
-    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-  } else if(Priority >= 10){
-        printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m");
-  } else {
-    RemovePCB(pcb);
-    pcb->Priority = Priority;
-    InsertPCB(pcb);
-    printf("\n");
-  }
+	  PCB* pcb = FindPCB(ProcessName);
+	  if (pcb == NULL)    {
+	   	printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+	  } 
+	  else if(Priority >= 10){
+		printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m");
+	  } 
+	  else {
+	  	RemovePCB(pcb);
+	    	pcb->Priority = Priority;
+	    	InsertPCB(pcb);
+	    	printf("\n");
+	  }
 }
+
+
+
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of a PCB.
 ///
@@ -456,66 +475,66 @@ void Show_PCB(char *ProcessName)	{
 		 printf("\x1b[31m""\nERROR: PCB does not exist \n""\x1b[0m");
 	}
 	else	{
-	  int check = 5;
-	  char name[10];
-	  char cname[] = "Name: ";
-	  char cclass[] = "Class: ";
-	  char cstate[] = "State: ";
-	  char cstatus[] = "Status: ";
-	  char cprior[] = "Priority: ";
-	  char line[] = "\n";
-	  PCB* pcb = FindPCB(ProcessName);
-	  strcpy(name,pcb->Process_Name);
-	  int class = pcb->Process_Class;
-	  int state = pcb->ReadyState;
-	  int status = pcb->SuspendedState;
-	  int prior = pcb->Priority;
+		  int check = 5;
+		  char name[10];
+		  char cname[] = "Name: ";
+		  char cclass[] = "Class: ";
+		  char cstate[] = "State: ";
+		  char cstatus[] = "Status: ";
+		  char cprior[] = "Priority: ";
+		  char line[] = "\n";
+		  PCB* pcb = FindPCB(ProcessName);
+		  strcpy(name,pcb->Process_Name);
+		  int class = pcb->Process_Class;
+		  int state = pcb->ReadyState;
+		  int status = pcb->SuspendedState;
+		  int prior = pcb->Priority;
 
-	  if(name == NULL){
-	    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
-	  } else{
-	    printf(cname);
-	    printf(ProcessName);
-	    printf(line);
-
-	    printf(cclass);
-	    if(pcb->Process_Class == 0)  {
-	      printf("0");
+		  if(name == NULL){
+		    	printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+	  	  } 
+		  else	{
+	    		printf(cname);
+			printf(ProcessName);
+			printf(line);
+			printf(cclass);
+	    	  if(pcb->Process_Class == 0)  {
+	      		printf("0");
+	    	  }
+	    	  else  {
+	      		sys_req(WRITE, COM1, itoa(class), &check);
+	          }
+	    		printf(line);
+			printf(cstate);
+	    	  if(pcb->ReadyState == 0)  {
+	      		printf("0");
+	          }
+	          else  {
+	      		sys_req(WRITE, COM1, itoa(state), &check);
+	          }
+	    		printf(line);
+			printf(cstatus);
+	          if(pcb->SuspendedState == 0)  {
+	      		printf("0");
+	    	  }
+	    	  else  {
+	      		sys_req(WRITE, COM1, itoa(status), &check);
+	          }
+	    		printf(line);
+			printf(cprior);
+	    	  if(pcb->Priority == 0)  {
+	      		printf("0");
+	          }
+	          else  {
+	      		sys_req(WRITE, COM1, itoa(prior), &check);
+		    	printf("\n");
+	          }
 	    }
-	    else  {
-	      sys_req(WRITE, COM1, itoa(class), &check);
-	    }
-	    printf(line);
-
-	    printf(cstate);
-	    if(pcb->ReadyState == 0)  {
-	      printf("0");
-	    }
-	    else  {
-	      sys_req(WRITE, COM1, itoa(state), &check);
-	    }
-	    printf(line);
-
-	    printf(cstatus);
-	    if(pcb->SuspendedState == 0)  {
-	      printf("0");
-	    }
-	    else  {
-	      sys_req(WRITE, COM1, itoa(status), &check);
-	    }
-	    printf(line);
-
-	    printf(cprior);
-	    if(pcb->Priority == 0)  {
-	      printf("0");
-	    }
-	    else  {
-	      sys_req(WRITE, COM1, itoa(prior), &check);
-		    printf("\n");
-	    }
-	  }
 	}
 }
+
+
+
 
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the ready and blocked queues.
@@ -664,6 +683,10 @@ void Show_All()	{
   } while(pcb->next != NULL);
 }
 
+
+
+
+
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the ready queue.
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
@@ -739,6 +762,10 @@ void Show_Ready()	{
     }
   } while(pcb->next != NULL);
 }
+
+
+
+
 
 /// Brief Description: Displays the process name, class, state, suspended status, and priority of all PCB in the blocked queue.
 ///
@@ -816,6 +843,10 @@ void Show_Blocked()	{
   } while(pcb->next != NULL);
 }
 
+
+
+
+
 /// Brief Description: Calls SetupPCB() and inserts PCB into appropriate queue.
 ///
 /// Description: Can except a string as a pointer that is the Process Name. Can accept two integers, Priority and Class. SetupPCB() will be called and the PCB will be inserted into the appropriate queue.  An error check for unique and valid Process Name, an error check for valid  process class, and an error check for process priority.
@@ -841,6 +872,10 @@ void Create_PCB(char *ProcessName, int Priority, int Class )	{
   }
 }
 
+
+
+
+
 /// Brief Description: Removes PCB from appropriate queue and frees all associated memory.
 ///
 /// Description: Can except a string as a pointer that is the Process Name. Removes PCB from the appropriate queue and then frees all associated memory.  An error check to make sure process name is valid.
@@ -857,6 +892,10 @@ void Delete_PCB(char *ProcessName)	{
 	  printf("\n");
   }
 }
+
+
+
+
 
 /// Brief Description: Places a PCD in the blocked state and reinserts it into the correct queue.
 ///
@@ -893,6 +932,10 @@ void Block(char *ProcessName)	{
     }
   }
 }
+
+
+
+
 
 /// Brief Description: Places a PCD in the unblocked state and reinserts it into the correct queue.
 ///
