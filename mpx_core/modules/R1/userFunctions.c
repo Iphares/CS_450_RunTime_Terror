@@ -329,7 +329,7 @@
       printf("\n shutdown shuts down the system.\n");
     }
 
-	  
+
 /********************************************************************************************************
 				R2 Commands
 ********************************************************************************************************/
@@ -390,8 +390,6 @@
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Suspend(char *ProcessName)	{
-  // Name Error check
-  // Error check (Valid Name)
   PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
@@ -413,8 +411,6 @@ void Suspend(char *ProcessName)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Resume(char *ProcessName)	{
-  // Name Error check
-  // Error check (Valid Name)
   PCB* pcb = FindPCB(ProcessName);
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
@@ -868,9 +864,8 @@ void Delete_PCB(char *ProcessName)	{
 ///
 /// @param Process_Name Character pointer that matches the name of process.
 void Block(char *ProcessName)	{
-  // Name Error check
-  // Error check (Valid Name)
   PCB* pcb = FindPCB(ProcessName);
+  PCB* pcbh;
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -879,8 +874,22 @@ void Block(char *ProcessName)	{
     	printf("\x1b[32m""\nThis Process is already BLOCKED \n""\x1b[0m");
     }
     else	{
-    	pcb->ReadyState = BLOCKED;
-	    printf("\n");
+      pcb->ReadyState = BLOCKED;
+      RemovePCB(pcb);
+      InsertPCB(pcb);
+      // Between these comments is questionable
+      if(getBlocked()->head == NULL){
+        getBlocked()->head = pcb;
+      }
+      else{
+        pcbh = getBlocked()->head;
+        pcbh = pcbh->next;
+        while(pcbh != NULL){
+          pcbh = pcbh->next;
+        }
+        pcb = pcbh;
+      }
+      // Between these comments is questionable
     }
   }
 }
@@ -892,6 +901,7 @@ void Block(char *ProcessName)	{
 /// @param Process_Name Character pointer that matches the name of process.
 void Unblock(char *ProcessName)	{
   PCB* pcb = FindPCB(ProcessName);
+  PCB* pcbh;
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -901,7 +911,21 @@ void Unblock(char *ProcessName)	{
     }
     else	{
     	pcb->ReadyState = READY;
-	    printf("\n");
+      RemovePCB(pcb);
+      InsertPCB(pcb);
+      // Between these comments is questionable
+      if(getReady()->head == NULL){
+        getReady()-> head= pcb;
+      }
+      else{
+        pcbh = getReady()->head;
+        pcbh = pcbh->next;
+        while(pcbh != NULL){
+          pcbh = pcbh->next;
+        }
+        pcb = pcbh;
+      }
+      // Between these comments is questionable
     }
   }
 }

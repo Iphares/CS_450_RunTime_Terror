@@ -27,7 +27,7 @@ PCB* AllocatePCB()	{
 void FreePCB(PCB* pcb)	{
 	if(sys_free_mem(pcb) != -1)
 		printf("\nMemory release successful \n");
-	
+
 	// Renable in R5 when sys_free_mem actually does something.
 	//else
 		//printf("\nMemory cannot be released from the requested pcb->\n");
@@ -112,9 +112,16 @@ void InsertPCB(PCB* pcb)	{
       }
     }
   }
-  else{
-    BlockedQueue.tail -> next = pcb -> prev;
-    BlockedQueue.tail = pcb;
+  else if(pcb -> ReadyState == BLOCKED){
+    PCB* startb = BlockedQueue.head;
+    if(startb == NULL) {
+      ReadyQueue.head = pcb;
+      ReadyQueue.tail = pcb;
+    }
+    else  {
+      BlockedQueue.tail -> next = pcb -> prev;
+      BlockedQueue.tail = pcb;
+    }
   }
 }
 
@@ -146,4 +153,3 @@ void RemovePCB(PCB* pcb)	{
     }
   }
 }
-
