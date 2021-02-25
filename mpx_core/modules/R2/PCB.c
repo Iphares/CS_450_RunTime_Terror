@@ -70,7 +70,6 @@ PCB* FindPCB(char Name[])	{
     //else if(temp == ReadyQueue.tail)
       //temp = BlockedQueue.head;
     // else switch to next node if exists
-    else if(tempR -> next != NULL)
       tempR = tempR -> next;
   }
   while(tempB != NULL )	{
@@ -81,45 +80,63 @@ PCB* FindPCB(char Name[])	{
     //else if(temp == ReadyQueue.tail)
       //temp = BlockedQueue.head;
     // else switch to next node if exists
-    else if(tempB -> next != NULL)
       tempB = tempB -> next;
   }
   // returns NULL if node does not exist
   return NULL;
 }
 
+
+
+
+
 void InsertPCB(PCB* pcb)	{
-	if(pcb -> ReadyState == READY) {
-    PCB* start = ReadyQueue.head;
-    if(start == NULL) {
-      ReadyQueue.head = pcb;
-      ReadyQueue.tail = pcb;
-    }
-    else  {
-      //ReadyQueue has highest priority at head
-      while(start -> next -> Priority >= start -> Priority)
-        start = start -> next;
-      if(start -> next != NULL && start -> prev != NULL)  {
-        pcb -> prev = start;
-        pcb -> next = start -> next;
-        start -> next = pcb;
-        pcb -> next -> prev = pcb;
-      }
-      else{
-        pcb -> prev = start;
-        start -> next = pcb;
-        ReadyQueue.tail = pcb;
-      }
-    }
-  }
-  else if(pcb -> ReadyState == BLOCKED){
+	if(pcb -> ReadyState == READY) {	
+	    PCB* start = ReadyQueue.head;
+	    if(start == NULL) {
+	      ReadyQueue.head = pcb;
+	      ReadyQueue.tail = pcb;
+	    }
+	    else  {
+	      //ReadyQueue has highest priority at head
+	      while((start -> Priority >= pcb -> Priority) && start -> next != NULL)
+	      	start = start -> next;	
+	     
+	     if(start == ReadyQueue.head)	{
+	      	if(pcb -> Priority > start -> Priority)	{
+	      		ReadyQueue.head = pcb;
+	      		pcb->next = start;
+	      		start->prev = pcb;
+	      	}
+	      	else	{
+	      		start->next = pcb;
+	      		pcb->prev = start;
+	      	}
+	      }
+	      else if(start -> Priority >= pcb -> Priority)	{
+			pcb -> prev = start;
+			start -> next = pcb;
+			ReadyQueue.tail = pcb;
+	      }
+	      else if(start -> prev != NULL)  {
+			pcb -> next = start;
+			pcb -> prev = start -> prev;
+			start -> prev = pcb;
+			pcb -> prev -> next = pcb;
+	      }
+		      
+	   }
+	  
+	}
+    	else if(pcb -> ReadyState == BLOCKED){
     PCB* startb = BlockedQueue.head;
     if(startb == NULL) {
-      ReadyQueue.head = pcb;
-      ReadyQueue.tail = pcb;
+      BlockedQueue.head = pcb;
+      BlockedQueue.tail = pcb;
     }
     else  {
-      BlockedQueue.tail -> next = pcb -> prev;
+      BlockedQueue.tail -> next = pcb;
+      pcb ->prev = BlockedQueue.tail;
       BlockedQueue.tail = pcb;
     }
   }
@@ -141,15 +158,20 @@ void RemovePCB(PCB* pcb)	{
     else
       queue -> head = NULL;
   }
-  else{
-    if(pcb -> next != NULL && pcb -> prev != NULL)  {
-      pcb -> prev -> next = pcb -> next -> prev;
+  else if(pcb -> next != NULL && pcb -> prev != NULL)  {
+      pcb -> prev -> next = pcb -> next;
+      pcb -> next -> prev = pcb -> prev;
       pcb -> next = NULL;
       pcb -> prev = NULL;
     }
-    else if(pcb -> next != NULL)  {
+    
+    else  {
       queue -> tail = pcb -> prev;
-      pcb -> prev = NULL;
+      pcb -> prev -> next = NULL;
     }
-  }
 }
+
+
+
+
+
