@@ -282,7 +282,7 @@
   ///
   /// No parameters.
 	void Version()	{
-		printf("Version: R2.0 \n");
+		printf("Version: R2.6 \n");
 	}
 
   /// Description: If a letter is uppercase, it changes it to lowercase. (char)
@@ -398,11 +398,7 @@ void Suspend(char *ProcessName)	{
 			printf("\x1b[32m""\nThis Process is already SUSPENDED \n""\x1b[0m");
 		}
 		else	{
-			pcb->SuspendedState = YES;
-			PCB* Temp = pcb;
-			//remove and reinsert into the new location.
-			RemovePCB(pcb);
-			insertPCB(Temp);	
+			pcb->SuspendedState = YES;	
 		}
 	  }
 
@@ -420,18 +416,14 @@ void Suspend(char *ProcessName)	{
 void Resume(char *ProcessName)	{
 	  PCB* pcb = FindPCB(ProcessName);
 	  if (pcb == NULL)	{
-	    printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
+	    printf(RED"\nERROR: Not a valid process name \n"RESET);
 	  }
 	  else {
 		if(pcb->SuspendedState == NO)	{
-			printf("\x1b[32m""\nThis Process is already in the RUNNING state \n""\x1b[0m");
+			printf(GRN"\nThis Process is already in the NONSUSPENDED state \n"RESET);
 		}
 		else	{
 			pcb->SuspendedState = NO;
-			PCB* Temp = pcb;
-			//remove and reinsert into the new location.
-			RemovePCB(pcb);
-			insertPCB(Temp);
 		}
 	  }
 }
@@ -458,7 +450,6 @@ void Set_Priority(char *ProcessName, int Priority)	{
 	  	RemovePCB(pcb);
 	    	pcb->Priority = Priority;
 	    	InsertPCB(pcb);
-	    	printf("\n");
 	  }
 }
 
@@ -524,10 +515,11 @@ void Show_PCB(char *ProcessName)	{
 			printf(cprior);
 	    	  if(pcb->Priority == 0)  {
 	      		printf("0");
+	      		printf("\n\n");
 	          }
 	          else  {
 	      		sys_req(WRITE, COM1, itoa(prior), &check);
-		    	printf("\n");
+	      		printf("\n\n");
 	          }
 	    }
 	}
@@ -541,146 +533,8 @@ void Show_PCB(char *ProcessName)	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready and blocked queues.
 void Show_All()	{
-  int class, check, state, prior, status;
-  char name[10];
-  char ready[] = "Ready Queue:\n";
-  char block[] = "Blocked Queue: \n";
-  char cname[] = "Name: ";
-  char cclass[] = "Class: ";
-  char cstate[] = "State: ";
-  char cstatus[] = "Status: ";
-  char cprior[] = "Priority: ";
-  char line[] = "\n";
-  char dline[] = "\n\n";
-  check = 15;
-
-  sys_req(WRITE, COM1, ready, &check );
-
-  PCB* pcb;
-
-  if(getReady()->head != NULL){
-    pcb = getReady()->head;
-  }
-
-  do {
-    if(pcb != getReady()->head) {
-      pcb = pcb->next;
-    }
-    pcb = pcb->next;
-
-    class = pcb->Process_Class;
-    strcpy(name,pcb->Process_Name);
-    state = pcb->ReadyState;
-    status = pcb->SuspendedState;
-    prior = pcb->Priority;
-
-    printf(cname);
-    printf(name);
-    printf(line);
-
-    printf(cclass);if(pcb->Process_Class == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(class), &check);
-    }
-    printf(line);
-
-    printf(cclass);
-    if(pcb->Process_Class == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(class), &check);
-    }
-    printf(line);
-
-    printf(cstate);
-    if(pcb->ReadyState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(state), &check);
-    }
-    printf(line);
-
-    printf(cstatus);
-    if(pcb->SuspendedState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(status), &check);
-    }
-    printf(line);
-
-    printf(cprior);
-    if(pcb->Priority == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(prior), &check);
-    }
-    printf(dline);
-
-  } while(pcb->next != NULL);
-
-  sys_req(WRITE, COM1, block, &check );
-
-  if(getBlocked()->head != NULL){
-    pcb = getBlocked()->head;
-  }
-
-  do {
-    if(pcb != getBlocked()->head)
-      pcb = pcb->next;
-
-    class = pcb->Process_Class;
-    strcpy(name,pcb->Process_Name);
-    state = pcb->ReadyState;
-    status = pcb->SuspendedState;
-    prior = pcb->Priority;
-
-    printf(cname);
-    printf(name);
-    printf(line);
-
-    printf(cclass);
-    if(pcb->Process_Class == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(class), &check);
-    }
-    printf(line);
-
-    printf(cstate);
-    if(pcb->ReadyState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(state), &check);
-    }
-    printf(line);
-
-    printf(cstatus);
-    if(pcb->SuspendedState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(status), &check);
-    }
-    printf(line);
-
-    printf(cprior);
-    if(pcb->Priority == 0)  {
-      printf("0");
-	    printf("\n");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(prior), &check);
-	    printf("\n");
-    }
-  } while(pcb->next != NULL);
+	Show_Ready();
+	Show_Blocked();
 }
 
 
@@ -691,76 +545,128 @@ void Show_All()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the ready queue.
 void Show_Ready()	{
-  int class, check, state, prior, status;
-  char name[10];
-  char ready[] = "Ready Queue:\n";
-  char cname[] = "Name: ";
-  char cclass[] = "Class: ";
-  char cstate[] = "State: ";
-  char cstatus[] = "Status: ";
-  char cprior[] = "Priority: ";
-  char line[] = "\n";
-  check = 5;
+	if(getReady()->head == NULL)	{
+		 printf("\x1b[32m""\n The Ready Queue is empty \n""\x1b[0m");
+		 
+	}
+	else	{
+	
+		  int class, check, state, prior, status;
+		  char name[10];
+		  char ready[] = "\x1B[34m""\nReady Queue:\n""\x1B[0m";
+		  char cname[] = "Name: ";
+		  char cclass[] = "Class: ";
+		  char cstate[] = "State: ";
+		  char cstatus[] = "Status: ";
+		  char cprior[] = "Priority: ";
+		  char line[] = "\n";
+		  check = 5;
 
-  sys_req(WRITE, COM1, ready, &check );
+		  sys_req(WRITE, COM1, ready, &check );
 
-  PCB* pcb;
+		  PCB* pcb = getReady()->head;
 
-  if(getReady()->head != NULL){
-    pcb = getReady()->head;
-  }
+		  if(pcb->next == NULL)	{
+		  	class = pcb->Process_Class;
+		    	strcpy(name,pcb->Process_Name);
+		    	state = pcb->ReadyState;
+		    	status = pcb->SuspendedState;
+		    	prior = pcb->Priority;
 
-  do {
-    if(pcb != getReady()->head)
-      pcb = pcb->next;
+		    	printf(cname);
+		    	printf(name);
+		    	printf(line);
 
-    class = pcb->Process_Class;
-    strcpy(name,pcb->Process_Name);
-    state = pcb->ReadyState;
-    status = pcb->SuspendedState;
-    prior = pcb->Priority;
+			    printf(cclass);
+			    if(pcb->Process_Class == 0)  {
+			      printf("0");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(class), &check);
+			    }
+			    printf(line);
 
-    printf(cname);
-    printf(name);
-    printf(line);
+			    printf(cstate);
+			    if(pcb->ReadyState == 0)  {
+			      printf("0");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(state), &check);
+			    }
+			    printf(line);
 
-    printf(cclass);
-    if(pcb->Process_Class == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(class), &check);
-    }
-    printf(line);
+			    printf(cstatus);
+			    if(pcb->SuspendedState == 0)  {
+			      printf("0");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(status), &check);
+			    }
+			    printf(line);
 
-    printf(cstate);
-    if(pcb->ReadyState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(state), &check);
-    }
-    printf(line);
+			    printf(cprior);
+			    if(pcb->Priority == 0)  {
+			      printf("0");
+			      printf("\n\n");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(prior), &check);
+			      printf("\n\n");
+			    }
+		  }
+		  else	{
+		  	while(pcb != NULL)	{
+		  		class = pcb->Process_Class;
+			    	strcpy(name,pcb->Process_Name);
+			    	state = pcb->ReadyState;
+			    	status = pcb->SuspendedState;
+			    	prior = pcb->Priority;
 
-    printf(cstatus);
-    if(pcb->SuspendedState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(status), &check);
-    }
-    printf(line);
+			    	printf(cname);
+			    	printf(name);
+			    	printf(line);
 
-    printf(cprior);
-    if(pcb->Priority == 0)  {
-      printf("0");
-	    printf("\n");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(prior), &check);
-	    printf("\n");
-    }
-  } while(pcb->next != NULL);
+				    printf(cclass);
+				    if(pcb->Process_Class == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(class), &check);
+				    }
+				    printf(line);
+
+				    printf(cstate);
+				    if(pcb->ReadyState == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(state), &check);
+				    }
+				    printf(line);
+
+				    printf(cstatus);
+				    if(pcb->SuspendedState == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(status), &check);
+				    }
+				    printf(line);
+
+				    printf(cprior);
+				    if(pcb->Priority == 0)  {
+				      printf("0");
+				      printf("\n\n");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(prior), &check);
+				      printf("\n\n");
+				    }	 
+		  		pcb = pcb->next;
+		 	}
+		 }
+		
+	}
 }
 
 
@@ -771,76 +677,125 @@ void Show_Ready()	{
 ///
 /// Description: The process name, claas, state, suspend status, and priority of each of he PCB's in the blocked queue.
 void Show_Blocked()	{
-  int class, check, state, prior, status;
-  char name[20];
-  char block[] = "Blocked Queue: \n";
-  char cname[] = "Name: ";
-  char cclass[] = "Class: ";
-  char cstate[] = "State: ";
-  char cstatus[] = "Status: ";
-  char cprior[] = "Priority: ";
-  char line[] = "\n";
-  check = 15;
+	if(getBlocked()->head == NULL)	{
+		 printf("\x1b[32m""\n The Blocked Queue is empty \n""\x1b[0m");		 
+	}
+	else	{
+		  int class, check, state, prior, status;
+		  char name[20];
+		  char block[] = "\x1B[34m""Blocked Queue: \n""\x1b[0m";
+		  char cname[] = "Name: ";
+		  char cclass[] = "Class: ";
+		  char cstate[] = "State: ";
+		  char cstatus[] = "Status: ";
+		  char cprior[] = "Priority: ";
+		  char line[] = "\n";
+		  check = 15;
 
-  sys_req(WRITE, COM1, block, &check );
+		  sys_req(WRITE, COM1, block, &check );
 
-  PCB* pcb;
+		  PCB* pcb = getBlocked()->head;
 
-  if(getBlocked()->head != NULL){
-    pcb = getBlocked()->head;
-  }
+		  if(pcb->next == NULL)	{
+		  	class = pcb->Process_Class;
+		    	strcpy(name,pcb->Process_Name);
+		    	state = pcb->ReadyState;
+		    	status = pcb->SuspendedState;
+		    	prior = pcb->Priority;
 
-  do {
-    if(pcb != getBlocked()->head)
-      pcb = pcb->next;
+		    	printf(cname);
+		    	printf(name);
+		    	printf(line);
 
-    class = pcb->Process_Class;
-    strcpy(name,pcb->Process_Name);
-    state = pcb->ReadyState;
-    status = pcb->SuspendedState;
-    prior = pcb->Priority;
+			    printf(cclass);
+			    if(pcb->Process_Class == 0)  {
+			      printf("0");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(class), &check);
+			    }
+			    printf(line);
 
-    printf(cname);
-    printf(name);
-    printf(line);
+			    printf(cstate);
+			    if(pcb->ReadyState == 0)  {
+			      printf("0");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(state), &check);
+			    }
+			    printf(line);
 
-    printf(cclass);
-    if(pcb->Process_Class == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(class), &check);
-    }
-    printf(line);
+			    printf(cstatus);
+			    if(pcb->SuspendedState == 0)  {
+			      printf("0");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(status), &check);
+			    }
+			    printf(line);
 
-    printf(cstate);
-    if(pcb->ReadyState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(state), &check);
-    }
-    printf(line);
+			    printf(cprior);
+			    if(pcb->Priority == 0)  {
+			      printf("0");
+			      printf("\n\n");
+			    }
+			    else  {
+			      sys_req(WRITE, COM1, itoa(prior), &check);
+			      printf("\n\n");
+			    }
+		  }
+		  else	{
+		  	while(pcb != NULL)	{
+		  		class = pcb->Process_Class;
+			    	strcpy(name,pcb->Process_Name);
+			    	state = pcb->ReadyState;
+			    	status = pcb->SuspendedState;
+			    	prior = pcb->Priority;
 
-    printf(cstatus);
-    if(pcb->SuspendedState == 0)  {
-      printf("0");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(status), &check);
-    }
-    printf(line);
+			    	printf(cname);
+			    	printf(name);
+			    	printf(line);
 
-    printf(cprior);
-    if(pcb->Priority == 0)  {
-      printf("0");
-	    printf("\n");
-    }
-    else  {
-      sys_req(WRITE, COM1, itoa(prior), &check);
-	    printf("\n");
-    }
-  } while(pcb->next != NULL);
+				    printf(cclass);
+				    if(pcb->Process_Class == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(class), &check);
+				    }
+				    printf(line);
+
+				    printf(cstate);
+				    if(pcb->ReadyState == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(state), &check);
+				    }
+				    printf(line);
+
+				    printf(cstatus);
+				    if(pcb->SuspendedState == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(status), &check);
+				    }
+				    printf(line);
+
+				    printf(cprior);
+				    if(pcb->Priority == 0)  {
+				      printf("0");
+				      printf("\n\n");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(prior), &check);
+				      printf("\n\n");
+				    }	 
+		  		pcb = pcb->next;
+		 	}
+		 }
+	}
 }
 
 
@@ -860,7 +815,6 @@ void Create_PCB(char *ProcessName, int Priority, int Class )	{
       if(Class == 0 || Class == 1){
         PCB* pcb = SetupPCB(ProcessName, Class, Priority);
         InsertPCB(pcb);
-	      printf("\n");
       } else{
         printf("\x1b[31m""\nERROR: Not a valid Class \n""\x1b[0m");
       }
@@ -889,7 +843,6 @@ void Delete_PCB(char *ProcessName)	{
   else {
 	 RemovePCB(pcb);
 	 FreePCB(pcb);
-	  printf("\n");
   }
 }
 
@@ -904,7 +857,6 @@ void Delete_PCB(char *ProcessName)	{
 /// @param Process_Name Character pointer that matches the name of process.
 void Block(char *ProcessName)	{
   PCB* pcb = FindPCB(ProcessName);
-  PCB* pcbh;
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -912,23 +864,10 @@ void Block(char *ProcessName)	{
     if(pcb->ReadyState == BLOCKED)	{
     	printf("\x1b[32m""\nThis Process is already BLOCKED \n""\x1b[0m");
     }
-    else	{
-      pcb->ReadyState = BLOCKED;
+    else	{   
       RemovePCB(pcb);
+      pcb->ReadyState = BLOCKED;
       InsertPCB(pcb);
-      // Between these comments is questionable
-      if(getBlocked()->head == NULL){
-        getBlocked()->head = pcb;
-      }
-      else{
-        pcbh = getBlocked()->head;
-        pcbh = pcbh->next;
-        while(pcbh != NULL){
-          pcbh = pcbh->next;
-        }
-        pcb = pcbh;
-      }
-      // Between these comments is questionable
     }
   }
 }
@@ -944,7 +883,6 @@ void Block(char *ProcessName)	{
 /// @param Process_Name Character pointer that matches the name of process.
 void Unblock(char *ProcessName)	{
   PCB* pcb = FindPCB(ProcessName);
-  PCB* pcbh;
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
@@ -953,22 +891,9 @@ void Unblock(char *ProcessName)	{
     	printf("\x1b[32m""\nThis Process is already in the READY state \n""\x1b[0m");
     }
     else	{
-    	pcb->ReadyState = READY;
       RemovePCB(pcb);
+      pcb->ReadyState = READY;
       InsertPCB(pcb);
-      // Between these comments is questionable
-      if(getReady()->head == NULL){
-        getReady()-> head= pcb;
-      }
-      else{
-        pcbh = getReady()->head;
-        pcbh = pcbh->next;
-        while(pcbh != NULL){
-          pcbh = pcbh->next;
-        }
-        pcb = pcbh;
-      }
-      // Between these comments is questionable
     }
   }
 }
