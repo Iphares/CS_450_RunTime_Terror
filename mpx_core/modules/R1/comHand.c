@@ -120,21 +120,24 @@
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 					}
+					
+					
+					
+					
+					
+					
 	/************************************************************************************
 					R2 comHand
 	************************************************************************************/
 					else if(strcmp(FirstToken,"suspend") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Suspend(SecondToken);
-						printf("\n");
 					}
 					else if(strcmp(FirstToken,"resume") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Resume(SecondToken);
-						printf("\n");
 					}
 					else if(strcmp(FirstToken,"setPriority") == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						if(EdgeCase(ThirdToken) == 1)	{
 							Set_Priority(SecondToken, atoi(ThirdToken));	//input as setPriority-Process_Name-Priority
-							printf("\n");
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for setPriority, priority must be entered as a integer. \n""\x1b[0m");
@@ -159,27 +162,19 @@
 					/********** R2 Temp Commands **********/
 					else if(strcmp(FirstToken,"createPCB") == 0) {
 						if( strlen(SecondToken) < 11)	{
-							// if(EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
-								Create_PCB(SecondToken, atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class
-								printf("\n");
-							// }
-							// else
-								// printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, class and priority must be entered as integers. \n""\x1b[0m");
+								Create_PCB(SecondToken, atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class	
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, Process_name must only contain 10 or fewer characters. \n""\x1b[0m");
 					}
 					else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Delete_PCB(SecondToken);
-						printf("\n");
 					}
 					else if(strcmp(FirstToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Block(SecondToken);
-						printf("\n");
 					}
 					else if(strcmp(FirstToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Unblock(SecondToken);
-						printf("\n");
 					}
 
 	/************************************************************************************
