@@ -334,13 +334,13 @@
 				R2 Commands
 ********************************************************************************************************/
     else if(strcmp(request,"suspend") == 0) {
-	printf("\n Suspend takes in the name of a PCB then places it into the suspended state and reinserts it into the correct queue.\n");
+	printf("\n Suspend takes in the name of a PCB (suspend-NAME) then places it into the suspended state and reinserts it into the correct queue.\n");
     }
     else if(strcmp(request,"resume") == 0) {
-	printf("\n Resume takes in the name of a PCB then removes it from the suspended state and adds it to the correct queue.\n");
+	printf("\n Resume takes in the name of a PCB (resume-NAME) then removes it from the suspended state and adds it to the correct queue.\n");
     }
     else if(strcmp(request,"setPriority") == 0) {
-	printf("\n SetPriority takes in the name of a PCB and the priority it needs to be set to then reinstates the specified PCB into a new location by priority.\n");
+	printf("\n SetPriority takes in the name of a PCB and the priority (setPrioriry-NAME-PRIORITY) it needs to be set to then reinstates the specified PCB into a new location by priority.\n");
     }
     else if(strcmp(request,"showPCB") == 0) {
 	printf("\n ShowPCB takes in the name of a PCB and returns all the associated attributes to the user.\n");
@@ -357,16 +357,16 @@
 
 /********************************* R2 Temp Commands *********************************************************/
     else if(strcmp(request,"createPCB") == 0) {
-	printf("\n  CreatePCB takes in the process_name, process_class, and process_priority. Then assigns this new process into the correct queue.\n");
+	printf("\n CreatePCB takes in the process_name, process_class, and process_priority.(createPCB-NAME-PRIORITY-CLASS) Then assigns this new process into the correct queue.\n");
     }
     else if(strcmp(request,"deletePCB") == 0) {
-	printf("\n DeletePCB takes in the process_name then deletes it from the queue and free's all the memory that was previously allocated to the specified PCB.\n");
+	printf("\n DeletePCB takes in the process_name (deletePCB-NAME) then deletes it from the queue and free's all the memory that was previously allocated to the specified PCB.\n");
     }
     else if(strcmp(request,"block") == 0) {
-	printf("\n Block takes in the process_name then sets it's state to blocked and reinserts it back into the correct queue.\n");
+	printf("\n Block takes in the process_name (block-NAME) then sets it's state to blocked and reinserts it back into the correct queue.\n");
     }
     else if(strcmp(request,"unblock") == 0) {
-	printf("\n Unblock takes in the process_name then sets it's state to ready and reinserts it back into the correct queue.\n");
+	printf("\n Unblock takes in the process_name (unblock-NAME) then sets it's state to ready and reinserts it back into the correct queue.\n");
     }
     else	{
 	 printf("\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m");
