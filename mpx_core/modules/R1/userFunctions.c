@@ -822,7 +822,7 @@ void Create_PCB(char *ProcessName, int Priority, int Class )	{
       printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m");
     }
   } else{
-    printf("\x1b[31m""\nERROR: Not a valid Process Name \n""\x1b[0m");
+    printf("\x1b[31m""\nERROR: This Process Name already exists \n""\x1b[0m");
   }
 }
 
