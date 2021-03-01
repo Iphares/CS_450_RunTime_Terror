@@ -23,6 +23,16 @@
 				Bonus functions
 ********************************************************************************************************/
 
+
+
+void clear()	{
+	printf('\0333[2J');
+	printf('\033[H');       
+}
+
+
+
+
   /// Description: An integer is taken and seperated into individual chars and then all placed into a character array. Adapted from geeksforgeeks.org.
   ///
   /// @param num integer to be put into array
