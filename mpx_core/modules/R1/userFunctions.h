@@ -19,6 +19,8 @@
 	//
 	int  DectoBCD (int Decimal);
 	//
+	void clear();
+	//
 	char* itoa(int num);
 	// Sets the date of the system
 	void SetDate(int day, int month, int millennium, int year);
