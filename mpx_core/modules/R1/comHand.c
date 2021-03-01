@@ -100,6 +100,8 @@
 
 					else if(strcmp(FirstToken,"version") == 0 && strcmp(SecondToken,NULL) == 0)
 						Version();
+					else if(strcmp(FirstToken,"clear") == 0 && strcmp(SecondToken,NULL) == 0)
+						clear();
 
 					else if(strcmp(FirstToken,"getDate") == 0 && strcmp(SecondToken,NULL) == 0)
 						GetDate();
