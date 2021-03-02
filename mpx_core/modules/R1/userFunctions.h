@@ -40,7 +40,7 @@
 	char toLowercase(char c);
 
 	/*********************************************************************
-	R2 Functions
+				R2 Functions
 	*********************************************************************/
 	// Places PCB in suspended state and reinserts to appropriate queue
 	void Suspend(char *ProcessName);
@@ -65,5 +65,10 @@
 	// Finds PCB sets it to unblocked state and reinserts into the appropriate queue
 	void Unblock(char *ProcessName);
 
+	/*********************************************************************
+				R3 Functions
+	*********************************************************************/
+	PCB loadr3();
+	void yiels();
 
 #endif
