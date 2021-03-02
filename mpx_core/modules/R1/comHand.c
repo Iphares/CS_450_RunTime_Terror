@@ -178,6 +178,30 @@
 					else if(strcmp(FirstToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Unblock(SecondToken);
 					}
+	/************************************************************************************
+					R3 comHand
+	************************************************************************************/			
+					else if(strcmp(FirstToken,"yield") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						yield();
+						printf("\n");
+					}
+					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						loadr3();
+						printf("\n");
+					}
+	/************************************************************************************
+					R4 comHand
+	************************************************************************************/	
+				/*
+					else if(strcmp(FirstToken,"alarm") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						alarm();
+						printf("\n");
+					}
+					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						loadr3();
+						printf("\n");
+					}	
+					*/
 
 	/************************************************************************************
 					shutdown comHand
