@@ -35,7 +35,10 @@ void FreePCB(PCB* pcb)	{
 
 PCB* SetupPCB(char Name[], int Class, int Priority)	{
 	PCB* pcb = AllocatePCB();
-	pcb->stackTop = 1024 + pcb->stack;
+	//R2 implementations updated in R3
+	//pcb->stackTop = 1024 + pcb->stack;
+	//R3 implementation
+	pcb->stackTop = 1024 + pcb->stack - sizeof(struct context);
 	memset(pcb->stack, 0, 1024);
 	pcb->prev = NULL;
 	pcb->next = NULL;
