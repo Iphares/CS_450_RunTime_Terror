@@ -134,3 +134,26 @@ sys_call_isr:
   pop ds
   popa
 	iret
+
+  PCB* cop;
+  u32int* sys_call(context* registers){
+    if(cop == NULL){
+      ;;cop = registers i think this is wrong
+    }
+    else{
+      if(params.op code == IDLE){
+        cop == registers;
+      } else if(params.op code == EXIT){
+        sys_free_mem(cop);
+      }
+    }
+    if(getReady()->head == NULL){
+      return registers;
+    } else{
+      PCB* pcb = getReady()->head;
+      remove(pcb);
+      pcb->ReadyState = 1;
+      cop = pcb;
+      return cop;
+    }
+  }
