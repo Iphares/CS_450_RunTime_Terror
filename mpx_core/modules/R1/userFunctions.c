@@ -922,8 +922,8 @@ PCB loadr3()	{
 	Char[] list ={"proc1", "proc2", "proc3", "proc4", "proc5"};
 	int control;
 	for(control = 0; control < 5; control++)	{
-		name = list[control];
-		
+		char* name = list[control];
+		char* func = name;
 		pcb * new_pcb = SetupPCB( name , 1 , 1);
 		//pcb * new_pcb = create_pcb ( name , 1 , 1 , 1 , stack_size );
 		context * cp = ( context *)( new_pcb -> stack_top );
@@ -935,7 +935,7 @@ PCB loadr3()	{
 		cp - > cs = 0 x8 ;
 		cp - > ebp = ( u32int )( new_pcb -> stack );
 		cp - > esp = ( u32int )( new_pcb -> stack_top );
-		cp - > eip = ( u32int ) proc1();// The function correlating to the process , ie. Proc1
+		cp - > eip = ( u32int ) func;// The function correlating to the process , ie. Proc1
 		cp - > eflags = 0 x202 ;
 		return new_pcb ;	
 		
