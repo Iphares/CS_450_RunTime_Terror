@@ -924,7 +924,8 @@ PCB loadr3()	{
 	for(control = 0; control < 5; control++)	{
 		name = list[control];
 		
-		pcb * new_pcb = create_pcb ( name , 1 , 1 , 1 , stack_size );
+		pcb * new_pcb = SetupPCB( name , 1 , 1);
+		//pcb * new_pcb = create_pcb ( name , 1 , 1 , 1 , stack_size );
 		context * cp = ( context *)( new_pcb -> stack_top );
 		memset ( cp , 0, sizeof ( context ));
 		cp - > fs = 0 x10 ;
