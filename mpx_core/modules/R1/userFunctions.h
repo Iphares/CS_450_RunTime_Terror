@@ -68,8 +68,8 @@
 	/*********************************************************************
 				R3 Functions
 	*********************************************************************/
-	void loader(char[] func);
-	PCB loadr3();
+	void loader();
+	void loadr3(char* name, u32int func)
 	void yield();
 
 #endif
