@@ -918,12 +918,18 @@ void Unblock(char *ProcessName)	{
 				R3 Commands
 ********************************************************************************************************/
 
-PCB loadr3()	{
-	Char[] list ={"proc1", "proc2", "proc3", "proc4", "proc5"};
-	int control;
-	for(control = 0; control < 5; control++)	{
-		char* name = list[control];
-		char* func = name;
+void loader()	{
+	loadr3(proc1);
+	loadr3(proc2);
+	loadr3(proc3);
+	loadr3(proc4);
+	loadr3(proc5);
+}
+
+
+
+PCB loadr3(Char[] func)	{
+		
 		pcb * new_pcb = SetupPCB( name , 1 , 1);
 		//pcb * new_pcb = create_pcb ( name , 1 , 1 , 1 , stack_size );
 		context * cp = ( context *)( new_pcb -> stack_top );
@@ -937,9 +943,7 @@ PCB loadr3()	{
 		cp - > esp = ( u32int )( new_pcb -> stack_top );
 		cp - > eip = ( u32int ) func;// The function correlating to the process , ie. Proc1
 		cp - > eflags = 0 x202 ;
-		return new_pcb ;	
-		
-	}		
+		return new_pcb ;			
 }
 
 void yield()	{
