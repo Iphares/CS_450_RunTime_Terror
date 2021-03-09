@@ -919,31 +919,31 @@ void Unblock(char *ProcessName)	{
 ********************************************************************************************************/
 
 void loader()	{
-	loadr3(proc1);
-	loadr3(proc2);
-	loadr3(proc3);
-	loadr3(proc4);
-	loadr3(proc5);
+	loadr3("test1",proc1);
+	loadr3("test2",proc2);
+	loadr3("test3",proc3);
+	loadr3("test4",proc4);
+	loadr3("test5",proc5);
 }
 
 
 
-PCB loadr3(Char[] func)	{
+void loadr3(char* name, u32int func)	{
 		
-		pcb * new_pcb = SetupPCB( name , 1 , 1);
+		pcb * new_pcb = SetupPCB(name, 1, 1);
 		//pcb * new_pcb = create_pcb ( name , 1 , 1 , 1 , stack_size );
 		context * cp = ( context *)( new_pcb -> stack_top );
 		memset ( cp , 0, sizeof ( context ));
-		cp - > fs = 0 x10 ;
-		cp - > gs = 0 x10 ;
-		cp - > ds = 0 x10 ;
-		cp - > es = 0 x10 ;
-		cp - > cs = 0 x8 ;
+		cp - > fs = 0 x10;
+		cp - > gs = 0 x10;
+		cp - > ds = 0 x10;
+		cp - > es = 0 x10;
+		cp - > cs = 0 x8;
 		cp - > ebp = ( u32int )( new_pcb -> stack );
 		cp - > esp = ( u32int )( new_pcb -> stack_top );
 		cp - > eip = ( u32int ) func;// The function correlating to the process , ie. Proc1
 		cp - > eflags = 0 x202 ;
-		return new_pcb ;			
+		inserPCB(new_pcb);			
 }
 
 void yield()	{
