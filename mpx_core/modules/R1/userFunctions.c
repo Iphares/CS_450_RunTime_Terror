@@ -26,8 +26,8 @@
 
 
 void clear()	{
-	printf("\033[2J");
-	printf("\033[H");       
+	printf("\033c");
+	Help("");       
 }
 
 
