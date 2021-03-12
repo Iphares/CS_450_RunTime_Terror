@@ -66,10 +66,10 @@ void kmain(void)
     // this creates and initializes a default interrupt vector table
     // this function is in tables.c
     klogv("Interrupt vector table initialized!");
+    init_pic();
     init_idt();
     init_irq();
-    init_pic();
-
+    
    // 5) Virtual Memory -- paging.c  -- init_paging
    //  this function creates the kernel's heap
    //  from which memory will be allocated when the program calls
@@ -84,9 +84,9 @@ void kmain(void)
    klogv("Transferring control to commhand...");
    // INSERT OS LAUNCH TEXT HERE
 	//for R4 remove comhand from here this will become a process
-	/*************************
+	/*************************/
 	 	comHand();
-	*************************/
+	/*************************/
 	
 	
 	

@@ -69,7 +69,7 @@
 				R3 Functions
 	*********************************************************************/
 	void loader();
-	void loadr3(char* name, u32int func)
+	void loadr3(char* name, u32int func);
 	void yield();
 
 #endif

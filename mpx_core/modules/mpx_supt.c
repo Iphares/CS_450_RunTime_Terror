@@ -12,6 +12,7 @@
 #include <string.h>
 #include <core/serial.h>
 
+
 // global variable containing parameter used when making
 // system calls via sys_req
 param params;
@@ -189,24 +190,25 @@ void idle()
 
 
 PCB* cop;
+context* initial;
   u32int* sys_call(context* registers){
     if(cop == NULL){
-      ;;cop = registers i think this is wrong
+      initial = registers;
     }
     else{
-      if(params.op code == IDLE){
-        cop == registers;
-      } else if(params.op code == EXIT){
+      if(params.op_code == IDLE){
+        cop->stackTop = (unsigned char*)registers;
+      } else if(params.op_code == EXIT){
         sys_free_mem(cop);
       }
     }
     if(getReady()->head == NULL){
-      return registers;
+      return (u32int*)initial;
     } else{
       PCB* pcb = getReady()->head;
-      remove(pcb);
+      RemovePCB(pcb);
       pcb->ReadyState = 1;
       cop = pcb;
-      return cop;
+      return (u32int*)cop->stackTop;
     }
   }

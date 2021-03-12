@@ -4,6 +4,7 @@
 #define _MPX_SUPT_H
 
 #include <system.h>
+#include "R2/PCB.h"
 
 #define EXIT 0
 #define IDLE 1

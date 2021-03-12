@@ -47,6 +47,8 @@ extern void page_fault();
 extern void reserved();
 extern void coprocessor();
 extern void rtc_isr();
+extern void sys_call_isr();
+
 
 extern idt_entry idt_entries[256];
 
@@ -99,6 +101,7 @@ void init_irq(void)
   
   //R3 interrupt 60
   idt_set_gate(60, (u32int)sys_call_isr, 0x08, 0x8e);
+
   
 }
 

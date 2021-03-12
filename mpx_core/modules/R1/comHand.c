@@ -186,7 +186,7 @@
 						printf("\n");
 					}
 					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						loadr3();
+						loader();
 						printf("\n");
 					}
 	/************************************************************************************

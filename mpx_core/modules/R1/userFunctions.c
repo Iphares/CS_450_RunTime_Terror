@@ -16,8 +16,8 @@
 
 #include <core/io.h>
 #include "../mpx_supt.h"
-#include "../R2/PCB.h"
 #include "userFunctions.h"
+#include "../procsr3.h"
 
 /********************************************************************************************************
 				Bonus functions
@@ -26,8 +26,8 @@
 
 
 void clear()	{
-	printf('\0333[2J');
-	printf('\033[H');       
+	printf("\033[2J");
+	printf("\033[H");       
 }
 
 
@@ -919,31 +919,32 @@ void Unblock(char *ProcessName)	{
 ********************************************************************************************************/
 
 void loader()	{
-	loadr3("test1",proc1);
-	loadr3("test2",proc2);
-	loadr3("test3",proc3);
-	loadr3("test4",proc4);
-	loadr3("test5",proc5);
+	loadr3("test1",(u32int)proc1);
+	loadr3("test2",(u32int)proc2);
+	loadr3("test3",(u32int)proc3);
+	loadr3("test4",(u32int)proc4);
+	loadr3("test5",(u32int)proc5);
 }
 
 
 
 void loadr3(char* name, u32int func)	{
 		
-		pcb * new_pcb = SetupPCB(name, 1, 1);
+		PCB* new_pcb = SetupPCB(name, 1, 1);
+		new_pcb->SuspendedState = YES;
 		//pcb * new_pcb = create_pcb ( name , 1 , 1 , 1 , stack_size );
-		context * cp = ( context *)( new_pcb -> stack_top );
-		memset ( cp , 0, sizeof ( context ));
-		cp - > fs = 0 x10;
-		cp - > gs = 0 x10;
-		cp - > ds = 0 x10;
-		cp - > es = 0 x10;
-		cp - > cs = 0 x8;
-		cp - > ebp = ( u32int )( new_pcb -> stack );
-		cp - > esp = ( u32int )( new_pcb -> stack_top );
-		cp - > eip = ( u32int ) func;// The function correlating to the process , ie. Proc1
-		cp - > eflags = 0 x202 ;
-		inserPCB(new_pcb);			
+		context* cp = (context*)(new_pcb->stackTop);
+		memset(cp, 0, sizeof(context));
+		cp->fs =0x10;
+		cp->gs =0x10;
+		cp->ds =0x10;
+		cp->es =0x10;
+		cp->cs =0x8;
+		cp->ebp = (u32int)(new_pcb->stack);
+		cp->esp = (u32int)(new_pcb->stackTop);
+		cp->eip = (u32int) func;// The function correlating to the process , ie. Proc1
+		cp->eflags = 0x202 ;
+		InsertPCB(new_pcb);			
 }
 
 void yield()	{
