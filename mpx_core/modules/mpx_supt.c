@@ -191,24 +191,43 @@ void idle()
 
 PCB* cop;
 context* initial;
-  u32int* sys_call(context* registers){
-    if(cop == NULL){
-      initial = registers;
-    }
-    else{
-      if(params.op_code == IDLE){
-        cop->stackTop = (unsigned char*)registers;
-      } else if(params.op_code == EXIT){
-        sys_free_mem(cop);
-      }
-    }
-    if(getReady()->head == NULL){
-      return (u32int*)initial;
-    } else{
-      PCB* pcb = getReady()->head;
-      RemovePCB(pcb);
-      pcb->ReadyState = 1;
-      cop = pcb;
-      return (u32int*)cop->stackTop;
-    }
+u32int* sys_call(context* registers){
+  if(cop == NULL){
+    initial = registers;
   }
+  else{
+    if(params.op_code == IDLE){
+      cop->stackTop = (unsigned char*)registers;
+			cop->ReadyState = READY;
+		}
+    else if(params.op_code == EXIT)
+      sys_free_mem(cop);
+  }
+  if(getReady()->head == NULL)
+    return (u32int*)initial;
+	else if(getReady()->head->SuspendedState == NO){
+    PCB* pcb = getReady()->head;
+    RemovePCB(pcb);
+    pcb->ReadyState = RUNNING;
+		if(params.op_code == IDLE)
+			InsertPCB(cop);
+    cop = pcb;
+    return (u32int*)cop->stackTop;
+  }
+	else if(getReady()->head->SuspendedState == YES){
+		PCB* node = getReady()->head;
+		while(node->SuspendedState == YES || node != NULL){
+			node = node->next;
+		}
+		if(node != NULL){
+			PCB* pcb = node;
+	    RemovePCB(pcb);
+	    pcb->ReadyState = RUNNING;
+			if(params.op_code == IDLE)
+				InsertPCB(cop);
+	    cop = pcb;
+	    return (u32int*)cop->stackTop;
+		}
+	}
+	return (u32int*)initial;
+}

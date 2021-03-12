@@ -24,6 +24,7 @@
 
 #include <modules/mpx_supt.h>
 #include "modules/R1/comHand.h"
+#include "modules/sys_proc_loader.h"
 
 
 void kmain(void)
@@ -69,7 +70,7 @@ void kmain(void)
     init_pic();
     init_idt();
     init_irq();
-    
+
    // 5) Virtual Memory -- paging.c  -- init_paging
    //  this function creates the kernel's heap
    //  from which memory will be allocated when the program calls
@@ -78,18 +79,18 @@ void kmain(void)
    // NOTE:  You will only have about 70000 bytes of dynamic memory
    klogv("Initializing virtual memory...");
 	 init_paging();
-	
+
 
    // 6) Call YOUR command handler -  interface method
    klogv("Transferring control to commhand...");
    // INSERT OS LAUNCH TEXT HERE
 	//for R4 remove comhand from here this will become a process
 	/*************************/
-	 	comHand();
+	 	// comHand();
 	/*************************/
-	
-	
-	
+	 sysLoader();
+
+
    // 7) System Shutdown on return from your command handler
    klogv("Starting system shutdown procedure...");
 

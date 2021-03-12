@@ -1,5 +1,6 @@
 #define READY 0
 #define BLOCKED 1
+#define RUNNING 2
 #define NO 0
 #define YES 1
 #define SYSTEM 0

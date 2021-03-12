@@ -15,7 +15,8 @@ mpx_supt.o\
 R1/userFunctions.o\
 R1/comHand.o\
 R2/PCB.o\
-procsr3.o
+procsr3.o\
+sys_proc_loader.o
 
 .c.s:
 	$(CC) $(CFLAGS) -S -o $@ $<
