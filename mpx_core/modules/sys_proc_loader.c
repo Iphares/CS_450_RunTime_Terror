@@ -24,6 +24,7 @@
 void sysLoader()	{
 	loadSysProc("comhand",(u32int)comHand,9);
 	loadSysProc("idle",(u32int)idle,0);
+	loadSysProc("Infinite",,(u32int)Infinite,0);
 }
 
 void loadSysProc(char* name, u32int func, int priority)	{
@@ -40,4 +41,10 @@ void loadSysProc(char* name, u32int func, int priority)	{
 	cp->eip = (u32int) func;// The function correlating to the process , ie. Proc1
 	cp->eflags = 0x202 ;
 	InsertPCB(new_pcb);
+}
+
+void Infinite()	{
+	while(1)	{
+		sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
+	}
 }
