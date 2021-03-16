@@ -11,7 +11,6 @@ ASFLAGS = -f elf -g
 # add new files as you create them.
 # I'll start you off with just mpx_supt.o
 OBJFILES =\
-CustomStartUp.o\
 mpx_supt.o\
 R1/userFunctions.o\
 R1/comHand.o\
