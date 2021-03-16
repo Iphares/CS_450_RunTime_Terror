@@ -48,3 +48,7 @@ void Infinite()	{
 		sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
 	}
 }
+
+void Alarm()	{
+	
+}
