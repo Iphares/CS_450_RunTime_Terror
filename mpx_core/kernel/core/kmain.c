@@ -46,8 +46,18 @@ void kmain(void)
    klogv("Starting MPX boot sequence...");
    klogv("Initialized serial I/O on COM1 device...");
 	
-	//Custom StartUp Screen function located in modules CustomStartUp.c
-	startupScreen();
+	//Custom StartUp Screen 
+		printf("\n");
+		printf("  &&&&&&&&&&     &&&&&&&&&&&&   &&&&&&&&&&&&      &&&&&&&&        &&&&&&&#    \n");
+		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@    @@@&   ,@@@%  \n");
+		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@    @@@&          \n");
+		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@      @@@&        \n");
+		printf("  @@@@  @@@@         @@@@           @@@@        @@@@    @@@@         .@@@%    \n");
+		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@           ,@@@%  \n");
+		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@    @@@&   ,@@@%  \n");
+		printf("  @@@@    @@@@       @@@@           @@@@          @@@@@@@@        @@@@@@@%    \n");
+		printf("\n");
+	
 	
    // 1) Initialize the support software by identifying the current
    //     MPX Module.  This will change with each module.
