@@ -180,7 +180,9 @@
 					}
 	/************************************************************************************
 					R3 comHand
-	************************************************************************************/			
+	************************************************************************************/	
+					//Removed for R4 
+					/*
 					else if(strcmp(FirstToken,"yield") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						yield();
 						printf("\n");
@@ -189,20 +191,18 @@
 						loader();
 						printf("\n");
 					}
+					*/
 	/************************************************************************************
 					R4 comHand
 	************************************************************************************/	
-				/*
-					else if(strcmp(FirstToken,"alarm") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						alarm();
+					else if(strcmp(FirstToken,"alarm") == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						alarm(SecondToken,ThirdToken);
 						printf("\n");
 					}
 					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						loadr3();
+						loader();
 						printf("\n");
 					}	
-					*/
-
 	/************************************************************************************
 					shutdown comHand
 	************************************************************************************/
