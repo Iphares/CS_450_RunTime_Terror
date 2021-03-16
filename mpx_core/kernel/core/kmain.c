@@ -102,6 +102,7 @@ void kmain(void)
 	 	// comHand();
 	/*************************/
 	 sysLoader();
+	 yield();
 
 
    // 7) System Shutdown on return from your command handler
