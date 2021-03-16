@@ -849,6 +849,14 @@ void Delete_PCB(char *ProcessName)	{
   if (pcb == NULL)	{
     printf("\x1b[31m""\nERROR: Not a valid process name \n""\x1b[0m");
   }
+  else if(strcmp(ProcessName,"Infinite") == 0)	{
+	if(Infinite->suspendedState = YES)	{
+		RemovePCB(pcb);
+	 	FreePCB(pcb);
+	}
+	else 
+		printf("\x1b[31m""\nERROR:This process cannot be supsended unless it is in the suspended state\n""\x1b[0m"); 
+  }
   else {
 	 RemovePCB(pcb);
 	 FreePCB(pcb);
