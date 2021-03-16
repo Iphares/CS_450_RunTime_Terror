@@ -50,5 +50,11 @@ void Infinite()	{
 }
 
 void Alarm()	{
-	
+	while(1)	{
+		if(GetTime >= alarmTime)	{
+			printf(alarmMessage);
+		}
+		else 
+			sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
+	}
 }
