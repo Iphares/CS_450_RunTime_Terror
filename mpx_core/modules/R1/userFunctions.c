@@ -422,9 +422,11 @@ void Suspend(char *ProcessName)	{
 		if(pcb->SuspendedState == YES)	{
 			printf("\x1b[32m""\nThis Process is already SUSPENDED \n""\x1b[0m");
 		}
-		else	{
+		else if(pcb -> Process_Class == APPLICATION)	{
 			pcb->SuspendedState = YES;
 		}
+		else
+			printf("\x1b[31m""\nERROR: Cannot Alter System Process \n""\x1b[0m");
 	}
 }
 
@@ -446,9 +448,11 @@ void Resume(char *ProcessName)	{
 		if(pcb->SuspendedState == NO)	{
 			printf(GRN"\nThis Process is already in the NONSUSPENDED state \n"RESET);
 		}
-		else	{
+		else if(pcb -> Process_Class == APPLICATION)	{
 			pcb->SuspendedState = NO;
 		}
+		else
+			printf("\x1b[31m""\nERROR: Cannot Alter System Process \n""\x1b[0m");
 	}
 }
 
@@ -470,11 +474,13 @@ void Set_Priority(char *ProcessName, int Priority)	{
 	else if(Priority >= 10){
 		printf("\x1b[31m""\nERROR: Not a valid Priority \n""\x1b[0m");
 	}
-	else {
+	else if(pcb -> Process_Class == APPLICATION) {
 		RemovePCB(pcb);
 		pcb->Priority = Priority;
 		InsertPCB(pcb);
 	}
+	else
+		printf("\x1b[31m""\nERROR: Cannot Alter System Process \n""\x1b[0m");
 }
 
 
@@ -869,7 +875,7 @@ void Delete_PCB(char *ProcessName)	{
 		else
 			printf("\x1b[31m""\nERROR:This process cannot be deleted unless it is in the suspended state\n""\x1b[0m");
   }
-  else if(strcmp(pcb->Process_Name,"idle") == 0 ||strcmp(pcb->Process_Name,"comHand") == 0)	{
+  else if(pcb -> Process_Name == SYSTEM)	{
 	  printf("\x1b[31m""\nERROR: System Processes cannot be deleted from the system. \n""\x1b[0m");
   }
 	else {
