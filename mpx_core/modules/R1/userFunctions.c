@@ -878,7 +878,7 @@ void Delete_PCB(char *ProcessName)	{
 		else
 			printf("\x1b[31m""\nERROR:This process cannot be deleted unless it is in the suspended state\n""\x1b[0m");
   }
-  else if(pcb -> Process_Name == SYSTEM)	{
+  else if(pcb -> Process_Class == SYSTEM)	{
 	  printf("\x1b[31m""\nERROR: System Processes cannot be deleted from the system. \n""\x1b[0m");
   }
 	else {
