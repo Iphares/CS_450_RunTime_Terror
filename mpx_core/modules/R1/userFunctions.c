@@ -317,7 +317,7 @@ char toLowercase(char c)	{
 void Help(char* request)	{
 	if (request[0] == '\0')	{
 		printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked \n createPCB \n deletePCB \n block \n unblock \n shutdown \n\n");
+		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked \n createPCB \n deletePCB \n block \n unblock \n shutdown \n alarm \n loadr3 \n loadInf \n\n");
 	}
 	else if (strcmp(request, "GetDate") == 0)	{
 		printf("\n getDate returns the current date that is loaded onto the operating system.\n");
@@ -334,6 +334,16 @@ void Help(char* request)	{
 	else if (strcmp(request, "Version") == 0)	{
 		printf("\n version returns the current operating software version that the system is running.\n");
 	}
+	else if (strcmp(request, "loadInf") == 0)	{
+		printf("\n loadInf Loads the infinite process into the ready queue.\n");
+	}
+	else if (strcmp(request, "loadr3") == 0)	{
+		printf("\n loadr3 Loads in all five of the R3 test processes in a suspended state into the queue.\n");
+	}
+	else if (strcmp(request, "alarm") == 0)		{
+		printf("\n alarm creates a user specified alarm with a user set message and time alarm-MSG-Time(hour-minute-second).\n");
+	}
+	
   else if(strcmp(request, "shutdown") == 0)	{
     printf("\n shutdown shuts down the system.\n");
   }
