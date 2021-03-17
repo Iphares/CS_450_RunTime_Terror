@@ -1,21 +1,25 @@
-
 #define FREE 0
 #define ALLOC 1
 
-typedef struct MCB	{
+typedef struct CMCB	{
   int size;
   struct MCB* prev;
   struct MCB* next;
   char Process_name[10];
-  int Mem_block;
+  int32int address;
   int MEMState;
-} MCB;
+} CMCB;
+
+typedef struct LMCB	{
+  int size;
+  int MEMState;
+} LMCB;
 
 typedef struct List {
-  MCB *head;
+  CMCB *head;
 } List;
 
 List* AllocMem();
 List* FreeMem();
 
-MCB* FindMCB(char Name[]);
+CMCB* FindMCB(char Name[]);
