@@ -97,7 +97,7 @@
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"shutdown") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("shutdown");
 					}
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"loadInf") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"infinite") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("infinte");
 					}
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"loadr3") == 0 && strcmp(ThirdToken,NULL) == 0)	{
