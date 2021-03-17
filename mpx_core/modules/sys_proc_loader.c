@@ -66,9 +66,9 @@ void Alarm()	{
 		List* list = getList()
 		Alarm* alarm = list -> head;
 		while(alarm != NULL){
-			if(hour > list -> hour || (hour == atoi(alarmHour) && minute > atoi(alarmMinute)) ||
-			(hour == atoi(alarmHour) && minute == atoi(alarmMinute) && second > atoi(alarmSecond)))	{
-				printf(alarmMessage);
+			if(hour > alarm -> hour || (hour == alarm -> hour && minute > alarm -> minute) ||
+			(hour == alarm -> hour && minute == alarm -> minute && second > alarm -> second))	{
+				printf(alarm -> message);
 
 				//removes alarm from list and frees memory
 				if(list -> head == alarm)  {

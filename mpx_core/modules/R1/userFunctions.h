@@ -21,7 +21,7 @@ typedef struct Alarm	{
 	int hour;
 	int minute;
 	int second;
-	char[] message;
+	char message[85];
 } Alarm;
 
 	// Sets the time of the system
