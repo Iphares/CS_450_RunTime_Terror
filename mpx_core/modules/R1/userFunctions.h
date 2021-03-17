@@ -12,6 +12,18 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 
+typedef struct List	{
+	Alarm *head;
+	Alarm *tail;
+} List;
+
+typedef struct Alarm	{
+	int hour;
+	int minute;
+	int second;
+	char[] message;
+} Alarm;
+
 	// Sets the time of the system
 	void SetTime(int hours, int minutes, int seconds);
 	// Gets the time of the system
@@ -76,5 +88,7 @@
 				R4 Functions
 	*********************************************************************/
 	loaderinfinite();
+	getList();
+	loaderalarm();
 
 #endif

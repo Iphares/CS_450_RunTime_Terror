@@ -50,10 +50,49 @@ void Infinite()	{
 
 void Alarm()	{
 	while(1)	{
-		if(GetTime >= alarmTime)	{
-			printf(alarmMessage);
+		int hour;
+    int minute;
+    int second;
+    outb(0x70,0x04);
+    unsigned char hours = inb(0x71);
+    outb(0x70,0x02);
+    unsigned char minutes = inb(0x71);
+    outb(0x70,0x00);
+    unsigned char seconds = inb(0x71);
+    hour = BCDtoDec(hours);
+    minute = BCDtoDec(minutes);
+    second = BCDtoDec(seconds);
+
+		List* list = getList()
+		Alarm* alarm = list -> head;
+		while(alarm != NULL){
+			if(hour > list -> hour || (hour == atoi(alarmHour) && minute > atoi(alarmMinute)) ||
+			(hour == atoi(alarmHour) && minute == atoi(alarmMinute) && second > atoi(alarmSecond)))	{
+				printf(alarmMessage);
+
+				//removes alarm from list and frees memory
+				if(list -> head == alarm)  {
+			    if(alarm -> next != NULL) {
+			      list -> head = alarm -> next;
+			      alarm -> next -> prev = NULL;
+			    }
+			    else
+			      list -> head = NULL;
+			  }
+			  else if(alarm -> next != NULL && alarm -> prev != NULL)  {
+			    alarm -> prev -> next = alarm -> next;
+			    alarm -> next -> prev = alarm -> prev;
+			  }
+			  else
+			    list -> tail = alarm -> prev;
+				sys_free_mem(alarm);
+			}
+			else
+				sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
+
+			alarm = alarm -> next;
 		}
-		else 
-			sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
+		if(FindPCB("Alarm") != NULL)
+			deletePCB("Alarm");
 	}
 }

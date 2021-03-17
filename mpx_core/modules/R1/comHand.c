@@ -106,11 +106,11 @@
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"alarm") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("alarm");
 					}
-						
-				
-				
-				
-				
+
+
+
+
+
 
 					else if(strcmp(FirstToken,"version") == 0 && strcmp(SecondToken,NULL) == 0)
 						Version();
@@ -136,12 +136,12 @@
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 					}
-					
-					
-					
-					
-					
-					
+
+
+
+
+
+
 	/************************************************************************************
 					R2 comHand
 	************************************************************************************/
@@ -175,14 +175,14 @@
 						printf("\n");
 					}
 
-				
-				
+
+
 					/********** R2 Temp Commands **********/
 					//Removed from active for R3/R4
 					/*
 					else if(strcmp(FirstToken,"createPCB") == 0) {
 						if( strlen(SecondToken) < 11)	{
-								Create_PCB(SecondToken, atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class	
+								Create_PCB(SecondToken, atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, Process_name must only contain 10 or fewer characters. \n""\x1b[0m");
@@ -191,9 +191,9 @@
 					else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Delete_PCB(SecondToken);
 					}
-				
-				
-				
+
+
+
 					//Removed from active for R3/R4
 					/*
 					else if(strcmp(FirstToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
@@ -205,8 +205,8 @@
 					*/
 	/************************************************************************************
 					R3 comHand
-	************************************************************************************/	
-					//Removed for R4 
+	************************************************************************************/
+					//Removed for R4
 					/*
 					else if(strcmp(FirstToken,"yield") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						yield();
@@ -219,9 +219,9 @@
 					*/
 	/************************************************************************************
 					R4 comHand
-	************************************************************************************/	
-					else if(strcmp(FirstToken,"alarm") == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						alarm(SecondToken,ThirdToken);
+	************************************************************************************/
+					else if(strcmp(FirstToken,"alarm") == 0) {
+						loaderalarm(SecondToken, ThirdToken, FourthToken, FifthToken);
 						printf("\n");
 					}
 					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
@@ -231,7 +231,7 @@
 					else if(strcmp(FirstToken,"loadInf") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						loaderinfinite();
 						printf("\n");
-					}		
+					}
 	/************************************************************************************
 					shutdown comHand
 	************************************************************************************/

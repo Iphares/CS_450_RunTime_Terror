@@ -345,7 +345,7 @@ void Help(char* request)	{
 	else if (strcmp(request, "alarm") == 0)		{
 		printf("\n alarm creates a user specified alarm with a user set message and time alarm-MSG-Time(hour-minute-second).\n");
 	}
-	
+
   else if(strcmp(request, "shutdown") == 0)	{
     printf("\n shutdown shuts down the system.\n");
   }
@@ -380,8 +380,8 @@ void Help(char* request)	{
   else if(strcmp(request,"deletePCB") == 0) {
 		printf("\n DeletePCB takes in the process_name (deletePCB-NAME) then deletes it from the queue and free's all the memory that was previously allocated to the specified PCB.\n");
   }
-  //removed for R3/R4 from active command list	
-  /*	
+  //removed for R3/R4 from active command list
+  /*
   else if(strcmp(request,"createPCB") == 0) {
 		printf("\n CreatePCB takes in the process_name, process_class, and process_priority.(createPCB-NAME-PRIORITY-CLASS) Then assigns this new process into the correct queue.\n");
   }
@@ -869,8 +869,8 @@ void Delete_PCB(char *ProcessName)	{
 		RemovePCB(pcb);
 	 	FreePCB(pcb);
 	}
-	else 
-		printf("\x1b[31m""\nERROR:This process cannot be supsended unless it is in the suspended state\n""\x1b[0m"); 
+	else
+		printf("\x1b[31m""\nERROR:This process cannot be supsended unless it is in the suspended state\n""\x1b[0m");
   }
   else if(strcmp(ProcessName,"idle") == 0 ||strcmp(ProcessName,"comhand") == 0)	{
 	  printf("\x1b[31m""\nERROR: System Processes cannot be deleted from the system. \n""\x1b[0m");
@@ -975,6 +975,40 @@ void yield()	{
 ********************************************************************************************************/
 void loaderinfinite()	{
 	loadr3("Infinite",(u32int)Infinite);
-}	
-	
+}
 
+List AlarmList ={
+  .head = NULL,
+  .tail = NULL
+};
+
+List* getList() {
+  return &AlarmList;
+}
+
+void loaderalarm(char[] text, int hours, int minutes, int seconds) {
+	//creates pcb if it does not exist
+	if(FindPCB("Alarm") == NULL)
+		loadr3("Alarm",(u32int)Alarm);
+
+	//load message and time into list
+	Alarm* alarm = sys_alloc_mem(sizeof(Alarm));
+	alarm -> hour = hours;
+	alarm -> minute = minutes;
+	alarm -> second = seconds;
+	strcpy(alarm -> message, text);
+
+	//Add alarm to list
+	Alarm* start = AlarmList.head;
+	if(start == NULL) {
+		AlarmList.head = alarm;
+		AlarmList.tail = alarm;
+	}
+	else  {
+		while(start -> next != NULL)
+			start = start -> next;
+		start->next = alarm;
+		alarm->prev = start;
+		AlarmList->tail = start
+	}
+}
