@@ -10,10 +10,10 @@ typedef struct CMCB	{
   int MEMState;
 } CMCB;
 
-typedef struct LMCB	{
-  int size;
-  int MEMState;
-} LMCB;
+// typedef struct LMCB	{
+//   int size;
+//   int MEMState;
+// } LMCB;
 
 typedef struct List {
   CMCB *head;
