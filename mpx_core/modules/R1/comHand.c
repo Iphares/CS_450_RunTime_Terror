@@ -268,5 +268,7 @@
 				}
 				sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
 		}
+		getReady() -> head = NULL;
+		sys_req(EXIT, DEFAULT_DEVICE, NULL, NULL);
 		return 0;	//shutdown procedure
 	}
