@@ -97,6 +97,20 @@
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"shutdown") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("shutdown");
 					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"loadInf") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("loadInf");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"loadr3") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("loadr3");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"alarm") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("alarm");
+					}
+						
+				
+				
+				
+				
 
 					else if(strcmp(FirstToken,"version") == 0 && strcmp(SecondToken,NULL) == 0)
 						Version();
@@ -202,7 +216,11 @@
 					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						loader();
 						printf("\n");
-					}	
+					}
+					else if(strcmp(FirstToken,"loadInf") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						loaderinfinite();
+						printf("\n");
+					}		
 	/************************************************************************************
 					shutdown comHand
 	************************************************************************************/
