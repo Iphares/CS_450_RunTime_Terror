@@ -24,7 +24,6 @@
 void sysLoader()	{
 	loadSysProc("comhand",(u32int)comHand,9);
 	loadSysProc("idle",(u32int)idle,0);
-	loadSysProc("Infinite",,(u32int)Infinite,0);
 }
 
 void loadSysProc(char* name, u32int func, int priority)	{
