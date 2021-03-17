@@ -3,8 +3,8 @@
 
 typedef struct CMCB	{
   int size;
-  struct MCB* prev;
-  struct MCB* next;
+  struct CMCB* prev;
+  struct CMCB* next;
   char Process_name[10];
   int32int address;
   int MEMState;
