@@ -222,18 +222,18 @@
 	************************************************************************************/
 					else if(strcmp(FirstToken,"alarm") == 0) {
 						if (EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1 && EdgeCase(FifthToken) == 1)    {
-								loaderalarm(SecondToken, ThirdToken, FourthToken, FifthToken);
-								printf("\n");	//input as Hour-Minute-Seconds
+								loaderalarm(SecondToken, atoi(ThirdToken), atoi(FourthToken), atoi(FifthToken));
+								printf("\n");	//input as Message-Hour-Minute-Seconds
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for alarm \n""\x1b[0m");
-						
+
 					}
 					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						loader();
 						printf("\n");
 					}
-					else if(strcmp(FirstToken,"loadInf") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					else if(strcmp(FirstToken,"infinite") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						loaderinfinite();
 						printf("\n");
 					}
@@ -259,6 +259,7 @@
 					else
 						printf("\x1b[31m""\nERROR: Please enter \"yes\" or \"no\" \n""\x1b[0m");
 				}
+				sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
 		}
 		return 0;	//shutdown procedure
 	}

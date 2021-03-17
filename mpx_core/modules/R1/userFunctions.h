@@ -12,17 +12,19 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 
-typedef struct List	{
-	Alarm *head;
-	Alarm *tail;
-} List;
-
 typedef struct Alarm	{
 	int hour;
 	int minute;
 	int second;
 	char message[85];
+	struct Alarm* next;
+	struct Alarm* prev;
 } Alarm;
+
+typedef struct List	{
+	Alarm *head;
+	Alarm *tail;
+} List;
 
 	// Sets the time of the system
 	void SetTime(int hours, int minutes, int seconds);
@@ -87,8 +89,8 @@ typedef struct Alarm	{
 	/*********************************************************************
 				R4 Functions
 	*********************************************************************/
-	loaderinfinite();
-	getList();
-	loaderalarm();
+	void loaderinfinite();
+	List* getList();
+	void loaderalarm();
 
 #endif

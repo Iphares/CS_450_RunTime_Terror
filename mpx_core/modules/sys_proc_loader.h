@@ -12,5 +12,5 @@
 
 void sysLoader();
 void loadSysProc(char* name, u32int func, int priority);
-void Infinite();
-void Alarm();
+void InfiniteProc();
+void AlarmProc();

@@ -22,7 +22,7 @@
 #include "sys_proc_loader.h"
 
 void sysLoader()	{
-	loadSysProc("comhand",(u32int)comHand,9);
+	loadSysProc("comHand",(u32int)comHand,9);
 	loadSysProc("idle",(u32int)idle,0);
 }
 
@@ -42,13 +42,14 @@ void loadSysProc(char* name, u32int func, int priority)	{
 	InsertPCB(new_pcb);
 }
 
-void Infinite()	{
+void InfiniteProc()	{
 	while(1)	{
+		printf("Infinite Process Running...\n");
 		sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
 	}
 }
 
-void Alarm()	{
+void AlarmProc()	{
 	while(1)	{
 		int hour;
     int minute;
@@ -63,7 +64,7 @@ void Alarm()	{
     minute = BCDtoDec(minutes);
     second = BCDtoDec(seconds);
 
-		List* list = getList()
+		List* list = getList();
 		Alarm* alarm = list -> head;
 		while(alarm != NULL){
 			if(hour > alarm -> hour || (hour == alarm -> hour && minute > alarm -> minute) ||
@@ -87,12 +88,10 @@ void Alarm()	{
 			    list -> tail = alarm -> prev;
 				sys_free_mem(alarm);
 			}
-			else
-				sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
-
 			alarm = alarm -> next;
 		}
-		if(FindPCB("Alarm") != NULL)
-			deletePCB("Alarm");
+		if(list -> head == NULL)
+			sys_req(EXIT, DEFAULT_DEVICE, NULL, NULL);
+		sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
 	}
 }

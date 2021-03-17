@@ -25,7 +25,7 @@
 #include <modules/mpx_supt.h>
 #include "modules/R1/comHand.h"
 #include "modules/sys_proc_loader.h"
-
+#include "modules/R1/userFunctions.h"
 
 void kmain(void)
 {
@@ -45,8 +45,8 @@ void kmain(void)
 
    klogv("Starting MPX boot sequence...");
    klogv("Initialized serial I/O on COM1 device...");
-	
-	//Custom StartUp Screen 
+
+	//Custom StartUp Screen
 		printf("\n");
 		printf("  &&&&&&&&&&     &&&&&&&&&&&&   &&&&&&&&&&&&      &&&&&&&&        &&&&&&&#    \n");
 		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@    @@@&   ,@@@%  \n");
@@ -57,8 +57,8 @@ void kmain(void)
 		printf("  @@@@    @@@@       @@@@           @@@@        @@@@    @@@@    @@@&   ,@@@%  \n");
 		printf("  @@@@    @@@@       @@@@           @@@@          @@@@@@@@        @@@@@@@%    \n");
 		printf("\n");
-	
-	
+
+
    // 1) Initialize the support software by identifying the current
    //     MPX Module.  This will change with each module.
    // you will need to call mpx_init from the mpx_supt.c

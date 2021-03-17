@@ -216,7 +216,7 @@ u32int* sys_call(context* registers){
   }
 	else if(getReady()->head->SuspendedState == YES){
 		PCB* node = getReady()->head;
-		while(node->SuspendedState == YES || node != NULL){
+		while(node->SuspendedState == YES && node != NULL){
 			node = node->next;
 		}
 		if(node != NULL){
