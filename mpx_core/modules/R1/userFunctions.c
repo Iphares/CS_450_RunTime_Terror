@@ -867,6 +867,9 @@ void Delete_PCB(char *ProcessName)	{
 	else 
 		printf("\x1b[31m""\nERROR:This process cannot be supsended unless it is in the suspended state\n""\x1b[0m"); 
   }
+  else if(strcmp(ProcessName,"idle") == 0 ||strcmp(ProcessName,"Comhand") == 0)	{
+	  printf("\x1b[31m""\nERROR: System Processes cannot be deleted from the system. \n""\x1b[0m");
+  }
   else {
 	 RemovePCB(pcb);
 	 FreePCB(pcb);
@@ -966,7 +969,7 @@ void yield()	{
 				R4 Commands
 ********************************************************************************************************/
 void loaderinfinite()	{
-	loadSysProc("Infinite",(u32int)Infinite,0);
+	loadr3("Infinite",(u32int)Infinite);
 }	
 	
 
