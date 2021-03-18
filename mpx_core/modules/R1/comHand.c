@@ -175,7 +175,11 @@
 						printf("\n");
 					}
 
+				
+				
 					/********** R2 Temp Commands **********/
+					//Removed from active for R3/R4
+					/*
 					else if(strcmp(FirstToken,"createPCB") == 0) {
 						if( strlen(SecondToken) < 11)	{
 								Create_PCB(SecondToken, atoi(ThirdToken), atoi(FourthToken));		//input as Process_Name-Priority-Class	
@@ -183,15 +187,22 @@
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for createPCB, Process_name must only contain 10 or fewer characters. \n""\x1b[0m");
 					}
+					*/
 					else if(strcmp(FirstToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Delete_PCB(SecondToken);
 					}
+				
+				
+				
+					//Removed from active for R3/R4
+					/*
 					else if(strcmp(FirstToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Block(SecondToken);
 					}
 					else if(strcmp(FirstToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Unblock(SecondToken);
 					}
+					*/
 	/************************************************************************************
 					R3 comHand
 	************************************************************************************/	
