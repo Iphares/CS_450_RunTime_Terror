@@ -316,8 +316,10 @@ char toLowercase(char c)	{
 /// @param request Character pointer that matches the name of the function that you need help with.
 void Help(char* request)	{
 	if (request[0] == '\0')	{
+		//removed for R3/R4 from active command list
+		//\n createPCB \n block \n unblock
 		printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked \n createPCB \n deletePCB \n block \n unblock \n shutdown \n alarm \n loadr3 \n loadInf \n\n");
+		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked  \n deletePCB  \n shutdown \n alarm \n loadr3 \n loadInf \n\n");
 	}
 	else if (strcmp(request, "GetDate") == 0)	{
 		printf("\n getDate returns the current date that is loaded onto the operating system.\n");
@@ -375,11 +377,13 @@ void Help(char* request)	{
   }
 
 /********************************* R2 Temp Commands *********************************************************/
-  else if(strcmp(request,"createPCB") == 0) {
-		printf("\n CreatePCB takes in the process_name, process_class, and process_priority.(createPCB-NAME-PRIORITY-CLASS) Then assigns this new process into the correct queue.\n");
-  }
   else if(strcmp(request,"deletePCB") == 0) {
 		printf("\n DeletePCB takes in the process_name (deletePCB-NAME) then deletes it from the queue and free's all the memory that was previously allocated to the specified PCB.\n");
+  }
+  //removed for R3/R4 from active command list	
+  /*	
+  else if(strcmp(request,"createPCB") == 0) {
+		printf("\n CreatePCB takes in the process_name, process_class, and process_priority.(createPCB-NAME-PRIORITY-CLASS) Then assigns this new process into the correct queue.\n");
   }
   else if(strcmp(request,"block") == 0) {
 		printf("\n Block takes in the process_name (block-NAME) then sets it's state to blocked and reinserts it back into the correct queue.\n");
@@ -387,6 +391,7 @@ void Help(char* request)	{
   else if(strcmp(request,"unblock") == 0) {
 		printf("\n Unblock takes in the process_name (unblock-NAME) then sets it's state to ready and reinserts it back into the correct queue.\n");
   }
+  */
   else	{
 		printf("\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m");
   }
