@@ -320,7 +320,7 @@ void Help(char* request)	{
 		//removed for R3/R4 from active command list
 		//\n createPCB \n block \n unblock
 		printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked  \n deletePCB  \n shutdown \n alarm \n loadr3 \n loadInf \n\n");
+		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked  \n deletePCB  \n shutdown \n alarm \n clear \n loadr3 \n infinte \n\n");
 	}
 	else if (strcmp(request, "GetDate") == 0)	{
 		printf("\n getDate returns the current date that is loaded onto the operating system.\n");
@@ -337,14 +337,17 @@ void Help(char* request)	{
 	else if (strcmp(request, "Version") == 0)	{
 		printf("\n version returns the current operating software version that the system is running.\n");
 	}
-	else if (strcmp(request, "loadInf") == 0)	{
-		printf("\n loadInf Loads the infinite process into the ready queue.\n");
+	else if (strcmp(request, "infinte") == 0)	{
+		printf("\n infinite Loads the infinite process into the ready queue.\n");
 	}
 	else if (strcmp(request, "loadr3") == 0)	{
 		printf("\n loadr3 Loads in all five of the R3 test processes in a suspended state into the queue.\n");
 	}
 	else if (strcmp(request, "alarm") == 0)		{
-		printf("\n alarm creates a user specified alarm with a user set message and time alarm-MSG-Time(hour-minute-second).\n");
+		printf("\n alarm creates a user specified alarm with a user set message and time alarm-MSG-hour-minute-second.\n");
+	}
+	else if (strcmp(request, "clear") == 0)		{
+		printf("\n clear erases the console of all typed commands and refreshes it with just the command list.\n");
 	}
 
   else if(strcmp(request, "shutdown") == 0)	{
