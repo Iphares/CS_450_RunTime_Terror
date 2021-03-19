@@ -2,10 +2,10 @@
 R4 Implementation
 
 Bonus assignments included are:
-- Variable Text Color 
+- Variable text color 
 - itoa funciton
 - clear
-- startup screen
+- Custom startup screen
 
 
 qemu-system-i386 -nographic -kernel kernel.bin -s
