@@ -225,7 +225,7 @@
 	************************************************************************************/
 					else if(strcmp(FirstToken,"alarm") == 0) {
 						if (EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1 && EdgeCase(FifthToken) == 1)    {
-							if (atoi(ThirdToken) < 23 && atoi(FourthToken) < 59 && atoi(FifthToken) < 59)    {
+							if (atoi(ThirdToken) < 24 && atoi(FourthToken) < 59 && atoi(FifthToken) < 59)    {
 								loaderalarm(SecondToken, atoi(ThirdToken), atoi(FourthToken), atoi(FifthToken));
 								printf("\n");	//input as Message-Hour-Minute-Seconds
 							}
