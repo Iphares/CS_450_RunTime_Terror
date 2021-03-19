@@ -221,8 +221,13 @@
 					R4 comHand
 	************************************************************************************/
 					else if(strcmp(FirstToken,"alarm") == 0) {
-						loaderalarm(SecondToken, ThirdToken, FourthToken, FifthToken);
-						printf("\n");
+						if (EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1 && EdgeCase(FifthToken) == 1)    {
+								loaderalarm(SecondToken, ThirdToken, FourthToken, FifthToken);
+								printf("\n");	//input as Hour-Minute-Seconds
+						}
+						else
+							printf("\x1b[31m""\nERROR: Invalid parameters for alarm \n""\x1b[0m");
+						
 					}
 					else if(strcmp(FirstToken,"loadr3") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						loader();
