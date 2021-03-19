@@ -98,13 +98,16 @@
 						Help("shutdown");
 					}
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"loadInf") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("loadInf");
+						Help("infinte");
 					}
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"loadr3") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("loadr3");
 					}
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"alarm") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("alarm");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("clear");
 					}
 
 
