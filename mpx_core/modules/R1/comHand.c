@@ -137,6 +137,8 @@
 							if (atoi(ThirdToken) < 23 && atoi(FourthToken) < 59 && atoi(FifthToken) < 59)    {
 								SetTime(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken));		//input as Hour-Minute-Seconds
 							}
+							else
+							printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
@@ -231,6 +233,8 @@
 								loaderalarm(SecondToken, atoi(ThirdToken), atoi(FourthToken), atoi(FifthToken));
 								printf("\n");	//input as Message-Hour-Minute-Seconds
 							}
+							else
+							printf("\x1b[31m""\nERROR: Invalid parameters for alarm, must be a valid time \n""\x1b[0m");
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for alarm \n""\x1b[0m");
