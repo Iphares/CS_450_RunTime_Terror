@@ -134,11 +134,7 @@
 						GetTime();
 					else if(strcmp(FirstToken,"setTime") == 0 && strcmp(FifthToken,NULL) == 0){
 						if (EdgeCase(SecondToken) == 1 && EdgeCase(ThirdToken) == 1 && EdgeCase(FourthToken) == 1)    {
-							if (atoi(ThirdToken) < 23 && atoi(FourthToken) < 59 && atoi(FifthToken) < 59)    {
 								SetTime(atoi(SecondToken), atoi(ThirdToken), atoi(FourthToken));		//input as Hour-Minute-Seconds
-							}
-							else
-							printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
 						}
 						else
 							printf("\x1b[31m""\nERROR: Invalid parameters for setTime \n""\x1b[0m");
