@@ -6,7 +6,8 @@ typedef struct MCB	{
   int size;
   struct MCB* prev;
   struct MCB* next;
-  char Mem_block[10];
+  char Process_name[10];
+  int Mem_block;
   int MEMState;
 } MCB;
 
