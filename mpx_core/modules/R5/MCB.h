@@ -5,7 +5,7 @@ typedef struct CMCB	{
   int size;
   struct CMCB* prev;
   struct CMCB* next;
-  char mem_name[10];
+  char Process_name[10];
   u32int address;
   int MEMState;
 } CMCB;
@@ -19,7 +19,6 @@ typedef struct List {
   CMCB *head;
 } List;
 
-List* AllocMem(int size);
-List* FreeMem(u32int address);
-
-CMCB* FindMCB(char Name[]);
+CMCB* AllocMem(int size);
+CMCB* FreeMem(u32int address);
+List* getList();
