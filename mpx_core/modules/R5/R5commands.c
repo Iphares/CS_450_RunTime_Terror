@@ -17,7 +17,7 @@ void Free_Mem()	{
 }
 //Temporary
 void IsEmpty()	{
-	if(CMCBList->head.MEMState == 0 && CMCBList->head->next == null)	{
+	if(CMCBList()->head.MEMState == 0 && CMCBList()->head->next == null)	{
 		printf("true");	
 	}
 	else
@@ -25,129 +25,158 @@ void IsEmpty()	{
 }
 
 void ShowFree()	{
-if(FreeMem()->head == NULL)	{
-		 printf("\x1b[32m""\n The Free block Queue is empty \n""\x1b[0m");
-	}
- else	{
-   int AddressBlock, Size;
-   
-		  char Free[] = "\x1B[34m""Free Queue: \n""\x1b[0m";
-		  char caddr[] = "Address: ";
-		  char csize[] = "Size: ";
-		  char line[] = "\n";
-		  check = 15;
-      sys_req(WRITE, COM1, free, &check );
+	if(CMCBList()->head.MEMState == 0)	{
+			 printf("\x1b[32m""\n All memory within the Heap is freed. \n""\x1b[0m");
+		}
+	 else	{
+	   int AddressBlock, Size;
 
-   
-   
-   
-   
-   
-   
-   
-		  MCB* pcb = getBlocked()->head;
+			  char Free[] = "\x1B[34m""Free Blocks: \n""\x1b[0m";
+			  char caddr[] = "Address: ";
+			  char csize[] = "Size: ";
+			  char line[] = "\n";
+			  check = 64;
+	      sys_req(WRITE, COM1, free, &check );
 
-		  if(pcb->next == NULL)	{
-		  	class = pcb->Process_Class;
-		    	strcpy(name,pcb->Process_Name);
-		    	state = pcb->ReadyState;
-		    	status = pcb->SuspendedState;
-		    	prior = pcb->Priority;
+			  CMCB* block = CMCBList()->head;
 
-		    	printf(cname);
-		    	printf(name);
-		    	printf(line);
+			  if(block->next == NULL && CMCBList()->head.MEMState == 0)	{
+				AddressBlock = block->address;
+				Size = block->size;
 
-			    printf(cclass);
-			    if(pcb->Process_Class == 0)  {
-			      printf("0");
-			    }
-			    else  {
-			      sys_req(WRITE, COM1, itoa(class), &check);
-			    }
-			    printf(line);
+				printf(caddr);
+				printf(csize);
+				printf(line);
 
-			    printf(cstate);
-			    if(pcb->ReadyState == 0)  {
-			      printf("0");
-			    }
-			    else  {
-			      sys_req(WRITE, COM1, itoa(state), &check);
-			    }
-			    printf(line);
-
-			    printf(cstatus);
-			    if(pcb->SuspendedState == 0)  {
-			      printf("0");
-			    }
-			    else  {
-			      sys_req(WRITE, COM1, itoa(status), &check);
-			    }
-			    printf(line);
-
-			    printf(cprior);
-			    if(pcb->Priority == 0)  {
-			      printf("0");
-			      printf("\n\n");
-			    }
-			    else  {
-			      sys_req(WRITE, COM1, itoa(prior), &check);
-			      printf("\n\n");
-			    }
-		  }
-		  else	{
-		  	while(pcb != NULL)	{
-		  		class = pcb->Process_Class;
-			    	strcpy(name,pcb->Process_Name);
-			    	state = pcb->ReadyState;
-			    	status = pcb->SuspendedState;
-			    	prior = pcb->Priority;
-
-			    	printf(cname);
-			    	printf(name);
-			    	printf(line);
-
-				    printf(cclass);
-				    if(pcb->Process_Class == 0)  {
+				    printf(caddr
+				    if(block->address == 0)  {
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(class), &check);
+				      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
 				    }
 				    printf(line);
 
-				    printf(cstate);
-				    if(pcb->ReadyState == 0)  {
+
+				    printf(csize);
+				    if(block->size == 0)  {
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(state), &check);
+				      sys_req(WRITE, COM1, itoa(size), &check);
 				    }
 				    printf(line);
+				    printf("\n\n");
 
-				    printf(cstatus);
-				    if(pcb->SuspendedState == 0)  {
-				      printf("0");
-				    }
-				    else  {
-				      sys_req(WRITE, COM1, itoa(status), &check);
-				    }
-				    printf(line);
+			  }
+			  else	{
+				while(block != NULL)	{
+					if(CMCBList()->head.MEMState == 0)	{
+						AddressBlock = block->address;
+						Size = block->size;
 
-				    printf(cprior);
-				    if(pcb->Priority == 0)  {
-				      printf("0");
-				      printf("\n\n");
-				    }
-				    else  {
-				      sys_req(WRITE, COM1, itoa(prior), &check);
-				      printf("\n\n");
-				    }
-		  		pcb = pcb->next;
-		 	}
-		 }
-	}
+						printf(caddr);
+						printf(csize);
+						printf(line);
+
+						    printf(caddr
+						    if(block->address == 0)  {
+						      printf("0");
+						    }
+						    else  {
+						      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+						    }
+						    printf(line);
+
+						    printf(csize);
+						    if(block->size == 0)  {
+						      printf("0");
+						    }
+						    else  {
+						      sys_req(WRITE, COM1, itoa(size), &check);
+						    }
+						    printf(line);
+					}
+					block = block->next;
+				}
+			 }
+		}
 }
 void ShowAlloc()	{
+	if(CMCBList()->head.MEMState == 1)	{
+			 printf("\x1b[32m""\n All memory within the Heap is allocated. \n""\x1b[0m");
+	}
+	 else	{
+	   int AddressBlock, Size;
 
+			  char Free[] = "\x1B[34m""Free Blocks: \n""\x1b[0m";
+			  char caddr[] = "Address: ";
+			  char csize[] = "Size: ";
+			  char line[] = "\n";
+			  check = 64;
+	      sys_req(WRITE, COM1, free, &check );
+
+			  CMCB* block = CMCBList()->head;
+
+			  if(block->next == NULL && CMCBList()->head.MEMState == 1)	{
+				AddressBlock = block->address;
+				Size = block->size;
+
+				printf(caddr);
+				printf(csize);
+				printf(line);
+
+				    printf(caddr
+				    if(block->address == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+				    }
+				    printf(line);
+
+
+				    printf(csize);
+				    if(block->size == 0)  {
+				      printf("0");
+				    }
+				    else  {
+				      sys_req(WRITE, COM1, itoa(size), &check);
+				    }
+				    printf(line);
+				    printf("\n\n");
+
+			  }
+			  else	{
+				while(block != NULL)	{
+					if(CMCBList()->head.MEMState == 1)	{
+						AddressBlock = block->address;
+						Size = block->size;
+
+						printf(caddr);
+						printf(csize);
+						printf(line);
+
+						    printf(caddr
+						    if(block->address == 0)  {
+						      printf("0");
+						    }
+						    else  {
+						      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+						    }
+						    printf(line);
+
+						    printf(csize);
+						    if(block->size == 0)  {
+						      printf("0");
+						    }
+						    else  {
+						      sys_req(WRITE, COM1, itoa(size), &check);
+						    }
+						    printf(line);
+					}
+					block = block->next;
+				}
+			 }
+		}
 }
