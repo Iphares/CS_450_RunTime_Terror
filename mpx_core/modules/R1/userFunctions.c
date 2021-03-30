@@ -131,6 +131,20 @@ int EdgeCase(char* pointer)    {
 
 
 
+int allocSizeCheck(char* pointer)	{
+	int valid = 0;
+	int j;
+    	for(j = 200; j <= 50000; j++)  {
+      		if(strcmp(pointer,itoa(j)) == 0)
+       	 		valid = 1;
+    		}
+    		if(valid == 0)  {
+      			return valid;
+    		}
+ 	 }
+  return valid;
+}
+
 
 
 
