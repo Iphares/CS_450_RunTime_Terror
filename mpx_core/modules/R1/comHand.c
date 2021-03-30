@@ -244,6 +244,33 @@
 						loaderinfinite();
 						printf("\n");
 					}
+
+	/************************************************************************************
+					R5 comHand
+	************************************************************************************/
+					else if(strcmp(FirstToken,"heap") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						if (allocSizeCheck(atoi(SecondToken)) == 1)	{
+							Init_Heap(atoi(SecondToken));
+						}
+					}
+					else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+ 						if (allocSizeCheck(atoi(SecondToken)) == 1)	{
+							Alloc_Mem(atoi(SecondToken));
+						}
+					}
+					else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						Free_Mem(SecondToken);
+					}
+					else if(strcmp(FirstToken,"empty") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						IsEmpty();
+					}
+					else if(strcmp(FirstToken,"showFree") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+ 						ShowFree();
+					}
+					else if(strcmp(FirstToken,"showAlloc") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						ShowAlloc();
+					}
+					
 	/************************************************************************************
 					shutdown comHand
 	************************************************************************************/
