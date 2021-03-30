@@ -410,9 +410,33 @@ void Help(char* request)	{
 		printf("\n Unblock takes in the process_name (unblock-NAME) then sets it's state to ready and reinserts it back into the correct queue.\n");
   }
   */
+	
+	
+/********************************* R5 Temp Commands *********************************************************/
+  else if(strcmp(request,"heap") == 0) {
+		printf("\n heap initializes the memory heap for the entire system.\n");
+  }
+  else if(strcmp(request,"alloc") == 0) {
+		printf("\n alloc allocates the specified amount of memory to the specific process (alloc-process_name-size).\n");
+  }
+  else if(strcmp(request,"free") == 0) {
+		printf("\n free frees the specified memory at the address given (free-address).\n");
+  }
+  else if(strcmp(request,"empty") == 0) {
+		printf("\n isempty returns true or false depending on if the heap has allocated memory.\n");
+  }
+/********************************* R5 Commands *********************************************************/
+  else if(strcmp(request,"showFree") == 0) {
+		printf("\n showfree shows all the free blocks avaliable within the heap list.\n");
+  }
+  else if(strcmp(request,"showAlloc") == 0) {
+		printf("\n showAlloc shows all the allocated blocks within the heap list.\n");
+  }	
+	
+	
   else	{
 		printf("\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m");
-  }
+  }	
 }
 
 
