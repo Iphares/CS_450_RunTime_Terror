@@ -50,6 +50,8 @@ typedef struct List	{
 	void printf(char msg[]);
 	// Evaluates user input for setTime and setDate
 	int EdgeCase(char* pointer);
+	// Evaluates user input for alloccate memory size 200 bytes - 50,000 bytes
+	int allocSizeCheck(char* pointer)
 	// Changes an uppercase char to a lowercase char
 	char toLowercase(char c);
 
