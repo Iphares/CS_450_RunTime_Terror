@@ -1,28 +1,23 @@
-#define FREE 0
-#define ALLOC 1
+List CMCBList ={
+  .head = NULL
+};
 
-List* AllocMem(){
+List* AllocMem(int size){
 
 }
 
-List* FreeMem(){
+List* FreeMem(u32int address){
 
 }
 
 CMCB* FindMCB(char Name[]){
-  CMCB* tempB = BlockedQueue.head;
-  // while node exists
-  while(tempR != NULL )	{
-    if(strcmp(tempR -> Process_Name,Name) == 0)
-      return tempR;
+  CMCB* start = CMCBList.head;
+  // while CMCB exists
+  while(start != NULL )	{
+    if(strcmp(start -> mem_name,Name) == 0)
+      return start;
 
-    tempR = tempR -> next;
-  }
-  while(tempB != NULL )	{
-    if(strcmp(tempB -> Process_Name,Name) == 0)
-      return tempB;
-
-    tempB = tempB -> next;
+    start = start -> next;
   }
   // returns NULL if node does not exist
   return NULL;
