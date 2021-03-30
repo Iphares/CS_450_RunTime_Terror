@@ -17,7 +17,11 @@ void Free_Mem()	{
 }
 //Temporary
 void IsEmpty()	{
-
+	if(CMCBList->head.MEMState == 0 && CMCBList->head->next == null)	{
+		printf("true");	
+	}
+	else
+		printf("false");	
 }
 
 void ShowFree()	{
