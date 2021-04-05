@@ -4,16 +4,16 @@
 
 
 //Temporary
-void Init_Heap()	{
-
+void Init_Heap(int size)	{
+	
 }
 //Temporary
-void Alloc_Mem()	{
-
+void Alloc_Mem(u32int size)	{
+	AllocMem(size);
 }
 //Temporary
-void Free_Mem()	{
-
+void Free_Mem(u32int address)	{
+	FreeMem(address);
 }
 //Temporary
 void IsEmpty()	{
