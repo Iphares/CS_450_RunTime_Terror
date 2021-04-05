@@ -109,6 +109,24 @@
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("clear");
 					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("heap");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("alloc");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("free");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("empty");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("showFree");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("showAlloc");
+					}
 
 
 
@@ -252,11 +270,15 @@
 						if (allocSizeCheck(atoi(SecondToken)) == 1)	{
 							Init_Heap(atoi(SecondToken));
 						}
+						else
+							printf("\x1b[31m""\nERROR: Heap size is invalid \n""\x1b[0m");
 					}
 					else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
  						if (allocSizeCheck(atoi(SecondToken)) == 1)	{
 							Alloc_Mem(atoi(SecondToken));
 						}
+						else
+							printf("\x1b[31m""\nERROR: allocation size is invalid \n""\x1b[0m");
 					}
 					else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						Free_Mem(SecondToken);
