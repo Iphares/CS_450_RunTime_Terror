@@ -231,3 +231,16 @@ u32int* sys_call(context* registers){
 	}
 	return (u32int*)initial;
 }
+
+u32int init_heap(u32int size){
+	//UPDATE TO KMALLOC AFTER TESTING
+	CMCB* cmcb = malloc(sizeof(CMCB) + size);
+	cmcb -> size = sizeof(CMCB) + size;
+	cmcb -> prev = NULL;
+	cmcb -> next = NULL;
+	cmcb -> Process_name[10];
+	cmcb -> address = (u32int) cmcb;
+	cmcb -> MEMState = FREE;
+	// set list head
+	getList() -> head -> cmcb;
+}

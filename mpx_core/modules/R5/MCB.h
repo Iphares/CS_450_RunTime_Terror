@@ -2,7 +2,7 @@
 #define ALLOC 1
 
 typedef struct CMCB	{
-  int size;
+  u32int size;
   struct CMCB* prev;
   struct CMCB* next;
   char Process_name[10];
@@ -19,6 +19,6 @@ typedef struct List {
   CMCB *head;
 } List;
 
-CMCB* AllocMem(int size);
+CMCB* AllocMem(u32int size);
 CMCB* FreeMem(u32int address);
 List* getList();

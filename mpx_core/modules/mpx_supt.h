@@ -91,6 +91,6 @@ int sys_free_mem(void *ptr);
 void idle();
 
 u32int* sys_call(context* registers);
-	
-#endif
+u32int init_heap(u32int size);
 
+#endif
