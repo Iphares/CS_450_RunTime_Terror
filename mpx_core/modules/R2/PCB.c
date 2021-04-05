@@ -29,8 +29,8 @@ void FreePCB(PCB* pcb)	{
 		printf("\nMemory release successful \n");
 
 	// Renable in R5 when sys_free_mem actually does something.
-	//else
-		//printf("\nMemory cannot be released from the requested pcb->\n");
+	else
+		printf("\nMemory cannot be released from the requested pcb->\n");
 }
 
 PCB* SetupPCB(char Name[], int Class, int Priority)	{
