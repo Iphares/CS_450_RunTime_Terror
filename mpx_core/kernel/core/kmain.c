@@ -26,6 +26,7 @@
 #include "modules/R1/comHand.h"
 #include "modules/sys_proc_loader.h"
 #include "modules/R1/userFunctions.h"
+#include "modules/R5/R5commands.h"
 #include "modules/R5/MCB.h"
 
 void kmain(void)
@@ -63,7 +64,7 @@ void kmain(void)
    // 1) Initialize the support software by identifying the current
    //     MPX Module.  This will change with each module.
    // you will need to call mpx_init from the mpx_supt.c
- 	 mpx_init(MODULE_R5);
+ 	 mpx_init(MEM_MODULE);
 
    // 2) Check that the boot was successful and correct when using grub
    // Comment this when booting the kernel directly using QEMU, etc.
@@ -93,7 +94,7 @@ void kmain(void)
    // NOTE:  You will only have about 70000 bytes of dynamic memory
    klogv("Initializing virtual memory...");
 	 init_paging();
-   init_heap(50000);
+   init_heap(25000);
    sys_set_malloc(AllocMem);
    sys_set_free(FreeMem);
 

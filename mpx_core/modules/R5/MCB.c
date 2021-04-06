@@ -7,6 +7,7 @@
 
 #include "../mpx_supt.h"
 #include "MCB.h"
+#include "../R1/userFunctions.h"
 
 
 MemList CMCBList ={
@@ -18,16 +19,16 @@ u32int AllocMem(u32int size){
   while(start != NULL){
     if(start -> MEMState == FREE){
       if(start->size >= size + sizeof(CMCB)){
-        CMCB* new = (CMCB*) start->address + start->size;
+        CMCB* new = (CMCB*) start->address + size;
         new->size = start->size - size - sizeof(CMCB);
-        new->address = start->address + start->size + sizeof(CMCB);
+        new->address = start->address + size + sizeof(CMCB);
         new->prev = start;
         new->next = NULL;
         new->MEMState = FREE;
       	start -> size = size;
       	start -> MEMState = ALLOC;
         start->next = new;
-        return (u32int)start;
+        return (u32int)start->address;
       }
       else{
         //moves to next MCB
@@ -138,5 +139,6 @@ void init_heap(u32int size){
 	cmcb -> address = (u32int) cmcb + sizeof(CMCB);
 	cmcb -> MEMState = FREE;
 	// set list head
-	getMemList() -> head = cmcb;
+	CMCBList.head = cmcb;
+  // printf(itoa(size));
 }

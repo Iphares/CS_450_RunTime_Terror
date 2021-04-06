@@ -13,6 +13,7 @@
 #include <string.h>
 #include <system.h>
 #include <core/serial.h>
+// #include <mem/heap.h>
 
 #include <core/io.h>
 #include "../mpx_supt.h"
@@ -71,7 +72,7 @@ char* itoa(int num){
 		arr1[k] = arr2[j-k];
 	}
 	arr1[k] = '\0';
-
+	sys_free_mem(arr1);
 	return(char*)arr1;
 }
 
