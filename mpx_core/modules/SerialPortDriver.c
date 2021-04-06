@@ -2,36 +2,36 @@
 #include "PIC.h"
 #include <core/serial.h>
 
-void init_DCB() {
+int init_DCB(int device) {
 	outb(device + 1, 0x00); //disable interrupts
-        outb(device + 2, 0x00); //interrupt ID register
-        outb(device + 3, 0x00); //set line control register
-
-        outb(device + 4, 0x00); //Modem Control register
-        outb(device + 5, 0x30); //Line status register
-        outb(device + 6, 0xC7); //Modem status register
+  outb(device + 2, 0x00); //interrupt ID register
+  outb(device + 3, 0x00); //set line control register
+  outb(device + 4, 0x00); //Modem Control register
+  outb(device + 5, 0x30); //Line status register
+  outb(device + 6, 0xC7); //Modem status register
 	outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
-        (void) inb(device); //read bit to reset port
+  (void) inb(device); //read bit to reset port
 	//return NO_ERROR;
 }
 
 int com_open (int *eflag_p, int baud_rate)  {
 
-  if(strcmp(eflag_p, NULL) == 0)  {
+  if(eflag_p == NULL)  {
     return -101; //invalid (null) event flag pointer
   }
   else if(baud_rate <= 0) {
     return -102; //invalid baud rate divisor
   }
   //DCB.open 0 is open/ 1 close
-  else if (DCB. portFlag == P_OPEN)  {
+  else if (DCB.portFlag == P_OPEN)  {
     return -103; //port already open
   }
   else  {
 
-    init_DCB();
+    init_DCB(COM1);
     outb(device + 1, 0x00); //disable interrupts
     outb(device + 3, 0x80); //set line control register
+		DCB.eventPtr = eflag_p;
     outb(device + 0, 115200 / baud_rate); //set bsd least sig bit
     outb(device + 1, 0x00); //brd most significant bit
     outb(device + 4, 0x0B); //enable interrupts, rts/dsr set
@@ -48,13 +48,13 @@ int com_close (void){
 		DCB.portFlag = NULL;//clear open indicator in DCB
 		//Disable appropriate level in the pic mask
 
-	  	//load 0 to Modem register and interrupt enable register
+  	//load 0 to Modem register and interrupt enable register
 		outb(device + 4, 0x00); //Modem Control register
 		outb(device + 4, 0x00); //enable interrupts
-	  	//restore interrupt vector address
+  	//restore interrupt vector address
 
-    	return 0;
-  	}
+  	return 0;
+	}
 }
 
 int com_read (char* buf_p, int* count_p){
