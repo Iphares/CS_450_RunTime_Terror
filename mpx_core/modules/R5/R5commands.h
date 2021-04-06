@@ -1,5 +1,5 @@
 //Temporary
-void Init_Heap(int size);
+void Init_Heap(u32int size);
 
 //Temporary
 void Alloc_Mem(u32int size);
