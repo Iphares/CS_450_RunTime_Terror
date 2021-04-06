@@ -9,7 +9,7 @@
 typedef struct DCB	{
   int portFlag;
   int* eventPtr;
-  int status; // Use I,R,W _STATUS for this
+  int status; // Use I,R,W _STATUS for this variable
   u32int inBuffAddress;
   int inBuffCounter;
   u32int outBufAddress;
