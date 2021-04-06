@@ -20,7 +20,6 @@ void Alloc_Mem(u32int size)	{
 }
 //Temporary
 void Free_Mem(u32int address)	{
-	printf((void *)address);
 	FreeMem((void *)address);
 }
 //Temporary

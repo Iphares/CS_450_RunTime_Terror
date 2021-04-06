@@ -424,7 +424,7 @@ void Help(char* request)	{
   // }
   // else if(strcmp(request,"empty") == 0) {
 	// 	printf("\n isempty returns true or false depending on if the heap has allocated memory.\n");
-  }
+  // }
 /********************************* R5 Commands *********************************************************/
   else if(strcmp(request,"showFree") == 0) {
 		printf("\n showfree shows all the free blocks avaliable within the heap list.\n");
