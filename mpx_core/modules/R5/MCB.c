@@ -3,33 +3,38 @@ List CMCBList ={
 };
 
 CMCB* AllocMem(u32int size){
-  CMCB* start = CMCBList.head;
-  while(start != NULL){
-    if(start -> MEM_state == FREE){
-      if(start->size >= size){
-        //Split and Allocate memory
-        CMCB* new = kmalloc(sizeof(CMCB) + size);
-      	new -> size = sizeof(CMCB) + size;
-      	new -> prev = NULL;
-      	new -> next = NULL;
-      	new -> Process_name[10];
-      	new -> address = (u32int) cmcb;
-      	new -> MEMState = ALLOC;
-        //Moving start address and size
-        start->size = start->size-size;
-        start->address += new->size
+  if(CMCBList.head == NULL){//heap is not initialized
+    //????????????????????
+  }
+  else{//heap is initialized
+    CMCB* start = CMCBList.head;
+    while(start != NULL){
+      if(start -> MEM_state == FREE){
+        if(start->size >= size){
+          //Split and Allocate memory
+          CMCB* new = malloc(sizeof(CMCB) + size);
+        	new -> size = sizeof(CMCB) + size;
+        	new -> prev = NULL;
+        	new -> next = NULL;
+        	new -> Process_name[10];
+        	new -> address = (u32int) cmcb;
+        	new -> MEMState = ALLOC;
+          //Moving start address and size
+          start->size = start->size-size;
+          start->address += new->size
+        }
+        else{
+          //moves to next MCB
+          start = start -> next;
+        }
       }
       else{
         //moves to next MCB
         start = start -> next;
       }
+      //return null if memory is full/doesn't have enough space
+      return NULL;
     }
-    else{
-      //moves to next MCB
-      start = start -> next;
-    }
-    //return null if memory is full/doesn't have enough space
-    return NULL;
   }
 }
 

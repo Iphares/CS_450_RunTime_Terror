@@ -234,7 +234,7 @@ u32int* sys_call(context* registers){
 
 u32int init_heap(u32int size){
 	//UPDATE TO KMALLOC AFTER TESTING
-	CMCB* cmcb = malloc(sizeof(CMCB) + size);
+	CMCB* cmcb = kmalloc(sizeof(CMCB) + size);
 	cmcb -> size = sizeof(CMCB) + size;
 	cmcb -> prev = NULL;
 	cmcb -> next = NULL;
