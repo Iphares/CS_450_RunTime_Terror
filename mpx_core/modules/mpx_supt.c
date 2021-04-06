@@ -175,15 +175,15 @@ int sys_free_mem(void *ptr)
 */
 void idle()
 {
-  char msg[30];
-  int count=0;
+  //char msg[30];
+  //int count=0;
 
-	memset( msg, '\0', sizeof(msg));
-	strcpy(msg, "IDLE PROCESS EXECUTING.\n");
-	count = strlen(msg);
+	//memset( msg, '\0', sizeof(msg));
+	//strcpy(msg, "IDLE PROCESS EXECUTING.\n");
+	//count = strlen(msg);
 
   while(1){
-	sys_req( WRITE, DEFAULT_DEVICE, msg, &count);
+	//sys_req( WRITE, DEFAULT_DEVICE, msg, &count);
     sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
   }
 }
@@ -232,14 +232,4 @@ u32int* sys_call(context* registers){
 	return (u32int*)initial;
 }
 
-u32int init_heap(u32int size){
-	//UPDATE TO KMALLOC AFTER TESTING
-	CMCB* cmcb = kmalloc(sizeof(CMCB) + size);
-	cmcb -> size = size;
-	cmcb -> prev = NULL;
-	cmcb -> next = NULL;
-	cmcb -> address = (u32int) cmcb + sizeof(CMCB);
-	cmcb -> MEM_state = FREE;
-	// set list head
-	getList() -> head -> cmcb;
-}
+

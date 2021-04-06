@@ -26,6 +26,7 @@
 #include "modules/R1/comHand.h"
 #include "modules/sys_proc_loader.h"
 #include "modules/R1/userFunctions.h"
+#include "modules/R5/MCB.h"
 
 void kmain(void)
 {
@@ -101,6 +102,7 @@ void kmain(void)
 	/*************************/
 	 	// comHand();
 	/*************************/
+	init_heap(200);
 	 sysLoader();
 	 yield();
 

@@ -44,7 +44,7 @@ void loadSysProc(char* name, u32int func, int priority)	{
 
 void InfiniteProc()	{
 	while(1)	{
-		printf("Infinite Process Running...\n");
+		//printf("Infinite Process Running...\n");
 		sys_req(IDLE, DEFAULT_DEVICE, NULL, NULL);
 	}
 }

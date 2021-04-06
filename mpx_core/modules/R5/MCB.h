@@ -15,10 +15,12 @@ typedef struct CMCB	{
 //   int MEMState;
 // } LMCB;
 
-typedef struct List {
+typedef struct MemList {
   CMCB *head;
-} List;
+} MemList;
 
-CMCB* AllocMem(u32int size);
-CMCB* FreeMem(u32int address);
-List* getList();
+void* AllocMem(u32int size);
+void FreeMem(u32int address);
+MemList* getMemList();
+
+void init_heap(u32int size);

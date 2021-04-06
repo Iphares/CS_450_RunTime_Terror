@@ -15,6 +15,7 @@
 
 #include "../mpx_supt.h"
 #include "userFunctions.h"
+#include "../R5/R5commands.h"
 
 /// Description: Interprets user input to call the appropriate user functions.
 ///
@@ -32,7 +33,7 @@
 			memset(cmdBuffer, '\0', 100);
 		  sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
 			char* FirstToken = strtok(cmdBuffer, "-");
-   		char* SecondToken = strtok(NULL, "-");
+   			char* SecondToken = strtok(NULL, "-");
 			char* ThirdToken = strtok(NULL, "-");
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
@@ -271,21 +272,13 @@
 					R5 comHand
 	************************************************************************************/
 					else if(strcmp(FirstToken,"heap") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						if (allocSizeCheck(atoi(SecondToken)) == 1)	{
-							Init_Heap(atoi(SecondToken));
-						}
-						else
-							printf("\x1b[31m""\nERROR: Heap size is invalid \n""\x1b[0m");
+						Init_Heap(atoi(SecondToken));
 					}
 					else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
- 						if (allocSizeCheck(atoi(SecondToken)) == 1)	{
-							Alloc_Mem(atoi(SecondToken));
-						}
-						else
-							printf("\x1b[31m""\nERROR: allocation size is invalid \n""\x1b[0m");
+ 						Alloc_Mem(atoi(SecondToken));
 					}
 					else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						Free_Mem(SecondToken);
+						Free_Mem(atoi(SecondToken));
 					}
 					else if(strcmp(FirstToken,"empty") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						IsEmpty();

@@ -20,6 +20,7 @@
 #include "../procsr3.h"
 #include "../sys_proc_loader.h"
 
+
 /********************************************************************************************************
 				Bonus functions
 ********************************************************************************************************/
@@ -47,6 +48,7 @@
 */
 
 char* itoa(int num){
+
 	int i,j,k,count;
 	i = num;
 	j = 0;
@@ -131,19 +133,7 @@ int EdgeCase(char* pointer)    {
 
 
 
-int allocSizeCheck(char* pointer)	{
-	int valid = 0;
-	int j;
-    	for(j = 200; j <= 50000; j++)  {
-      		if(strcmp(pointer,itoa(j)) == 0)
-       	 		valid = 1;
-    		}
-    		if(valid == 0)  {
-      			return valid;
-    		}
- 	 }
-  return valid;
-}
+
 
 
 
@@ -198,7 +188,7 @@ void SetTime(int hours, int minutes, int seconds)	{
 ///
 /// No parameters.
 void GetTime()	{
-	int check = 2;
+	
 	int hour;
 	int minute;
 	int second;
@@ -212,13 +202,16 @@ void GetTime()	{
 	char msg2[10] = "Time: ";
 	printf(msg2);
 	hour = BCDtoDec(hours);
-	sys_req(WRITE, COM1, itoa(hour), &check);
+	printf(itoa(hour));
+	//sys_req(WRITE, COM1, itoa(hour), &check);
 	printf(msg1);
 	minute = BCDtoDec(minutes);
-	sys_req(WRITE, COM1, itoa(minute), &check);
+	printf(itoa(minute));
+	//sys_req(WRITE, COM1, itoa(minute), &check);
 	printf(msg1);
 	second = BCDtoDec(seconds);
-	sys_req(WRITE, COM1, itoa(second), &check);
+	printf(itoa(second));
+	//sys_req(WRITE, COM1, itoa(second), &check);
   printf("\n");
 }
 
@@ -334,7 +327,7 @@ void Help(char* request)	{
 		//removed for R3/R4 from active command list
 		//\n createPCB \n block \n unblock
 		printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-		printf("\n getDate \n setDate \n getTime \n setTime \n version \n suspend \n resume \n setPriority \n showPCB \n showAll \n showReady \n showBlocked  \n deletePCB  \n shutdown \n alarm \n clear \n loadr3 \n infinte \n\n");
+		printf("\n getDate      setDate \n getTime      setTime \n version      suspend \n resume       setPriority \n showPCB      showAll \n showReady    showBlocked  \n deletePCB    shutdown \n alarm        clear \n loadr3       infinte \n heap         alloc \n free         empty \n showFree     showAlloc \n\n");
 	}
 	else if (strcmp(request, "GetDate") == 0)	{
 		printf("\n getDate returns the current date that is loaded onto the operating system.\n");

@@ -1,6 +1,13 @@
+#include <stdint.h>
+#include <string.h>
+
+#include <core/serial.h>
+#include <core/io.h>
 
 
-
+#include "../mpx_supt.h"
+#include "../R1/userFunctions.h"
+#include "MCB.h"
 
 
 //Temporary
@@ -17,7 +24,7 @@ void Free_Mem(u32int address)	{
 }
 //Temporary
 void IsEmpty()	{
-	if(CMCBList()->head.MEMState == 0 && CMCBList()->head->next == null)	{
+	if(getMemList()->head->MEMState == 0 && getMemList()->head->next == NULL)	{
 		printf("true");	
 	}
 	else
@@ -25,7 +32,7 @@ void IsEmpty()	{
 }
 
 void ShowFree()	{
-	if(CMCBList()->head.MEMState == 0)	{
+	if(getMemList()->head->MEMState == 0)	{
 			 printf("\x1b[32m""\n All memory within the Heap is freed. \n""\x1b[0m");
 		}
 	 else	{
@@ -35,25 +42,26 @@ void ShowFree()	{
 			  char caddr[] = "Address: ";
 			  char csize[] = "Size: ";
 			  char line[] = "\n";
-			  check = 64;
-	      sys_req(WRITE, COM1, free, &check );
+			  
+	      //sys_req(WRITE, COM1, Free, strlen(Free));
 
-			  CMCB* block = CMCBList()->head;
+			  CMCB* block = getMemList()->head;
 
-			  if(block->next == NULL && CMCBList()->head.MEMState == 0)	{
+			  if(block->next == NULL && getMemList()->head->MEMState == 0)	{
 				AddressBlock = block->address;
 				Size = block->size;
-
+				
+			 	printf(Free);
 				printf(caddr);
 				printf(csize);
 				printf(line);
 
-				    printf(caddr
 				    if(block->address == 0)  {
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+				    printf(itoa(AddressBlock));
+				      //sys_req(WRITE, COM1, addr, strlen(addr));
 				    }
 				    printf(line);
 
@@ -63,7 +71,8 @@ void ShowFree()	{
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(size), &check);
+				    	printf(itoa(Size));
+				      //sys_req(WRITE, COM1, size, strlen(size);
 				    }
 				    printf(line);
 				    printf("\n\n");
@@ -71,7 +80,7 @@ void ShowFree()	{
 			  }
 			  else	{
 				while(block != NULL)	{
-					if(CMCBList()->head.MEMState == 0)	{
+					if(getMemList()->head->MEMState == 0)	{
 						AddressBlock = block->address;
 						Size = block->size;
 
@@ -79,12 +88,12 @@ void ShowFree()	{
 						printf(csize);
 						printf(line);
 
-						    printf(caddr
 						    if(block->address == 0)  {
 						      printf("0");
 						    }
 						    else  {
-						      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+						    	printf(itoa(AddressBlock));	
+						        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
 						    }
 						    printf(line);
 
@@ -93,7 +102,8 @@ void ShowFree()	{
 						      printf("0");
 						    }
 						    else  {
-						      sys_req(WRITE, COM1, itoa(size), &check);
+						    	printf(itoa(Size));
+						        //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
 						    }
 						    printf(line);
 					}
@@ -103,22 +113,22 @@ void ShowFree()	{
 		}
 }
 void ShowAlloc()	{
-	if(CMCBList()->head.MEMState == 1)	{
+	if(getMemList()->head->MEMState == 1)	{
 			 printf("\x1b[32m""\n All memory within the Heap is allocated. \n""\x1b[0m");
 	}
 	 else	{
 	   int AddressBlock, Size;
 
-			  char Free[] = "\x1B[34m""Free Blocks: \n""\x1b[0m";
+			  char Alloc[] = "\x1B[34m""Allocated Blocks: \n""\x1b[0m";
 			  char caddr[] = "Address: ";
 			  char csize[] = "Size: ";
 			  char line[] = "\n";
-			  check = 64;
-	      sys_req(WRITE, COM1, free, &check );
+		printf(Alloc);	  
+	      //sys_req(WRITE, COM1, Alloc, strlen(Alloc) );
 
-			  CMCB* block = CMCBList()->head;
+			  CMCB* block = getMemList()->head;
 
-			  if(block->next == NULL && CMCBList()->head.MEMState == 1)	{
+			  if(block->next == NULL && getMemList()->head->MEMState == 1)	{
 				AddressBlock = block->address;
 				Size = block->size;
 
@@ -126,12 +136,12 @@ void ShowAlloc()	{
 				printf(csize);
 				printf(line);
 
-				    printf(caddr
 				    if(block->address == 0)  {
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+				    	printf(itoa(AddressBlock));
+				        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
 				    }
 				    printf(line);
 
@@ -141,7 +151,8 @@ void ShowAlloc()	{
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(size), &check);
+				    	printf(itoa(Size));
+				        //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
 				    }
 				    printf(line);
 				    printf("\n\n");
@@ -149,7 +160,7 @@ void ShowAlloc()	{
 			  }
 			  else	{
 				while(block != NULL)	{
-					if(CMCBList()->head.MEMState == 1)	{
+					if(getMemList()->head->MEMState == 1)	{
 						AddressBlock = block->address;
 						Size = block->size;
 
@@ -157,12 +168,12 @@ void ShowAlloc()	{
 						printf(csize);
 						printf(line);
 
-						    printf(caddr
 						    if(block->address == 0)  {
 						      printf("0");
 						    }
 						    else  {
-						      sys_req(WRITE, COM1, itoa(AddressBlock), &check);
+						    	printf(itoa(AddressBlock));
+						        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
 						    }
 						    printf(line);
 
@@ -171,7 +182,8 @@ void ShowAlloc()	{
 						      printf("0");
 						    }
 						    else  {
-						      sys_req(WRITE, COM1, itoa(size), &check);
+						    	printf(itoa(Size));
+						        //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
 						    }
 						    printf(line);
 					}
