@@ -10,9 +10,9 @@ typedef struct DCB	{
   int portFlag;
   int* eventPtr;
   int status; // Use I,R,W _STATUS for this variable
-  u32int inBuffAddress;
+  char* inBuffAddress;
   int inBuffCounter;
-  u32int outBufAddress;
+  char* outBufAddress;
   int outBuffCounter;
   char ringBuffer[100]; //This is supposed to be a circular array
   //These are the variables associated with the ringBuffer
