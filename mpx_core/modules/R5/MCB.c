@@ -73,9 +73,7 @@ int FreeMem(void *address){
         return 0;
       }
       else if(start->next != NULL){//if not head and has a next reference
-        klogv("HI1");
         if(start->prev->MEMState == FREE && start->next->MEMState == FREE){//if prev and next are free
-          klogv("HI2");
           //Merge all 3
           start->prev->size += start->size + start->next->size + 2*sizeof(CMCB);
           if(start->next->next != NULL){
@@ -87,14 +85,12 @@ int FreeMem(void *address){
           }
         }
         else if(start->prev->MEMState == FREE){//else if just prev is free
-          klogv("HI3");
           //Merge both blocks
           start->prev->size += start->size + sizeof(CMCB);
           start->next->prev = start->prev;
           start->prev->next = start->next;
         }
         else if(start->next->MEMState == FREE){//else if just next is free
-          klogv("HI4");
           //Merge both blocks
           start->MEMState = FREE;
           start->size += start->next->size + sizeof(CMCB);
@@ -108,7 +104,6 @@ int FreeMem(void *address){
         }
         else{
           //Free this block only
-          klogv("HI5");
           start->MEMState = FREE;
         }
         return 0;
