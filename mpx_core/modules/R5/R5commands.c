@@ -20,15 +20,15 @@ void Alloc_Mem(u32int size)	{
 }
 //Temporary
 void Free_Mem(u32int address)	{
-	FreeMem(address);
+	FreeMem((void *)address);
 }
 //Temporary
 void IsEmpty()	{
 	if(getMemList()->head->MEMState == 0 && getMemList()->head->next == NULL)	{
-		printf("true");	
+		printf("true");
 	}
 	else
-		printf("false");	
+		printf("false");
 }
 
 void ShowFree()	{
@@ -42,7 +42,7 @@ void ShowFree()	{
 			  char caddr[] = "Address: ";
 			  char csize[] = "Size: ";
 			  char line[] = "\n";
-			  
+
 	      //sys_req(WRITE, COM1, Free, strlen(Free));
 
 			  CMCB* block = getMemList()->head;
@@ -50,7 +50,7 @@ void ShowFree()	{
 			  if(block->next == NULL && getMemList()->head->MEMState == 0)	{
 				AddressBlock = block->address;
 				Size = block->size;
-				
+
 			 	printf(Free);
 				printf(caddr);
 				printf(csize);
@@ -92,7 +92,7 @@ void ShowFree()	{
 						      printf("0");
 						    }
 						    else  {
-						    	printf(itoa(AddressBlock));	
+						    	printf(itoa(AddressBlock));
 						        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
 						    }
 						    printf(line);
@@ -123,7 +123,7 @@ void ShowAlloc()	{
 			  char caddr[] = "Address: ";
 			  char csize[] = "Size: ";
 			  char line[] = "\n";
-		printf(Alloc);	  
+		printf(Alloc);
 	      //sys_req(WRITE, COM1, Alloc, strlen(Alloc) );
 
 			  CMCB* block = getMemList()->head;

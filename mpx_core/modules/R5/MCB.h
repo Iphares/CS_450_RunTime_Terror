@@ -19,8 +19,8 @@ typedef struct MemList {
   CMCB *head;
 } MemList;
 
-void* AllocMem(u32int size);
-void FreeMem(u32int address);
+u32int AllocMem(u32int size);
+int FreeMem(void *address);
 MemList* getMemList();
 
 void init_heap(u32int size);

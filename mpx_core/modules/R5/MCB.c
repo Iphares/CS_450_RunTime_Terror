@@ -13,7 +13,7 @@ MemList CMCBList ={
   .head = NULL
 };
 
-void* AllocMem(u32int size){
+u32int AllocMem(u32int size){
   CMCB* start = CMCBList.head;
   while(start != NULL){
     if(start -> MEMState == FREE){
@@ -23,6 +23,7 @@ void* AllocMem(u32int size){
         new->address = start->address + start->size + sizeof(CMCB);
       	start -> size = size;
       	start -> MEMState = ALLOC;
+        return (u32int)start;
       }
       else{
         //moves to next MCB
@@ -38,10 +39,10 @@ void* AllocMem(u32int size){
   return NULL;
 }
 
-void FreeMem(u32int address){
+int FreeMem(void *address){
   CMCB* start = CMCBList.head;
   while(start != NULL){
-    if(start -> address == address){
+    if(start -> address == (u32int)address){
       if(start == CMCBList.head){//if head of list
         if(start->next != NULL && start->next->MEMState == FREE){//has free next block
           //Merge both blocks
@@ -59,6 +60,7 @@ void FreeMem(u32int address){
           //Free this block only
           start->MEMState = FREE;
         }
+        return 0;
       }
       else if(start->next != NULL){//if not head and has a next reference
         if(start->prev->MEMState == FREE && start->next->MEMState == FREE){//if prev and next are free
@@ -94,6 +96,7 @@ void FreeMem(u32int address){
           //Free this block only
           start->MEMState = FREE;
         }
+        return 0;
       }
       else{
         if(start->prev->MEMState == FREE){//if prev is free
@@ -106,11 +109,14 @@ void FreeMem(u32int address){
           //Free this block only
           start->MEMState = FREE;
         }
+        return 0;
       }
     }
     //address did not match; go to next reference
     start = start->next;
   }
+  //did not match any address
+  return 1;
 }
 
 MemList* getMemList() {
@@ -120,7 +126,7 @@ MemList* getMemList() {
 
 void init_heap(u32int size){
 	//UPDATE TO KMALLOC AFTER TESTING
-	
+
 	CMCB* cmcb = (CMCB*) kmalloc(sizeof(CMCB) + size);
 	cmcb -> size = size;
 	cmcb -> prev = NULL;
@@ -130,12 +136,3 @@ void init_heap(u32int size){
 	// set list head
 	getMemList() -> head = cmcb;
 }
-
-
-
-
-
-
-
-
-

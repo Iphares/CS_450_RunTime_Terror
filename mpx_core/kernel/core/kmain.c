@@ -93,7 +93,9 @@ void kmain(void)
    // NOTE:  You will only have about 70000 bytes of dynamic memory
    klogv("Initializing virtual memory...");
 	 init_paging();
-
+   init_heap(200);
+   sys_set_malloc(AllocMem);
+   sys_set_free(FreeMem);
 
    // 6) Call YOUR command handler -  interface method
    klogv("Transferring control to commhand...");
@@ -102,7 +104,6 @@ void kmain(void)
 	/*************************/
 	 	// comHand();
 	/*************************/
-	init_heap(200);
 	 sysLoader();
 	 yield();
 
