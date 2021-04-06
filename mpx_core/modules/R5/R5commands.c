@@ -4,8 +4,8 @@
 
 
 //Temporary
-void Init_Heap(int size)	{
-	
+void Init_Heap(u32int size)	{
+	init_heap(size);
 }
 //Temporary
 void Alloc_Mem(u32int size)	{
