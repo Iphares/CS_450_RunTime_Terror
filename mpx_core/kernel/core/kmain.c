@@ -93,7 +93,7 @@ void kmain(void)
    // NOTE:  You will only have about 70000 bytes of dynamic memory
    klogv("Initializing virtual memory...");
 	 init_paging();
-   init_heap(200);
+   init_heap(50000);
    sys_set_malloc(AllocMem);
    sys_set_free(FreeMem);
 

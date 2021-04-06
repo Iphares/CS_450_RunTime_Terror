@@ -17,12 +17,16 @@ u32int AllocMem(u32int size){
   CMCB* start = CMCBList.head;
   while(start != NULL){
     if(start -> MEMState == FREE){
-      if(start->size >= size){
+      if(start->size >= size + sizeof(CMCB)){
         CMCB* new = (CMCB*) start->address + start->size;
         new->size = start->size - size - sizeof(CMCB);
         new->address = start->address + start->size + sizeof(CMCB);
+        new->prev = start;
+        new->next = NULL;
+        new->MEMState = FREE;
       	start -> size = size;
       	start -> MEMState = ALLOC;
+        start->next = new;
         return (u32int)start;
       }
       else{
@@ -47,7 +51,7 @@ int FreeMem(void *address){
         if(start->next != NULL && start->next->MEMState == FREE){//has free next block
           //Merge both blocks
           start->MEMState = FREE;
-          start->size += start->next->size;
+          start->size += start->next->size + sizeof(CMCB);
           if(start->next->next != NULL){
             start->next->next->prev = start;
             start->next = start->next->next;
@@ -65,7 +69,7 @@ int FreeMem(void *address){
       else if(start->next != NULL){//if not head and has a next reference
         if(start->prev->MEMState == FREE && start->next->MEMState == FREE){//if prev and next are free
           //Merge all 3
-          start->prev->size += start->size + start->next->size;
+          start->prev->size += start->size + start->next->size + 2*sizeof(CMCB);
           if(start->next->next != NULL){
             start->next->next->prev = start->prev;
             start->prev->next = start->next->next;
@@ -76,14 +80,14 @@ int FreeMem(void *address){
         }
         else if(start->prev->MEMState == FREE){//else if just prev is free
           //Merge both blocks
-          start->prev->size += start->size;
+          start->prev->size += start->size + sizeof(CMCB);
           start->next->prev = start->prev;
           start->prev->next = start->next;
         }
         else if(start->next->MEMState == FREE){//else if just next is free
           //Merge both blocks
           start->MEMState = FREE;
-          start->size += start->next->size;
+          start->size += start->next->size + sizeof(CMCB);
           if(start->next->next != NULL){
             start->next->next->prev = start;
             start->next = start->next->next;
@@ -101,7 +105,7 @@ int FreeMem(void *address){
       else{
         if(start->prev->MEMState == FREE){//if prev is free
           //Merge both blocks
-          start->prev->size += start->size;
+          start->prev->size += start->size + sizeof(CMCB);
           start->next->prev = start->prev;
           start->prev->next = start->next;
         }

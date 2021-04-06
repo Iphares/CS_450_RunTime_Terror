@@ -83,18 +83,18 @@
 						Help("showBlocked");
 					}
 					// Temporary R2 commands
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"createPCB") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("createPCB");
-					}
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"createPCB") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("createPCB");
+					// }
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"deletePCB") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("deletePCB");
 					}
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("block");
-					}
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("unblock");
-					}
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"block") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("block");
+					// }
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"unblock") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("unblock");
+					// }
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"shutdown") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("shutdown");
 					}
@@ -113,18 +113,18 @@
 						Help("clear");
 					}
 					// Temporary R5 Commands
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("heap");
-					}
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("alloc");
-					}
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("free");
-					}
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-						Help("empty");
-					}
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("heap");
+					// }
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("alloc");
+					// }
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("free");
+					// }
+					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+					// 	Help("empty");
+					// }
 					// R5 Commands
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("showFree");
@@ -271,25 +271,25 @@
 	/************************************************************************************
 					R5 comHand
 	************************************************************************************/
-					else if(strcmp(FirstToken,"heap") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						Init_Heap(atoi(SecondToken));
-					}
-					else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
- 						Alloc_Mem(atoi(SecondToken));
-					}
-					else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						Free_Mem(atoi(SecondToken));
-					}
-					else if(strcmp(FirstToken,"empty") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-						IsEmpty();
-					}
+					// else if(strcmp(FirstToken,"heap") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					// 	Init_Heap(atoi(SecondToken));
+					// }
+					// else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+ 					// 	Alloc_Mem(atoi(SecondToken));
+					// }
+					// else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					// 	Free_Mem(atoi(SecondToken));
+					// }
+					// else if(strcmp(FirstToken,"empty") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+					// 	IsEmpty();
+					// }
 					else if(strcmp(FirstToken,"showFree") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
  						ShowFree();
 					}
 					else if(strcmp(FirstToken,"showAlloc") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
 						ShowAlloc();
 					}
-					
+
 	/************************************************************************************
 					shutdown comHand
 	************************************************************************************/

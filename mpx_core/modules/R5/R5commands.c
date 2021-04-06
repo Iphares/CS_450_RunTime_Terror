@@ -20,6 +20,7 @@ void Alloc_Mem(u32int size)	{
 }
 //Temporary
 void Free_Mem(u32int address)	{
+	printf((void *)address);
 	FreeMem((void *)address);
 }
 //Temporary
@@ -32,163 +33,85 @@ void IsEmpty()	{
 }
 
 void ShowFree()	{
-	if(getMemList()->head->MEMState == 0)	{
-			 printf("\x1b[32m""\n All memory within the Heap is freed. \n""\x1b[0m");
+	int AddressBlock, Size;
+
+	char Free[] = "\x1B[34m""Free Blocks: \n""\x1b[0m";
+	char caddr[] = "Address: ";
+	char csize[] = "Size: ";
+
+	printf(Free);
+	//sys_req(WRITE, COM1, Free, strlen(Free));
+
+	CMCB* block = getMemList()->head;
+
+	while(block != NULL)	{
+		if(block->MEMState == 0)	{
+			AddressBlock = block->address;
+			Size = block->size;
+
+			printf(caddr);
+			if(block->address == 0)  {
+				printf("0");
+			}
+			else  {
+				printf(itoa(AddressBlock));
+			  //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
+			}
+			printf("\n");
+
+			printf(csize);
+			if(block->size == 0)  {
+				printf("0");
+			}
+			else  {
+				printf(itoa(Size));
+			  //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
+			}
+			printf("\n\n");
 		}
-	 else	{
-	   int AddressBlock, Size;
-
-			  char Free[] = "\x1B[34m""Free Blocks: \n""\x1b[0m";
-			  char caddr[] = "Address: ";
-			  char csize[] = "Size: ";
-			  char line[] = "\n";
-
-	      //sys_req(WRITE, COM1, Free, strlen(Free));
-
-			  CMCB* block = getMemList()->head;
-
-			  if(block->next == NULL && getMemList()->head->MEMState == 0)	{
-				AddressBlock = block->address;
-				Size = block->size;
-
-			 	printf(Free);
-				printf(caddr);
-				printf(csize);
-				printf(line);
-
-				    if(block->address == 0)  {
-				      printf("0");
-				    }
-				    else  {
-				    printf(itoa(AddressBlock));
-				      //sys_req(WRITE, COM1, addr, strlen(addr));
-				    }
-				    printf(line);
-
-
-				    printf(csize);
-				    if(block->size == 0)  {
-				      printf("0");
-				    }
-				    else  {
-				    	printf(itoa(Size));
-				      //sys_req(WRITE, COM1, size, strlen(size);
-				    }
-				    printf(line);
-				    printf("\n\n");
-
-			  }
-			  else	{
-				while(block != NULL)	{
-					if(getMemList()->head->MEMState == 0)	{
-						AddressBlock = block->address;
-						Size = block->size;
-
-						printf(caddr);
-						printf(csize);
-						printf(line);
-
-						    if(block->address == 0)  {
-						      printf("0");
-						    }
-						    else  {
-						    	printf(itoa(AddressBlock));
-						        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
-						    }
-						    printf(line);
-
-						    printf(csize);
-						    if(block->size == 0)  {
-						      printf("0");
-						    }
-						    else  {
-						    	printf(itoa(Size));
-						        //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
-						    }
-						    printf(line);
-					}
-					block = block->next;
-				}
-			 }
-		}
-}
-void ShowAlloc()	{
-	if(getMemList()->head->MEMState == 1)	{
-			 printf("\x1b[32m""\n All memory within the Heap is allocated. \n""\x1b[0m");
+		block = block->next;
 	}
-	 else	{
-	   int AddressBlock, Size;
-
-			  char Alloc[] = "\x1B[34m""Allocated Blocks: \n""\x1b[0m";
-			  char caddr[] = "Address: ";
-			  char csize[] = "Size: ";
-			  char line[] = "\n";
-		printf(Alloc);
-	      //sys_req(WRITE, COM1, Alloc, strlen(Alloc) );
-
-			  CMCB* block = getMemList()->head;
-
-			  if(block->next == NULL && getMemList()->head->MEMState == 1)	{
-				AddressBlock = block->address;
-				Size = block->size;
-
-				printf(caddr);
-				printf(csize);
-				printf(line);
-
-				    if(block->address == 0)  {
-				      printf("0");
-				    }
-				    else  {
-				    	printf(itoa(AddressBlock));
-				        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
-				    }
-				    printf(line);
+	printf("\n");
+}
 
 
-				    printf(csize);
-				    if(block->size == 0)  {
-				      printf("0");
-				    }
-				    else  {
-				    	printf(itoa(Size));
-				        //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
-				    }
-				    printf(line);
-				    printf("\n\n");
+void ShowAlloc()	{
+	int AddressBlock, Size;
 
-			  }
-			  else	{
-				while(block != NULL)	{
-					if(getMemList()->head->MEMState == 1)	{
-						AddressBlock = block->address;
-						Size = block->size;
+	char Alloc[] = "\x1B[34m""Allocated Blocks: \n""\x1b[0m";
+	char caddr[] = "Address: ";
+	char csize[] = "Size: ";
+	printf(Alloc);
+	//sys_req(WRITE, COM1, Alloc, strlen(Alloc) );
 
-						printf(caddr);
-						printf(csize);
-						printf(line);
+	CMCB* block = getMemList()->head;
 
-						    if(block->address == 0)  {
-						      printf("0");
-						    }
-						    else  {
-						    	printf(itoa(AddressBlock));
-						        //sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
-						    }
-						    printf(line);
+	while(block != NULL)	{
+		if(block->MEMState == 1)	{
+			AddressBlock = block->address;
+			Size = block->size;
 
-						    printf(csize);
-						    if(block->size == 0)  {
-						      printf("0");
-						    }
-						    else  {
-						    	printf(itoa(Size));
-						        //sys_req(WRITE, COM1, itoa(Size), strlen(Size));
-						    }
-						    printf(line);
-					}
-					block = block->next;
-				}
-			 }
+			printf(caddr);
+			if(block->address == 0)  {
+				printf("0");
+			}
+			else  {
+				printf(itoa(AddressBlock));
+				//sys_req(WRITE, COM1, itoa(AddressBlock), strlen(AddressBlock));
+			}
+			printf("\n");
+
+			printf(csize);
+			if(block->size == 0)  {
+				printf("0");
+			}
+			else  {
+				printf(itoa(Size));
+				//sys_req(WRITE, COM1, itoa(Size), strlen(Size));
+			}
+			printf("\n\n");
 		}
+		block = block->next;
+	}
+	printf("\n");
 }

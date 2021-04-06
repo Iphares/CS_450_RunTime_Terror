@@ -188,7 +188,7 @@ void SetTime(int hours, int minutes, int seconds)	{
 ///
 /// No parameters.
 void GetTime()	{
-	
+
 	int hour;
 	int minute;
 	int second;
@@ -269,7 +269,7 @@ void SetDate(int day, int month, int millennium, int year)	{
 ///
 /// No parameters.
 void GetDate()	{
- 
+
   outb(0x70,0x07);
 	unsigned char day = BCDtoDec(inb(0x71));
 	outb(0x70,0x08);
@@ -279,7 +279,7 @@ void GetDate()	{
 	char msg[2] = "-";
 	char msg3[10] = "Date: ";
 	printf(msg3);
-	
+
 	 printf(itoa(day));
 	//sys_req(WRITE, COM1, itoa(day), &check);
 	printf(msg);
@@ -290,7 +290,7 @@ void GetDate()	{
 	//sys_req(WRITE, COM1, itoa(millennium), &check);
   outb(0x70,0x09);
   if(BCDtoDec(inb(0x71)) == 0){
-	 printf("00");	  
+	 printf("00");
     //sys_req(WRITE, COM1, "00", &check);
   }
   else {
@@ -332,8 +332,9 @@ void Help(char* request)	{
 	if (request[0] == '\0')	{
 		//removed for R3/R4 from active command list
 		//\n createPCB \n block \n unblock
+		//\n heap         alloc \n free         empty
 		printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-		printf("\n getDate      setDate \n getTime      setTime \n version      suspend \n resume       setPriority \n showPCB      showAll \n showReady    showBlocked  \n deletePCB    shutdown \n alarm        clear \n loadr3       infinte \n heap         alloc \n free         empty \n showFree     showAlloc \n\n");
+		printf("\n getDate      setDate \n getTime      setTime \n version      suspend \n resume       setPriority \n showPCB      showAll \n showReady    showBlocked  \n deletePCB    shutdown \n alarm        clear \n loadr3       infinte \n showFree     showAlloc \n\n");
 	}
 	else if (strcmp(request, "GetDate") == 0)	{
 		printf("\n getDate returns the current date that is loaded onto the operating system.\n");
@@ -409,20 +410,20 @@ void Help(char* request)	{
 		printf("\n Unblock takes in the process_name (unblock-NAME) then sets it's state to ready and reinserts it back into the correct queue.\n");
   }
   */
-	
-	
+
+
 /********************************* R5 Temp Commands *********************************************************/
-  else if(strcmp(request,"heap") == 0) {
-		printf("\n heap initializes the memory heap for the entire system.\n");
-  }
-  else if(strcmp(request,"alloc") == 0) {
-		printf("\n alloc allocates the specified amount of memory to the specific process (alloc-process_name-size).\n");
-  }
-  else if(strcmp(request,"free") == 0) {
-		printf("\n free frees the specified memory at the address given (free-address).\n");
-  }
-  else if(strcmp(request,"empty") == 0) {
-		printf("\n isempty returns true or false depending on if the heap has allocated memory.\n");
+  // else if(strcmp(request,"heap") == 0) {
+	// 	printf("\n heap initializes the memory heap for the entire system.\n");
+  // }
+  // else if(strcmp(request,"alloc") == 0) {
+	// 	printf("\n alloc allocates the specified amount of memory to the specific process (alloc-process_name-size).\n");
+  // }
+  // else if(strcmp(request,"free") == 0) {
+	// 	printf("\n free frees the specified memory at the address given (free-address).\n");
+  // }
+  // else if(strcmp(request,"empty") == 0) {
+	// 	printf("\n isempty returns true or false depending on if the heap has allocated memory.\n");
   }
 /********************************* R5 Commands *********************************************************/
   else if(strcmp(request,"showFree") == 0) {
@@ -430,12 +431,12 @@ void Help(char* request)	{
   }
   else if(strcmp(request,"showAlloc") == 0) {
 		printf("\n showAlloc shows all the allocated blocks within the heap list.\n");
-  }	
-	
-	
+  }
+
+
   else	{
 		printf("\x1b[31m""\nThe requested command does not exist please refer to the Help function for a full list of commands.\n""\x1b[0m");
-  }	
+  }
 }
 
 
@@ -536,7 +537,7 @@ void Show_PCB(char *ProcessName)	{
 		printf("\x1b[31m""\nERROR: PCB does not exist \n""\x1b[0m");
 	}
 	else	{
-		
+
 		char name[10];
 		char cname[] = "Name: ";
 		char cclass[] = "Class: ";
@@ -632,7 +633,7 @@ void Show_Ready()	{
 	  char cstatus[] = "Status: ";
 	  char cprior[] = "Priority: ";
 	  char line[] = "\n";
-	  
+
 	  printf(ready);
 	  //sys_req(WRITE, COM1, ready, &check );
 
@@ -685,7 +686,7 @@ void Show_Ready()	{
 			  printf("\n\n");
 			}
 			else  {
-			  printf(itoa(prior));	
+			  printf(itoa(prior));
 			  //sys_req(WRITE, COM1, itoa(prior), &check);
 			  printf("\n\n");
 			}
@@ -738,7 +739,7 @@ void Show_Ready()	{
 				  printf("\n\n");
 				}
 				else  {
-				  printf(itoa(prior));	
+				  printf(itoa(prior));
 				  //sys_req(WRITE, COM1, itoa(prior), &check);
 				  printf("\n\n");
 				}
@@ -769,7 +770,7 @@ void Show_Blocked()	{
 		  char cstatus[] = "Status: ";
 		  char cprior[] = "Priority: ";
 		  char line[] = "\n";
-		  
+
 		  printf(block);
 		  //sys_req(WRITE, COM1, block, &check );
 
@@ -801,7 +802,7 @@ void Show_Blocked()	{
 			      printf("0");
 			    }
 			    else  {
-			      printf(itoa(state));    
+			      printf(itoa(state));
 			      //sys_req(WRITE, COM1, itoa(state), &check);
 			    }
 			    printf(line);
