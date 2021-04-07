@@ -269,7 +269,7 @@ void SetDate(int day, int month, int millennium, int year)	{
 ///
 /// No parameters.
 void GetDate()	{
-  int check = 2;
+ 
   outb(0x70,0x07);
 	unsigned char day = BCDtoDec(inb(0x71));
 	outb(0x70,0x08);
@@ -279,18 +279,24 @@ void GetDate()	{
 	char msg[2] = "-";
 	char msg3[10] = "Date: ";
 	printf(msg3);
-	sys_req(WRITE, COM1, itoa(day), &check);
+	
+	 printf(itoa(day));
+	//sys_req(WRITE, COM1, itoa(day), &check);
 	printf(msg);
-	sys_req(WRITE, COM1, itoa(month), &check);
+	printf(itoa(month));
+	//sys_req(WRITE, COM1, itoa(month), &check);
 	printf(msg);
-	sys_req(WRITE, COM1, itoa(millennium), &check);
+	printf(itoa(millennium));
+	//sys_req(WRITE, COM1, itoa(millennium), &check);
   outb(0x70,0x09);
   if(BCDtoDec(inb(0x71)) == 0){
-    sys_req(WRITE, COM1, "00", &check);
+	 printf("00");	  
+    //sys_req(WRITE, COM1, "00", &check);
   }
   else {
 		unsigned char year = BCDtoDec(inb(0x71));
-		sys_req(WRITE, COM1, itoa(year), &check);
+	  	 printf(itoa(year));
+		//sys_req(WRITE, COM1, itoa(year), &check);
   }
   	printf("\n");
 }
@@ -299,7 +305,7 @@ void GetDate()	{
 ///
 /// No parameters.
 void Version()	{
-	printf("Version: R4.6 \n");
+	printf("Version: R5.2 \n");
 }
 
 /// Description: If a letter is uppercase, it changes it to lowercase. (char)
@@ -530,7 +536,7 @@ void Show_PCB(char *ProcessName)	{
 		printf("\x1b[31m""\nERROR: PCB does not exist \n""\x1b[0m");
 	}
 	else	{
-		int check = 5;
+		
 		char name[10];
 		char cname[] = "Name: ";
 		char cclass[] = "Class: ";
@@ -557,7 +563,8 @@ void Show_PCB(char *ProcessName)	{
 				printf("0");
 			}
 			else  {
-				sys_req(WRITE, COM1, itoa(class), &check);
+				printf(itoa(class));
+				//sys_req(WRITE, COM1, itoa(class), &check);
 			}
 			printf(line);
 			printf(cstate);
@@ -565,7 +572,8 @@ void Show_PCB(char *ProcessName)	{
 				printf("0");
 			}
 			else  {
-				sys_req(WRITE, COM1, itoa(state), &check);
+				printf(itoa(state));
+				//sys_req(WRITE, COM1, itoa(state), &check);
 			}
 			printf(line);
 			printf(cstatus);
@@ -573,7 +581,8 @@ void Show_PCB(char *ProcessName)	{
 				printf("0");
 			}
 			else  {
-				sys_req(WRITE, COM1, itoa(status), &check);
+				printf(itoa(status));
+				//sys_req(WRITE, COM1, itoa(status), &check);
 			}
 			printf(line);
 			printf(cprior);
@@ -582,7 +591,8 @@ void Show_PCB(char *ProcessName)	{
 				printf("\n\n");
 			}
 			else  {
-				sys_req(WRITE, COM1, itoa(prior), &check);
+				printf(itoa(prior));
+				//sys_req(WRITE, COM1, itoa(prior), &check);
 				printf("\n\n");
 			}
 		}
@@ -622,9 +632,9 @@ void Show_Ready()	{
 	  char cstatus[] = "Status: ";
 	  char cprior[] = "Priority: ";
 	  char line[] = "\n";
-	  check = 5;
-
-	  sys_req(WRITE, COM1, ready, &check );
+	  
+	  printf(ready);
+	  //sys_req(WRITE, COM1, ready, &check );
 
 	  PCB* pcb = getReady()->head;
 
@@ -644,7 +654,8 @@ void Show_Ready()	{
 			  printf("0");
 			}
 			else  {
-			  sys_req(WRITE, COM1, itoa(class), &check);
+			  printf(itoa(class));
+			  //sys_req(WRITE, COM1, itoa(class), &check);
 			}
 			printf(line);
 
@@ -653,7 +664,8 @@ void Show_Ready()	{
 			  printf("0");
 			}
 			else  {
-			  sys_req(WRITE, COM1, itoa(state), &check);
+			  printf(itoa(state));
+			  //sys_req(WRITE, COM1, itoa(state), &check);
 			}
 			printf(line);
 
@@ -662,7 +674,8 @@ void Show_Ready()	{
 			  printf("0");
 			}
 			else  {
-			  sys_req(WRITE, COM1, itoa(status), &check);
+			  printf(itoa(status));
+			  //sys_req(WRITE, COM1, itoa(status), &check);
 			}
 			printf(line);
 
@@ -672,7 +685,8 @@ void Show_Ready()	{
 			  printf("\n\n");
 			}
 			else  {
-			  sys_req(WRITE, COM1, itoa(prior), &check);
+			  printf(itoa(prior));	
+			  //sys_req(WRITE, COM1, itoa(prior), &check);
 			  printf("\n\n");
 			}
 	  }
@@ -693,7 +707,8 @@ void Show_Ready()	{
 				  printf("0");
 				}
 				else  {
-				  sys_req(WRITE, COM1, itoa(class), &check);
+				  printf(itoa(class));
+				  //sys_req(WRITE, COM1, itoa(class), &check);
 				}
 				printf(line);
 
@@ -702,7 +717,8 @@ void Show_Ready()	{
 				  printf("0");
 				}
 				else  {
-				  sys_req(WRITE, COM1, itoa(state), &check);
+				  printf(itoa(state));
+				  //sys_req(WRITE, COM1, itoa(state), &check);
 				}
 				printf(line);
 
@@ -711,7 +727,8 @@ void Show_Ready()	{
 				  printf("0");
 				}
 				else  {
-				  sys_req(WRITE, COM1, itoa(status), &check);
+				  printf(itoa(status));
+				  //sys_req(WRITE, COM1, itoa(status), &check);
 				}
 				printf(line);
 
@@ -721,7 +738,8 @@ void Show_Ready()	{
 				  printf("\n\n");
 				}
 				else  {
-				  sys_req(WRITE, COM1, itoa(prior), &check);
+				  printf(itoa(prior));	
+				  //sys_req(WRITE, COM1, itoa(prior), &check);
 				  printf("\n\n");
 				}
 				pcb = pcb->next;
