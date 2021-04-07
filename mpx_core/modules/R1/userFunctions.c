@@ -623,7 +623,7 @@ void Show_Ready()	{
 		 printf("\x1b[32m""\n The Ready Queue is empty \n""\x1b[0m");
 	}
 	else	{
-		int class, check, state, prior, status;
+		int class, state, prior, status;
 	  char name[10];
 	  char ready[] = "\x1B[34m""\nReady Queue:\n""\x1B[0m";
 	  char cname[] = "Name: ";
@@ -760,7 +760,7 @@ void Show_Blocked()	{
 		 printf("\x1b[32m""\n The Blocked Queue is empty \n""\x1b[0m");
 	}
 	else	{
-		  int class, check, state, prior, status;
+		  int class, state, prior, status;
 		  char name[20];
 		  char block[] = "\x1B[34m""Blocked Queue: \n""\x1b[0m";
 		  char cname[] = "Name: ";
@@ -769,9 +769,9 @@ void Show_Blocked()	{
 		  char cstatus[] = "Status: ";
 		  char cprior[] = "Priority: ";
 		  char line[] = "\n";
-		  check = 15;
-
-		  sys_req(WRITE, COM1, block, &check );
+		  
+		  printf(block);
+		  //sys_req(WRITE, COM1, block, &check );
 
 		  PCB* pcb = getBlocked()->head;
 
@@ -791,7 +791,8 @@ void Show_Blocked()	{
 			      printf("0");
 			    }
 			    else  {
-			      sys_req(WRITE, COM1, itoa(class), &check);
+			      printf(itoa(class));
+			      //sys_req(WRITE, COM1, itoa(class), &check);
 			    }
 			    printf(line);
 
@@ -800,7 +801,8 @@ void Show_Blocked()	{
 			      printf("0");
 			    }
 			    else  {
-			      sys_req(WRITE, COM1, itoa(state), &check);
+			      printf(itoa(state));    
+			      //sys_req(WRITE, COM1, itoa(state), &check);
 			    }
 			    printf(line);
 
@@ -809,7 +811,8 @@ void Show_Blocked()	{
 			      printf("0");
 			    }
 			    else  {
-			      sys_req(WRITE, COM1, itoa(status), &check);
+			      printf(itoa(status));
+			      //sys_req(WRITE, COM1, itoa(status), &check);
 			    }
 			    printf(line);
 
@@ -819,7 +822,8 @@ void Show_Blocked()	{
 			      printf("\n\n");
 			    }
 			    else  {
-			      sys_req(WRITE, COM1, itoa(prior), &check);
+			      printf(itoa(prior));
+			      //sys_req(WRITE, COM1, itoa(prior), &check);
 			      printf("\n\n");
 			    }
 		  }
@@ -840,7 +844,8 @@ void Show_Blocked()	{
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(class), &check);
+				       printf(itoa(class));
+				      //sys_req(WRITE, COM1, itoa(class), &check);
 				    }
 				    printf(line);
 
@@ -849,7 +854,8 @@ void Show_Blocked()	{
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(state), &check);
+			              printf(itoa(state));
+				      //sys_req(WRITE, COM1, itoa(state), &check);
 				    }
 				    printf(line);
 
@@ -858,7 +864,8 @@ void Show_Blocked()	{
 				      printf("0");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(status), &check);
+				      printf(itoa(status));
+				      //sys_req(WRITE, COM1, itoa(status), &check);
 				    }
 				    printf(line);
 
@@ -868,7 +875,8 @@ void Show_Blocked()	{
 				      printf("\n\n");
 				    }
 				    else  {
-				      sys_req(WRITE, COM1, itoa(prior), &check);
+				      printf(itoa(prior));
+				      //sys_req(WRITE, COM1, itoa(prior), &check);
 				      printf("\n\n");
 				    }
 		  		pcb = pcb->next;
