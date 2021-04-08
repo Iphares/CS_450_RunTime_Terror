@@ -133,7 +133,7 @@ int * polling(char * cmdBuffer, int * count) {
 
                                         }
                                         else if (letter == 'A') {
-                                        //up
+                                        serial_print("Welch's Grape soda is the best soda!!");
                                         }
                                         else if (letter == 'B') {
                                         //down
