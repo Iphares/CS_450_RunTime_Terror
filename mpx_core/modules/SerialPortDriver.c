@@ -3,6 +3,23 @@
 
 
 int com_open (int *eflag_p, int baud_rate)  {
+  if()  {
+    
+    return -101;
+  }
+  else if() {
+    
+    return -102;
+  }
+  //DCB.open 1 is open/ 0 close
+  else if (DCB.open == 1)  {
+    return -103;
+  }
+  else  {
+    
+    return 0;
+  }
+    
 
 
 }
