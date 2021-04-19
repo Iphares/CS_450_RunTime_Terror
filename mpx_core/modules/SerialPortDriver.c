@@ -1,8 +1,14 @@
 
 
+void init_DCB() {
+  DCB* dcb = (DCB*) kmalloc(sizeof(DCB));
+  //registers
+  
+}
 
 
 int com_open (int *eflag_p, int baud_rate)  {
+	
   if()  {
     
     return -101;
