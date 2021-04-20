@@ -28,7 +28,19 @@
 		int bufferSize = 99;
 		int quit = 0;
 		int shutdown = 0;
-
+/************************************************************************************
+				Aliasing
+************************************************************************************/			
+		//aliasing initialization
+		char Aliasing[20][2];
+		for(int alias_init = 0; alias_init < 19; alias_init++)	{
+			Aliasing[alias_init][0]	= NULL;		
+		}
+/************************************************************************************
+			
+************************************************************************************/			
+		
+		
 		while(quit != 1)	{
 			memset(cmdBuffer, '\0', 100);
 		  sys_req(READ, DEFAULT_DEVICE, cmdBuffer, &bufferSize);
@@ -38,10 +50,40 @@
 			char* FourthToken = strtok(NULL, "-");
 			char* FifthToken = strtok(NULL, "-");
 			if(shutdown == 0)	{
+				
+				
+/************************************************************************************
+				Aliasing
+************************************************************************************/				
+	if(strcmp(FirstToken,"alias") == 0 && strcmp(FourthToken,NULL) == 0)		{
+		int i = 0;
+		while(Aliasing[i][0] != NULL)	{
+			i++
+		}
+		Aliasing[i][0] = SecondToken; // original command 
+		Aliasing[i][1] = ThirdToken; // command alias	
+	}			
+/************************************************************************************
+			
+************************************************************************************/				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 /************************************************************************************
 				R1 comHand
 ************************************************************************************/
-					if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,NULL) == 0)		{
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,NULL) == 0)		{
 						Help("\0");
 					}
 					//R1 Commands
@@ -298,6 +340,21 @@
 						shutdown = 1;
 					}
 					else	{
+						/************************************************************************************
+										Aliasing
+						************************************************************************************/	
+						for(int alias_init = 0; alias_init < 19; alias_init++)	{
+							if(strcmp(Aliasing[i][1], FirstToken) == 0)	{
+								
+								//some how jump back to the top of this code and use as the firstToken to then check through the if conditions
+								char* aliastoken = Aliasing[i][1];
+							}
+						}
+
+						/************************************************************************************
+										
+						************************************************************************************/	
+						
 						printf("\x1b[31m""\nERROR: Not a valid command \n""\x1b[0m");
 					}
 				}
