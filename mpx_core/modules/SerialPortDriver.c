@@ -1,4 +1,4 @@
-
+#include "
 
 void init_DCB() {
 	outb(device + 1, 0x00); //disable interrupts
@@ -13,7 +13,6 @@ void init_DCB() {
 	//return NO_ERROR;
 }
 
-
 int com_open (int *eflag_p, int baud_rate)  {
 	
   if(strcmp(eflag_p, NULL) == 0)  { 
@@ -22,8 +21,8 @@ int com_open (int *eflag_p, int baud_rate)  {
   else if(baud_rate <= 0) {    
     return -102; //invalid baud rate divisor
   }
-  //DCB.open 1 is open/ 0 close
-  else if (DCB.open == 1)  {
+  //DCB.open 0 is open/ 1 close
+  else if (DCB. portFlag == P_OPEN)  {
     return -103; //port already open
   }
   else  {
@@ -40,11 +39,11 @@ int com_open (int *eflag_p, int baud_rate)  {
 
 int com_close (void){
 	//DCB.open 1 is open/ 0 close
-	if (DCB.open == 0)  {
+	if (DCB.portFlag == P_OPEN)  {
 		return -201;// serial port not open
 	}
 	else  {
-		dcb.open = NULL;//clear open indicator in DCB
+		DCB.portFlag = NULL;//clear open indicator in DCB
 		//Disable appropriate level in the pic mask
 	  
 	  	//load 0 to Modem register and interrupt enable register
@@ -58,7 +57,7 @@ int com_close (void){
 
 int com_read (char* buf_p, int* count_p){
 	//DCB.open 1 is open/ 0 close
-	if (DCB.open == 0)  {
+	if (DCB.portFlag == P_OPEN)  {
     		return -301; //serial port not open
   	}
 	else if(strcmp(buf_p, NULL) == 0)  {
@@ -68,7 +67,7 @@ int com_read (char* buf_p, int* count_p){
 		return -303; //invalid count address or count value
 	}
 	//status idle 0 or busy 1
-	else if(DCB.status == 1)  {
+	else if(DCB.status == I_STATUS)  {
 		return -304; //device busy
 	}
  	else  {
