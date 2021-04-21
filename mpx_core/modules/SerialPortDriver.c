@@ -1,5 +1,6 @@
 #include "DCB.h"
 #include "PIC.h"
+#include <core/serial.h>
 
 void init_DCB() {
 	outb(device + 1, 0x00); //disable interrupts
