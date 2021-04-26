@@ -306,7 +306,7 @@ void GetDate()	{
 ///
 /// No parameters.
 void Version()	{
-	printf("Version: R5.2 \n");
+	printf("Version: R6.2 \n");
 }
 
 /// Description: If a letter is uppercase, it changes it to lowercase. (char)
