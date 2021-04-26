@@ -1,5 +1,8 @@
 # CS_450_RunTime_Terror
-R5 Implementation
+
+
+IMPLEMENTATION FOR R6
+
 
 Bonus assignments included are:
 - Variable text color 
