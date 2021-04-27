@@ -83,7 +83,7 @@ int com_read(char* buf_p, int* count_p){
 	else if(strcmp(buf_p, NULL) == 0)  {
 		return -302; //invalid buffer address
 	}
-	else if(count_p <= 0)  {																												//NEED TO FIX: WHAT IS COUNT ADDRESS? ADD OR CONDITION
+	else if(count_p <= 0)  {																	//NEED TO FIX: WHAT IS COUNT ADDRESS? ADD OR CONDITION
 		return -303; //invalid count address or count value
 	}
 	//status not idle
@@ -95,7 +95,7 @@ int com_read(char* buf_p, int* count_p){
 		DCBlock.inBuffAddress = buf_p; //Initialize buffer
 		DCBlock.inBuffCounter = count_p;
 		DCBlock.status = R_STATUS; // Set to read
-		DCBlock.eventPtr = STARTING; // clear caller event flag														//NEED TO FIX: WHAT IS THE "CALLERS" EVENT FLAG? IS IT DIFFERENT FROM DCB EVENT FLAG?
+		DCBlock.eventPtr = STARTING; // clear caller event flag		//NEED TO FIX: WHAT IS THE "CALLERS" EVENT FLAG? IS IT DIFFERENT FROM DCB EVENT FLAG?
 	  outb(device + 1, 0x00); //disable interrupts
 		while(DCBlock.ringBuffer[i] != '\0' || i <= count_p){
 			buf_p[i] = DCBlock.ringBuffer[outIndex + i];
@@ -108,7 +108,7 @@ int com_read(char* buf_p, int* count_p){
 		outb(device + 4, 0x0B); //enable interrupts
 		DCBlock.eventPtr = COMPLETE
 		DCBlock.status = I_STATUS; //set to initialize
-		count_p = DCBlock; // set buffer count to requesters count									//FIX ME
+		DCBlock.rbCounter = count_p; // set buffer count to requesters count
 		return 0;
 	}
 }
