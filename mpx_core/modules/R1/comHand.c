@@ -43,7 +43,7 @@
 /************************************************************************************
 				R1 comHand
 ************************************************************************************/
-					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,NULL) == 0)		{
+					if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,NULL) == 0)		{
 						Help("\0");
 					}
 					//R1 Commands
