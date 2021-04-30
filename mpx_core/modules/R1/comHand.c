@@ -114,19 +114,19 @@
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("clear");
 					}
-					// Temporary R5 Commands
-					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-					// 	Help("heap");
-					// }
-					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-					// 	Help("alloc");
-					// }
-					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-					// 	Help("free");
-					// }
-					// else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
-					// 	Help("empty");
-					// }
+					Temporary R5 Commands
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("heap");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("alloc");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("free");
+					}
+					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
+						Help("empty");
+					}
 					// R5 Commands
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("showFree");
@@ -273,18 +273,18 @@
 	/************************************************************************************
 					R5 comHand
 	************************************************************************************/
-					// else if(strcmp(FirstToken,"heap") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					// 	Init_Heap(atoi(SecondToken));
-					// }
-					// else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
- 					// 	Alloc_Mem(atoi(SecondToken));
-					// }
-					// else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					// 	Free_Mem(atoi(SecondToken));
-					// }
-					// else if(strcmp(FirstToken,"empty") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
-					// 	IsEmpty();
-					// }
+					else if(strcmp(FirstToken,"heap") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						Init_Heap(atoi(SecondToken));
+					}
+					else if(strcmp(FirstToken,"alloc") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+ 						Alloc_Mem(atoi(SecondToken));
+					}
+					else if(strcmp(FirstToken,"free") == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						Free_Mem(atoi(SecondToken));
+					}
+					else if(strcmp(FirstToken,"empty") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
+						IsEmpty();
+					}
 					else if(strcmp(FirstToken,"showFree") == 0 && strcmp(SecondToken,NULL) == 0 && strcmp(ThirdToken,NULL) == 0 && strcmp(FourthToken,NULL) == 0 && strcmp(FifthToken,NULL) == 0) {
  						ShowFree();
 					}
