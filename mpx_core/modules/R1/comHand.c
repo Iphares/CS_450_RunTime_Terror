@@ -114,7 +114,7 @@
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("clear");
 					}
-					Temporary R5 Commands
+					//Temporary R5 Commands
 					else if(strcmp(FirstToken,"help") == 0 && strcmp(SecondToken,"clear") == 0 && strcmp(ThirdToken,NULL) == 0)	{
 						Help("heap");
 					}
