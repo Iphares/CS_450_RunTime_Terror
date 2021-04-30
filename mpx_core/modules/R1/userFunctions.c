@@ -335,7 +335,7 @@ void Help(char* request)	{
 		//\n createPCB \n block \n unblock
 		//\n heap         alloc \n free         empty
 		printf("\n to chain commands and parameters, please use \"-\" between keywords \n");
-		printf("\n getDate      setDate \n getTime      setTime \n version      suspend \n resume       setPriority \n showPCB      showAll \n showReady    showBlocked  \n deletePCB    shutdown \n alarm        clear \n heap         alloc \n free         empty \n loadr3       infinte \n showFree     showAlloc \n\n");
+		printf("\n getDate      setDate \n getTime      setTime \n version      suspend \n resume       setPriority \n showPCB      showAll \n showReady    showBlocked  \n deletePCB    shutdown \n alarm        clear \n loadr3       infinte \n showFree     showAlloc \n\n");
 	}
 	else if (strcmp(request, "GetDate") == 0)	{
 		printf("\n getDate returns the current date that is loaded onto the operating system.\n");
@@ -414,18 +414,18 @@ void Help(char* request)	{
 
 
 /********************************* R5 Temp Commands *********************************************************/
-  else if(strcmp(request,"heap") == 0) {
-		printf("\n heap initializes the memory heap for the entire system.\n");
-  }
-  else if(strcmp(request,"alloc") == 0) {
-		printf("\n alloc allocates the specified amount of memory to the specific process (alloc-process_name-size).\n");
-  }
-  else if(strcmp(request,"free") == 0) {
-		printf("\n free frees the specified memory at the address given (free-address).\n");
-  }
-  else if(strcmp(request,"empty") == 0) {
-		printf("\n isempty returns true or false depending on if the heap has allocated memory.\n");
-  }
+//   else if(strcmp(request,"heap") == 0) {
+// 		printf("\n heap initializes the memory heap for the entire system.\n");
+//   }
+//   else if(strcmp(request,"alloc") == 0) {
+// 		printf("\n alloc allocates the specified amount of memory to the specific process (alloc-process_name-size).\n");
+//   }
+//   else if(strcmp(request,"free") == 0) {
+// 		printf("\n free frees the specified memory at the address given (free-address).\n");
+//   }
+//   else if(strcmp(request,"empty") == 0) {
+// 		printf("\n isempty returns true or false depending on if the heap has allocated memory.\n");
+//   }
 /********************************* R5 Commands *********************************************************/
   else if(strcmp(request,"showFree") == 0) {
 		printf("\n showfree shows all the free blocks avaliable within the heap list.\n");
